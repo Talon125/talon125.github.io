@@ -1,7 +1,9 @@
 # talon125.github.io: Tetra Legends (Edited)
 
 
-Fork of Tetra Legends: https://github.com/zacharylohrman/tetralegends/
+"Fork" of Tetra Legends. See original repository [here](https://github.com/zacharylohrman/tetralegends/).
+
+Play at: https://talon125.github.io/
 
 I'm still deciding whether I'll keep this repository public or make it private.
 
