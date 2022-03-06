@@ -175,11 +175,6 @@
           "value": "nina"
         },
         {
-          "label": "[DE] Talon",
-          "fixedText": true,
-          "value": "talonde"
-        },
-        {
           "string": "offOption",
           "value": "off",
           "langOverride": "mode-options"
