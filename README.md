@@ -51,11 +51,17 @@ btw I've been using Microsoft Edge to test my changes.
 *   Known Bugs
     *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot)
     *   When the board flips upside-down in Night Of Nights X, the animation is too slow
+    *   Sometimes (perhaps with right timing), the gameover UI will appear when the game has restarted
+    *   In Survival mode, there's a chance one garbage particle may stay on your Matrix
+        *   The following error notification may show in the bottom right (also in the developer tools' console of the browser)
+            *   /script/sound.js @ 300
+            *   Uncaught TypeError: Cannot read properties of undefined (reading 'hasDangerBgm')
+        *   Restarting this mode may trigger this bug
+        *   The garbage particle will only go away upon refreshing the page
     *   Beat Mode (former Night of Nights mode):
         *   Under some circumstances, Lock Out and Block Out will occur at the same time
             *   Both voice clips are played at the same time
             *   Also, sometimes the Game Over voice clip will be played twice (also at (around) the same time)
-        *   Sometimes (perhaps with right timing), the gameover UI will appear when the game has restarted
         *   Music takes a little while to load
         *   Holding at the right time may cause piece duplication
         *   Rotating, then hard-dropping an O-Piece (so that it turns gray) rewards a Mini O-Spin
