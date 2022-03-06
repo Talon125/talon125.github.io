@@ -3,6 +3,8 @@
 
 Fork of Tetra Legends: https://github.com/zacharylohrman/tetralegends/
 
+I'm still deciding whether I'll keep this repository public or make it private.
+
 
 Changes I have made - 2022-03-06
 ----------------------------------------
