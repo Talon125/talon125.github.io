@@ -44,7 +44,7 @@ class Settings {
       // Audio
       sfxVolume: 50,
       musicVolume: 50,
-      voiceVolume: 50,
+      voiceVolume: 100,
       soundbank: 'auto',
       nextSoundbank: 'auto',
       voicebank: 'off',
