@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "parent": "root",
+    "vox": "menuretro"
+  },
+  "data": [
+    {
+      "string": "consoleLabel",
+      "stringDesc": "consoleDescription",
+      "default": true,
+      "action": "submenu",
+      "submenu": "mode/retro"
+    },
+    {
+      "string": "handheldLabel",
+      "stringDesc": "handheldDescription",
+      "action": "submenu",
+      "submenu": "mode/handheld"
+    },
+    {
+      "string": "deluxeLabel",
+      "stringDesc": "deluxeDescription",
+      "action": "submenu",
+      "submenu": "mode/deluxe"
+    }
+  ]
+}
