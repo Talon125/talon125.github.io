@@ -4,7 +4,7 @@
 Fork of Tetra Legends: https://github.com/zacharylohrman/tetralegends/
 
 
-Changes I (Talon) have made - 2022-03-06
+Changes I have made - 2022-03-06
 ----------------------------------------
 
 
