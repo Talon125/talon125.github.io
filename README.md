@@ -31,7 +31,7 @@ btw I've been using Microsoft Edge to test my changes.
     *   ASC (Ascension) Rotation System
         *   You can use this under Tuning > Rotation System Override
         *   It uses the Tetra-X skin (might be changed in the future --> more piece skins?)
-        *   If you don't know what this is:[Click Me!](https://asc.winternebs.com/assets/home/kicktablesq.gif)
+        *   If you don't know what this is: [Click Me!](https://asc.winternebs.com/assets/home/kicktablesq.gif)
 *   Changes
     *   Hidden modes are no longer hidden
     *   Night of Nights mode is now called Beat Mode
