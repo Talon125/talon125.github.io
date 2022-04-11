@@ -220,13 +220,13 @@ export default class Stack extends GameModule {
         this.parent.addScore(`tspin${this.lineClear}`);
       }
       if (!pc) {
-        if (isSpin && this.parent.piece.name === 'T') {
+        if (isSpin) {
           if (this.parent.b2b > 1) {
-            sound.add('voxb2b_tspin');
+            sound.add(`voxb2b_${this.parent.piece.name.toLowerCase()}spin`);
           } else if (isMini) {
-            sound.add('voxminitspin');
+            sound.add(`voxmini${this.parent.piece.name.toLowerCase()}spin`);
           } else {
-            sound.add(`voxtspin${this.lineClear}`);
+            sound.add(`vox${this.parent.piece.name.toLowerCase()}spin${this.lineClear}`);
           }
         } else {
           if (this.parent.b2b > 1 && this.lineClear === 4) {
@@ -239,10 +239,10 @@ export default class Stack extends GameModule {
     } else {
       this.parent.combo = -1;
       if (isSpin) {
-        if (isMini && this.parent.piece.name === 'T') {
-          sound.add('voxminitspin');
-        } else if (this.parent.piece.name === 'T') {
-          sound.add('voxtspin0');
+        if (isMini) {
+          sound.add(`voxmini${this.parent.piece.name.toLowerCase()}spin`);
+        } else {
+          sound.add(`vox${this.parent.piece.name.toLowerCase()}spin0`);
         }
         sound.add(`tspin0${version}`);
         this.parent.addScore('tspin0');
