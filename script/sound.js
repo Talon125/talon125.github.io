@@ -144,11 +144,30 @@ class Sound {
               volume: settings.settings.sfxVolume / 100,
             });
           }
-          if (settings.settings.voicebank !== 'off') {
+          if (settings.settings.voicebank !== 'off' && settings.settings.voicebank == 'talonen') {
             for (const voxName of [
-              'ready', 'start', 'go', 'erase2', 'erase3', 'erase4', 'b2b_erase4', 'tspin0', 'tspin1',
-              'tspin2', 'tspin3', 'minitspin', 'b2b_tspin', 'perfectclear', 'ren1', 'ren2', 'ren3',
-              'blockout', 'lockout', 'topout', 'timeup', 'excellent', 'gameover',
+              'ready', 'start', 'go', 'erase2', 'erase3', 'erase4', 'b2b_erase4', 
+              'zspin0', 'zspin1', 'zspin2', 'zspin3', 'minizspin', 'b2b_zspin', 
+              'lspin0', 'lspin1', 'lspin2', 'lspin3', 'minilspin', 'b2b_lspin', 
+              'ospin0', 'ospin1', 'ospin2', 'ospin3', 'miniospin', 'b2b_ospin', 
+              'sspin0', 'sspin1', 'sspin2', 'sspin3', 'minisspin', 'b2b_sspin', 
+              'ispin0', 'ispin1', 'ispin2', 'ispin3', 'miniispin', 'b2b_ispin', 
+              'jspin0', 'jspin1', 'jspin2', 'jspin3', 'minijspin', 'b2b_jspin', 
+              'tspin0', 'tspin1', 'tspin2', 'tspin3', 'minitspin', 'b2b_tspin', 
+              'perfectclear', 'ren1', 'ren2', 'ren3', 'blockout', 'lockout', 'topout', 'timeup', 'excellent', 'gameover',
+            ]) {
+              this.files.push(`vox${voxName}`);
+              this.sounds[`vox${voxName}`] = new Howl({
+                src: [`./vox/${settings.settings.voicebank}/${voxName}.ogg`],
+                volume: settings.settings.voiceVolume / 100,
+              });
+            }
+          }
+          else if (settings.settings.voicebank !== 'off' && settings.settings.voicebank !== 'talonen') {
+            for (const voxName of [
+              'ready', 'start', 'go', 'erase2', 'erase3', 'erase4', 'b2b_erase4', 
+              'tspin0', 'tspin1', 'tspin2', 'tspin3', 'minitspin', 'b2b_tspin', 
+              'perfectclear', 'ren1', 'ren2', 'ren3', 'blockout', 'lockout', 'topout', 'timeup', 'excellent', 'gameover',
             ]) {
               this.files.push(`vox${voxName}`);
               this.sounds[`vox${voxName}`] = new Howl({
