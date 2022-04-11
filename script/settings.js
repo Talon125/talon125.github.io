@@ -8,7 +8,7 @@ class Settings {
       language: 'en_US',
       // Tuning
       DAS: 100,
-      ARR: 1,
+      ARR: 1000/60,
       IRS: 'tap',
       IHS: 'tap',
       IAS: true,
