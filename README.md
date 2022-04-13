@@ -34,7 +34,8 @@ btw I've been using Microsoft Edge to test my changes.
         *   German was removed due to its low quality
     *   ASC (Ascension) Rotation System
         *   You can use this under Tuning > Rotation System Override
-        *   It uses the Tetra-X skin (might be changed in the future --> more piece skins?)
+        <!-- *   It uses the Tetra-X skin (might be changed in the future  -> more piece skins?) -->
+        *   It uses the "Glossy" skin (might be changed in the future --> more piece skins?)
         *   If you don't know what this is: [Click Me!](https://asc.winternebs.com/assets/home/kicktablesq.gif)
 *   Changes
     *   Hidden modes are no longer hidden
