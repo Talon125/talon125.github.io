@@ -207,7 +207,7 @@ export default class Stack extends GameModule {
       }
       if (this.lineClear < 4) {
         sound.add(`${type}not4${version}`);
-      } else {
+      } else if (type !== 'tspin') {
         this.parent.b2b++;
       }
       const b2bPrefix = (this.parent.b2b > 1) ? 'b2b_' : '';

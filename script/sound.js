@@ -151,7 +151,7 @@ class Sound {
               'lspin0', 'lspin1', 'lspin2', 'lspin3', 'minilspin', 'b2b_lspin', 
               'ospin0', 'ospin1', 'ospin2', 'ospin3', 'miniospin', 'b2b_ospin', 
               'sspin0', 'sspin1', 'sspin2', 'sspin3', 'minisspin', 'b2b_sspin', 
-              'ispin0', 'ispin1', 'ispin2', 'ispin3', 'miniispin', 'b2b_ispin', 
+              'ispin0', 'ispin1', 'ispin2', 'ispin3', 'ispin4', 'miniispin', 'b2b_ispin', 
               'jspin0', 'jspin1', 'jspin2', 'jspin3', 'minijspin', 'b2b_jspin', 
               'tspin0', 'tspin1', 'tspin2', 'tspin3', 'minitspin', 'b2b_tspin', 
               'perfectclear', 'ren1', 'ren2', 'ren3', 'blockout', 'lockout', 'topout', 'timeup', 'excellent', 'gameover',
