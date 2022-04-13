@@ -1304,7 +1304,7 @@ export const SPIN_SETS = {
   none: [],
 };
 export const SKIN_SETS = {
-  asc: 'standard',
+  asc: 'glossy',
   srs: 'srsx',
   world: 'glossy',
   tetrax: 'standard',
