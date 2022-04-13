@@ -67,6 +67,6 @@ btw I've been using Microsoft Edge to test my changes.
         *   Rotating, then hard-dropping an O-Piece (so that it turns gray) rewards a Mini O-Spin
     *   Sometimes errors can occur during IRS before the game starts
     *   The collapse sound still plays even when your stack doesn't fall
-    *   Doing an I-Spin Tetra will always be Back-To-Back, even if the previous line clear was not Back-To-Back
-        *   Also occurs if this is your first line clear
+    <!-- *   Doing an I-Spin Tetra will always be Back-To-Back, even if the previous line clear was not Back-To-Back
+        *   Also occurs if this is your first line clear -->
     *   Stuff may not work if using Chrome, or maybe Firefox.
