@@ -73,15 +73,24 @@ export default class Piece extends GameModule {
     this.isFrozen = false;
     const rotSys = this.parent.rotationSystem;
     this.killLockDelayOnRotate = false;
+
+    let playSoundBankReadyGoSoundOrVoice = true;
+
+    if (sound.doesSoundBankUseReadyGoVoices && 
+      settings.settings.voicebank != 'off' && 
+      settings.settings.voiceVolume != 0) {
+    playSoundBankReadyGoSoundOrVoice = false;
+  }
+
     if (this.parent.stat.piece === 0 && !this.parent.hold.hasHeld) {
       if (this.parent.isRaceMode) {
-        if (!sound.skipReadyGo) {
+        if (playSoundBankReadyGoSoundOrVoice) {
           sound.add('go');
         }
         sound.add('voxgo')
         $('#message').textContent = locale.getString('ui', 'go');
       } else {
-        if (!sound.skipReadyGo) {
+        if (playSoundBankReadyGoSoundOrVoice) {
           sound.add('start');
         }
         sound.add('voxstart');

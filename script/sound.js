@@ -30,7 +30,7 @@ class Sound {
     this.playHardNoise = false;
     this.pieceFlashes = {};
     this.flashTimeouts = {};
-    this.skipReadyGo = false;
+    this.doesSoundBankUseReadyGoVoices = false;
   }
   updateVolumes() {
     for (const key of Object.keys(this.sounds)) {
@@ -105,8 +105,8 @@ class Sound {
     this.loadMenuVoice();
     loadSoundbank(name)
         .then((soundData) => {
-          this.skipReadyGo = (soundData.usesReadyGoVoices) ? true : false;
-          // if (this.skipReadyGo) {
+          this.doesSoundBankUseReadyGoVoices = (soundData.usesReadyGoVoices) ? true : false;
+          // if (this.doesSoundBankUseReadyGoVoices) {
           //   delete this.toPlay.ready;
           //   delete this.toPlay.go;
           //   delete this.toPlay.start;
