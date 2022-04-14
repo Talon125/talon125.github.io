@@ -35,6 +35,7 @@ class Locale {
       }
       return str;
     } catch (error) {
+      if (name === "grade") return "Grade";
       return '?UNKNOWN';
     }
   }
@@ -103,6 +104,8 @@ class Locale {
   }
 
   updateTitle() {
+    // document.documentElement.style.setProperty('--logo-image', `url("../img/brand/logo/default.svg")`);
+    // return;
     switch (this.currentLanguage) {
       case 'ja_JP':
         document.title = 'テトラレジェンズ';

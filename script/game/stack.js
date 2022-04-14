@@ -725,4 +725,37 @@ export default class Stack extends GameModule {
     }
     this.dirtyCells = [];
   }
+  linesToLevel(levelLimit, levelsPerSection) {
+    const newLevel = Math.min(levelLimit, this.parent.stat.level + this.parent.stack.lineClear);
+    if (Math.floor(this.parent.stat.level / levelsPerSection) < Math.floor(newLevel / levelsPerSection)) {
+      sound.add('levelup')
+    }
+    this.parent.stat.level = newLevel
+  }
+  arcadeScore(drop = 0, multiplier = 1) {
+    let pc = true;
+    for (let x = 0; x < this.grid.length; x++) {
+      if (!pc) {
+        break;
+      }
+      for (let y = 0; y < this.grid[x].length - this.parent.stack.lineClear; y++) {
+        const isFilled = this.grid[x][y];
+        if (isFilled) {
+          pc = false;
+          break;
+        }
+      }
+    }
+    const bravo = pc ? 4 : 1;
+    if (this.parent.stack.lineClear !== 0) {
+      this.parent.arcadeCombo += 2 * (this.parent.stack.lineClear - 1)
+    } else this.parent.arcadeCombo = 1;
+    this.parent.stat.score += (
+      Math.ceil((this.parent.stat.level + this.parent.stack.lineClear) / 4 + drop) *
+      this.parent.stack.lineClear * this.parent.arcadeCombo * bravo * multiplier
+    );
+  }
+  addStaticScore(score = 0) {
+    this.parent.stat.score += score;
+  }
 }
