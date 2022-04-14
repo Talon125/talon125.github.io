@@ -154,5 +154,9 @@
   "tapAnywhere": {
     "message": "Touchez n'importe où",
     "description": "Indicating to tap on the touchscreen anywhere"
+  },
+  "flashingLights": {
+    "message": "Lumières clignotantes",
+    "description": "Used to warn the player of flashing lights"
   }
 }

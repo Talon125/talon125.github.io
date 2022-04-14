@@ -14,5 +14,13 @@
   "proDescription": {
     "message": "Aquí es donde los maestros del rompecabezas vienen a morir. La velocidad de este modo es súper rápida: ¡un parpadeo y puede ser el fin!",
     "description": "Feel free to take any liberties as long you can accurately describe the mode in a way that's localized to the language."
+  },
+  "nightOfNightsXLabel": {
+    "message": "Night of Nights X",
+    "description": "A Tetra-X mode that has crazy effects synced to Night of Nights that tries to distract the player"
+  },
+  "nightOfNightsXDescription": {
+    "message": "Este modo tiene severas luces parpadeantes. ¡Intenta sobrevivir la duración de Night of Nights mientras el juego arroja distracciones locas!",
+    "description": "Feel free to take any liberties as long you can accurately describe the mode in a way that's localized to the language."
   }
 }

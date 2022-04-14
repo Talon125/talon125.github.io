@@ -24,7 +24,7 @@
     "description": "The speed of the piece's descent, commonly referred to as 'gravity'"
   },
   "entrydelay": {
-    "message": "Thời gian tạo gạch",
+    "message": "Chờ tạo gạch",
     "description": "The amount of time in between piece placements, also known as 'ARE'"
   },
   "maxcombo": {
@@ -154,5 +154,9 @@
   "tapAnywhere": {
     "message": "Chạm vào bất cứ đâu",
     "description": "Indicating to tap on the touchscreen anywhere"
+  },
+  "flashingLights": {
+    "message": "Sáng Chói",
+    "description": "Used to warn the player of flashing lights"
   }
 }

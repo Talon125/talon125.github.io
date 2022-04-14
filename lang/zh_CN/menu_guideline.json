@@ -46,5 +46,13 @@
   "survivalDescription": {
     "message": "垃圾行会不时从底部上升。通过反击来抵消垃圾行，或者挖掘来化解危机！",
     "description": "Feel free to take any liberties as long you can accurately describe the mode in a way that's localized to the language."
+  },
+  "nightOfNightsLabel": {
+    "message": "Night of Nights",
+    "description": "A guideline mode the pieces are locked at the bpm of Night of Nights"
+  },
+  "nightOfNightsDescription": {
+    "message": "方块会在 Night of Nights 乐曲的节拍上锁定（180BPM）。你能跟得上速度吗？",
+    "description": "Feel free to take any liberties as long you can accurately describe the mode in a way that's localized to the language."
   }
 }
