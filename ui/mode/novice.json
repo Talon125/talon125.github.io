@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "parent": "arcade",
+    "langOverride": "mode-options",
+    "game": "novice",
+    "pgmusic": "pg-marathon"
+  },
+  "data": [
+    {
+      "label": "NOVICE",
+      "description": "",
+      "fixedText": true,
+      "type": "header"
+    }
+  ]
+}

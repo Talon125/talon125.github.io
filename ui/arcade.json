@@ -1,24 +1,29 @@
 {
-    "properties": {
-      "parent": "root",
-      "vox": "menuarcade"
+  "properties": {
+    "parent": "root",
+    "vox": "menuarcade"
+  },
+  "data": [
+    {
+      "string": "arcadeLabel",
+      "langOverride": "menu_root",
+      "type": "header"
     },
-    "data": [
-      {
-        "label": "NOVICE",
-        "description": "A slow game for beginners.",
-        "fixedText": true,
-        "default": true,
-        "action": "game",
-        "game": "novice"
-      },
-      {
-        "label": "SUDDEN",
-        "description": "The pieces spawn on the ground and only get faster!",
-        "fixedText": true,
-        "action": "game",
-        "game": "sudden"
-      }
-    ]
-  }
+    {
+      "label": "NOVICE",
+      "description": "A slow game for beginners.",
+      "fixedText": true,
+      "default": true,
+      "action": "submenu",
+      "submenu": "mode/novice"
+    },
+    {
+      "label": "SUDDEN",
+      "description": "The pieces spawn on the ground and only get faster!",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "mode/sudden"
+    }
+  ]
+}
   
