@@ -92,6 +92,18 @@
       "description": "Listen to the original soundtrack (coming soon!)",
       "action": "link",
       "url": "https://soundcloud.com/tetra-developer-studio/sets/tetra-legends-soundtrack"
+    },
+    {
+      "fixedText": true,
+      "label": "GitHub Repository",
+      "description": "Go to the GitHub Repository of Tetra Legends Edited",
+      "action": "link",
+      "url": "https://github.com/Talon125/talon125.github.io"
+    },
+    {
+      "fixedText": true,
+      "label": "Edited by: Talon",
+      "description": "Find a problem? Have a suggestion? Just wanna talk to me? Message me on Discord: Talon#7854"
     }
   ]
 }
