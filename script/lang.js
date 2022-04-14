@@ -104,8 +104,8 @@ class Locale {
   }
 
   updateTitle() {
-    // document.documentElement.style.setProperty('--logo-image', `url("../img/brand/logo/default.svg")`);
-    // return;
+    document.documentElement.style.setProperty('--logo-image', `url("../img/brand/logo/default.svg")`);
+    return;
     switch (this.currentLanguage) {
       case 'ja_JP':
         document.title = 'テトラレジェンズ';
@@ -120,7 +120,7 @@ class Locale {
         document.documentElement.style.setProperty('--logo-image', `url("../img/brand/logo/ru_RU.svg")`);
         break;
       default:
-        document.title = 'Тetra Legends';
+        document.title = 'Тetra Legends Ultimate';
         document.documentElement.style.setProperty('--logo-image', `url("../img/brand/logo/default.svg")`);
         break;
     }

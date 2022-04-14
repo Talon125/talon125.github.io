@@ -1,20 +1,34 @@
-# talon125.github.io: Tetra Legends (Edited)
+# Tetra Legends Ultimate
 
 
-"Fork" of Tetra Legends. See original repository [here](https://github.com/zacharylohrman/tetralegends/).
+Combining the original Tetra Legends with Tetra Legends Plus, and adding some extra things I thought up of!
+
+Original repositories:
+
+https://github.com/zacharylohrman/tetralegends/
+
+https://github.com/Rexxt/tetralegendsplus
+
+Thank you:
+
+*   zacharylohrman
+*   MillaBasset
+*   MattMayuga
+*   Rexxt
+
 
 Play at: https://talon125.github.io/
 
 I'm still deciding whether I'll keep this repository public or make it private.
 
 
-Changes I have made - 2022-03-06
+Changes I have made - since 2021-12-04
 ----------------------------------------
 
 
 https://talon125.github.io/changelog.html
 
-Most changes were made in early December. Early March 2022 is when I uploaded this here, and also tweaked the changelog below a bit.
+<!-- Most changes were made in early December. Early March 2022 is when I uploaded this here, and also tweaked the changelog below a bit. -->
 
 btw I've been using Microsoft Edge to test my changes.
 
@@ -48,8 +62,8 @@ btw I've been using Microsoft Edge to test my changes.
     *   Some default settings may have been changed to suit me
     *   Music no longer mutes when the game gets unfocused. It instead gets quieter
     *   Made the Top/Lock/Block Out warning sounds not fade quieter after 2 seconds
-    *   Made the Top/Lock/Block Out warnings a bit more urgent-looking
-        *   The board may be a bit too far down
+    <!-- *   Made the Top/Lock/Block Out warnings a bit more urgent-looking
+        *   The board may be a bit too far down -->
 *   Known Bugs
     *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot)
     *   When the board flips upside-down in Night Of Nights X, the animation is too slow

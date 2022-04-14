@@ -1778,14 +1778,14 @@ progress[value]::-moz-progress-bar {
   text-align: right;
   color: #fff;
   position: absolute;
-  bottom: -2.5em;
+  bottom: -2.7em;
   right: 0em;
   font-size: 1.4em;
   width: 300%;
 }
 
 .game .timer-real {
-  bottom: -3.5em;
+  bottom: -3.7em;
 }
 
 @keyframes hurry-up-timer {
