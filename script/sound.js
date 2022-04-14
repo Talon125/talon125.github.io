@@ -144,7 +144,7 @@ class Sound {
               volume: settings.settings.sfxVolume / 100,
             });
           }
-          if (settings.settings.voicebank !== 'off' && settings.settings.voicebank == 'talonen') {
+          if (settings.settings.voicebank !== 'off' && ( settings.settings.voicebank == 'talonen' || settings.settings.voicebank == 'talonde' ) ) {
             for (const voxName of [
               'ready', 'start', 'go', 'erase2', 'erase3', 'erase4', 'b2b_erase4', 
               'zspin0', 'zspin1', 'zspin2', 'zspin3', 'minizspin', 'b2b_zspin', 
@@ -163,7 +163,7 @@ class Sound {
               });
             }
           }
-          else if (settings.settings.voicebank !== 'off' && settings.settings.voicebank !== 'talonen') {
+          else if (settings.settings.voicebank !== 'off' && settings.settings.voicebank !== 'talonen' && settings.settings.voicebank !== 'talonde') {
             for (const voxName of [
               'ready', 'start', 'go', 'erase2', 'erase3', 'erase4', 'b2b_erase4', 
               'tspin0', 'tspin1', 'tspin2', 'tspin3', 'minitspin', 'b2b_tspin', 

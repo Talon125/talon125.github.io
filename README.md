@@ -30,8 +30,9 @@ btw I've been using Microsoft Edge to test my changes.
         *   Hybrid detection type that uses Immobile rules to decide if it's a spin, and some 4-Point-style rules to decide whether it's mini or not
         *   Detection is used in all spin-enabled modes (both Immobile and 4-Point)
     *   My voice
-        *   I plan on updating the voices in the future, like adding more clips for all the other spins/spin types
-        *   German was removed due to its low quality
+        *   Both in English and in German
+        <!-- *   I plan on updating the voices in the future, like adding more clips for all the other spins/spin types
+        *   German was removed due to its low quality -->
     *   ASC (Ascension) Rotation System
         *   You can use this under Tuning > Rotation System Override
         <!-- *   It uses the Tetra-X skin (might be changed in the future  -> more piece skins?) -->

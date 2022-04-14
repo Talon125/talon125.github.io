@@ -155,14 +155,19 @@
           "value": "soraen"
         },
         {
+          "label": "[EN] Ariahivo",
+          "fixedText": true,
+          "value": "ariahivo"
+        },
+        {
           "label": "[EN] Talon",
           "fixedText": true,
           "value": "talonen"
         },
         {
-          "label": "[EN] Ariahivo",
+          "label": "[DE] Talon",
           "fixedText": true,
-          "value": "ariahivo"
+          "value": "talonde"
         },
         {
           "label": "[JA] Sora",
