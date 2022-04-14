@@ -74,12 +74,6 @@
       "type": "overline"
     },
     {
-      "string": "translateLabel",
-      "stringDesc": "translateDescription",
-      "action": "link",
-      "url": "https://crowdin.com/project/tetra-legends"
-    },
-    {
       "string": "discordLabel",
       "stringDesc": "discordDescription",
       "action": "link",
@@ -92,6 +86,13 @@
       "description": "Listen to the original soundtrack (coming soon!)",
       "action": "link",
       "url": "https://soundcloud.com/tetra-developer-studio/sets/tetra-legends-soundtrack"
+    },
+    {
+      "fixedText": true,
+      "label": "Changelog",
+      "description": "See the changelog for this game",
+      "action": "link",
+      "url": "./changelog.html"
     },
     {
       "fixedText": true,
