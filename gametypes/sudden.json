@@ -1,0 +1,34 @@
+{
+    "settings": {
+      "width": 10,
+      "height": 20,
+      "hiddenHeight": 4,
+      "pieces": "standard",
+      "unfavored": null,
+      "randomizer": "history6rolls",
+      "rotationSystem": "ars",
+      "skin": "arika",
+      "soundbank": "standard",
+      "music": "../marathon/marathon-2",
+      "hasDangerBgm": true,
+      "scoreTable": "blank",
+      "background": "marathon.jpg",
+      "isHardMode": true
+    },
+    "piece": {
+      "arrLimit": 17
+    },
+    "next": {
+      "nextLimit": 1
+    },
+    "hold": {
+      "isDisabled": true
+    },
+    "stats": [
+      "grade",
+      "score",
+      "level",
+      "line"
+    ]
+  }
+  
