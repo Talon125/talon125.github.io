@@ -1,0 +1,15 @@
+{
+  "files": [
+    "collapse",
+    "erase4",
+    "erasenot4",
+    "harddrop",
+    "ko",
+    "lock",
+    "move",
+    "rotate",
+    "step",
+    "tspin"
+  ],
+  "ren": []
+}

@@ -35,8 +35,16 @@
     {
       "string": "retroLabel",
       "stringDesc": "retroDescription",
+      "width": "half",
       "action": "submenu",
       "submenu": "retro"
+    },
+    {
+      "string": "arcadeLabel",
+      "stringDesc": "arcadeDescription",
+      "width": "half",
+      "action": "submenu",
+      "submenu": "arcade"
     },
     {
       "string": "settingsOverline",

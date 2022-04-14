@@ -106,11 +106,11 @@ class Sound {
     loadSoundbank(name)
         .then((soundData) => {
           this.skipReadyGo = (soundData.usesReadyGoVoices) ? true : false;
-          if (this.skipReadyGo) {
-            delete this.toPlay.ready;
-            delete this.toPlay.go;
-            delete this.toPlay.start;
-          }
+          // if (this.skipReadyGo) {
+          //   delete this.toPlay.ready;
+          //   delete this.toPlay.go;
+          //   delete this.toPlay.start;
+          // }
           this.lastLoaded = name;
           this.files = soundData.files;
           this.ren = soundData.ren;

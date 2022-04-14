@@ -1,7 +1,10 @@
-import $, {bpmToMs, framesToMs, resetAnimation, roundBpmToMs} from '../shortcuts.js';
+import $, {bpmToMs, framesToMs, resetAnimation, roundBpmToMs, roundMsToFrames} from '../shortcuts.js';
 import {gravity, classicGravity, deluxeGravity} from './loop-modules/gravity.js';
-import {PIECE_COLORS} from '../consts.js';
+import {PIECE_COLORS, SOUND_SETS} from '../consts.js';
+import addStaticScore from './loop-modules/add-static-score.js';
+import arcadeScore from './loop-modules/arcade-score.js';
 import collapse from './loop-modules/collapse.js';
+import firmDrop from './loop-modules/firm-drop.js';
 import gameHandler from './game-handler.js';
 import handheldDasAre from './loop-modules/handheld-das-are.js';
 import hardDrop from './loop-modules/hard-drop.js';
@@ -10,12 +13,14 @@ import hyperSoftDrop from './loop-modules/hyper-soft-drop.js';
 import initialDas from './loop-modules/initial-das.js';
 import initialHold from './loop-modules/initial-hold.js';
 import initialRotation from './loop-modules/initial-rotation.js';
+import linesToLevel from './loop-modules/lines-to-level.js';
 import lockFlash from './loop-modules/lock-flash.js';
 import respawnPiece from './loop-modules/respawn-piece.js';
 import rotate from './loop-modules/rotate.js';
 import rotate180 from './loop-modules/rotate-180.js';
 import shifting from './loop-modules/shifting.js';
 import shiftingRetro from './loop-modules/shifting-retro.js';
+import sonicDrop from './loop-modules/sonic-drop.js';
 import softDrop from './loop-modules/soft-drop.js';
 import softDropRetro from './loop-modules/soft-drop-retro.js';
 import softDropNes from './loop-modules/soft-drop-nes.js';
@@ -51,6 +56,218 @@ const levelUpdate = (game) => {
   return returnValue;
 };
 export const loops = {
+  sudden: {
+    update: (arg) => {
+      const game = gameHandler.game;
+      game.rta += arg.ms;
+      game.b2b = 0;
+      arcadeScore(arg)
+      linesToLevel(arg, 999, 100);
+      game.endSectionLevel = game.stat.level >= 900 ? 999 : Math.floor((game.stat.level / 100) + 1) * 100;
+      game.appends.level = `<span class="small">/${game.endSectionLevel}</span>`;
+      if (game.stat.level >= 999) game.stat.grade = "GM";
+      else if (game.stat.level >= 500 && game.torikanPassed) game.stat.grade = "M";
+      collapse(arg);
+      if (arg.piece.inAre) {
+        initialDas(arg);
+        initialRotation(arg);
+        initialHold(arg);
+        arg.piece.are += arg.ms;
+      } else {
+        respawnPiece(arg);
+        rotate(arg);
+        shifting(arg);
+      }
+      gravity(arg);
+      sonicDrop(arg, true);
+      firmDrop(arg, 1, true);
+      //extendedLockdown(arg);
+      classicLockdown(arg);
+      if (!arg.piece.inAre) {
+        hold(arg);
+      }
+      lockFlash(arg);
+      updateLasts(arg);
+    },
+    onInit: (game) => {
+      game.stat.level = 0;
+      game.isRaceMode = true;
+      game.stat.grade = "";
+      game.rta = 0;
+      game.piece.gravity = framesToMs(1 / 20);
+      game.torikanPassed = false;
+      game.stat.initPieces = 2;
+      game.endingStats.grade = true;
+      game.musicProgression = 0;
+      game.drop = 0;
+      game.updateStats();
+    },
+    onPieceSpawn: (game) => {
+      const areTable = [[101,18],[301,14],[401,8],[500,7],[1000,6]]
+      const areLineModifierTable = [[101,-4],[301,-6],[1000,0]]
+      const areLineTable = [[101,12],[401,6],[500,5],[1000,4]]
+      const dasTable = [[200,12],[300,11],[400,10],[1000,8]]
+      const lockDelayTable = [[101,30],[201,26],[301,22],[401,18],[1000,15]]
+      const musicProgressionTable = [[279,1],[300,2],[479,3],[500,4]]
+      for (const pair of areTable) {
+        const level = pair[0];
+        const entry = pair[1];
+        if (game.stat.level < level) {
+          game.piece.areLimit = framesToMs(entry);
+          break;
+        }
+      }
+      for (const pair of areLineModifierTable) {
+        const level = pair[0];
+        const entry = pair[1];
+        if (game.stat.level < level) {
+          game.piece.areLimitLineModifier = framesToMs(entry);
+          break;
+        }
+      }
+      for (const pair of areLineTable) {
+        const level = pair[0];
+        const entry = pair[1];
+        if (game.stat.level < level) {
+          game.piece.areLineLimit = framesToMs(entry);
+          break;
+        }
+      }
+      for (const pair of dasTable) {
+        const level = pair[0];
+        const entry = pair[1];
+        if (game.stat.level < level) {
+          game.piece.dasLimit = framesToMs(entry);
+          break;
+        }
+      }
+      for (const pair of lockDelayTable) {
+        const level = pair[0];
+        const entry = pair[1];
+        if (game.stat.level < level) {
+          game.piece.lockDelayLimit = Math.ceil(framesToMs(entry));
+          break;
+        }
+      }
+      for (const pair of musicProgressionTable) {
+        const level = pair[0];
+        const entry = pair[1];
+        if (game.stat.level >= level && game.musicProgression < entry) {
+          switch (entry) {
+            case 1:
+            case 3:
+              sound.killBgm();
+              break;
+            case 2:
+              sound.loadBgm(["survival"], "survival");
+              sound.killBgm();
+              sound.playBgm(["survival"], "survival");
+              break;
+            case 4:
+              sound.loadBgm(["master-last"], "master");
+              sound.killBgm();
+              sound.playBgm(["master-last"], "master");
+          }
+          game.musicProgression = entry;
+        }
+      }
+      if (game.stat.level >= 500 && game.rta <= 205000) game.torikanPassed = true;
+      else if ((game.stat.level >= 500 && !game.torikanPassed) || game.stat.level === 999) {
+        if (game.stat.level < 999) game.stat.level = 500;
+        $('#kill-message').textContent = locale.getString('ui', 'excellent');
+        sound.killVox();
+        sound.add('voxexcellent');
+        game.end(true);
+      }
+      if (game.stat.initPieces === 0 &&
+        (game.stat.level % 100 !== 99 && game.stat.level !== 998)) {
+        game.stat.level = game.stat.level + 1;
+      }
+      if (game.stat.initPieces > 0) {
+        game.stat.initPieces = game.stat.initPieces - 1;
+      }
+      
+
+      updateFallSpeed(game);
+    }
+  },
+  
+  novice: {
+    update: (arg) => {
+      gameHandler.game.b2b = 0;
+      gameHandler.game.rta += arg.ms;
+      if (input.getGameDown('softDrop')) {gameHandler.game.drop += arg.ms;}
+      if (input.getGamePress('hardDrop')) {gameHandler.game.drop += framesToMs(2 * arg.piece.getDrop());}
+      arcadeScore(arg, roundMsToFrames(gameHandler.game.drop), 6)
+      linesToLevel(arg, 300, 300);
+      collapse(arg);
+      if (arg.piece.inAre) {
+        initialDas(arg);
+        initialRotation(arg);
+        initialHold(arg);
+        arg.piece.are += arg.ms;
+      } else {
+        respawnPiece(arg);
+        rotate(arg);
+        shifting(arg);
+      }
+      gravity(arg);
+      sonicDrop(arg);
+      firmDrop(arg);
+      classicLockdown(arg);
+      if (!arg.piece.inAre) {
+        hold(arg);
+      }
+      lockFlash(arg);
+      updateLasts(arg);
+    },
+    onPieceSpawn: (game) => {
+      game.drop = 0;
+      if (game.stat.level === 300) {
+        game.stat.score += Math.max(0, (300 - Math.floor(game.rta / 1000)) * 1253)
+        $('#kill-message').textContent = locale.getString('ui', 'excellent');
+        sound.killVox();
+        sound.add('voxexcellent');
+        game.end(true);
+      } else if (game.stat.initPieces === 0 && game.stat.level !== 299) {
+        game.stat.level = game.stat.level + 1;
+      } else {
+        game.stat.initPieces = game.stat.initPieces - 1;
+      }
+      if (game.stat.level >= 280) {
+        sound.killBgm();
+      }
+      let gravityDenominator = 1;
+      const gravityTable = [
+        [8,4],[19,5],[35,6],[40,8],[50,10],[60,12],[70,16],[80,32],[90,48],[100,64],
+        [108,4],[119,5],[125,6],[131,8],[139,12],[149,32],[156,48],[164,80],[174,112],
+        [180,128],[200,144],[212,16],[221,48],[232,80],[244,112],[256,144],[267,176],
+        [277,192],[287,208],[295,224],[300,240]
+      ]
+      for (const pair of gravityTable) {
+        const level = pair[0];
+        const denom = pair[1];
+        if (game.stat.level < level) {
+          gravityDenominator = denom;
+          break;
+        }
+      }
+      game.piece.gravity = framesToMs(256 / gravityDenominator);
+      game.piece.ghostIsVisible = game.stat.level < 100;
+      updateFallSpeed(game);
+    },
+    onInit: (game) => {
+      game.stat.level = 0;
+      game.rta = 0;
+      game.isRaceMode = true;
+      game.arcadeCombo = 1;
+      game.drop = 0;
+      game.stat.initPieces = 2;
+      game.appends.level = `<span class="small">/300</span>`;
+      updateFallSpeed(game);
+      game.updateStats();
+    },
+  },
   marathon: {
     update: (arg) => {
       collapse(arg);

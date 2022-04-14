@@ -1,0 +1,32 @@
+{
+  "files": [
+    "alarm",
+    "bravo",
+    "collapse",
+	"erase1",
+	"erase2",
+	"erase3",
+    "erase4",
+    "excellent",
+    "gameover",
+	"harddrop",
+    "initialhold",
+    "initialrotate",
+	"ko",
+    "land",
+    "levelupminor",
+	"levelupmajor",
+    "lock",
+	"lockforce",
+	"locknohd",
+	"move",
+    "ready",
+	"rotate",
+    "start",
+    "topoutwarning",
+    "tspinbonus",
+    "tspin0"
+  ],
+  "ren": [],
+  "nextSoundbank": "tgm3"
+}

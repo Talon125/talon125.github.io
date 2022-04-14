@@ -1,0 +1,26 @@
+{
+  "files": [
+	"erase1",
+	"erase2",
+	"erase3",
+        "erase4",
+	"excellent",
+    "levelup",
+    "locknohd",
+    "harddrop",
+    "move",
+    "ready",
+    "rotate",
+	"start",
+	"tspinbonus"
+  ],
+  "ren": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ]
+}

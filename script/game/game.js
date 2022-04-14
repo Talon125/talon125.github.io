@@ -183,6 +183,14 @@ export default class Game {
             this.settings.music = [string];
           }}
           sound.loadBgm(this.settings.music, gametype);
+
+          if (settings.settings.voicebank == 'off' || settings.settings.voiceVolume == 0){
+            sound.skipReadyGo = false;
+          }
+          else{
+            sound.skipReadyGo = true;
+          }
+
           if (!sound.skipReadyGo) {
             sound.add('ready');
           }
