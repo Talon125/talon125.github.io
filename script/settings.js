@@ -89,6 +89,9 @@ class Settings {
       case 'en_US':
         this.defaultSettings.voicebank = 'talonen';
         break;
+      case 'de_DE':
+        this.defaultSettings.voiceVolume = 'talonde';
+        break;
       case 'ja_JP':
         this.defaultSettings.voicebank = 'sorajp';
         break;
