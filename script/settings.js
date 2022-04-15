@@ -13,6 +13,7 @@ class Settings {
       IHS: 'tap',
       IAS: true,
       rotationSystem: 'auto',
+      spinDetectionType: 'auto',
       // Graphics
       theme: 'default',
       size: 100,

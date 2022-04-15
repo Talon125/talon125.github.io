@@ -145,6 +145,12 @@ export default class Game {
             this.settings.rotationSystem = this.userSettings.rotationSystem;
             this.rotationSystem = this.userSettings.rotationSystem;
           }
+
+          if (this.userSettings.spinDetectionType != 'auto') {
+            this.settings.spinDetectionType = this.userSettings.spinDetectionType;
+            this.spinDetectionType = this.userSettings.spinDetectionType;
+          }
+          
           if (!this.settings.disableDefaultSkinLoad) {
             this.makeSprite();
           }

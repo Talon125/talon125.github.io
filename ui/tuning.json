@@ -169,6 +169,13 @@
       ],
       "setting": "rotationSystem",
       "settingType": "setting"
+    },
+    {
+      "label": "Spin Detection Override",
+      "description": "Specify which spins are detected and how",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "spindetectionoverride"
     }
   ]
 }

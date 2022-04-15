@@ -73,14 +73,17 @@ export default class Piece extends GameModule {
     this.isFrozen = false;
     const rotSys = this.parent.rotationSystem;
     this.killLockDelayOnRotate = false;
+    if (this.parent.spinDetectionType != null) {
+      this.spinDetectionType = this.parent.spinDetectionType;
+    }
 
     let playSoundBankReadyGoSoundOrVoice = true;
 
     if (sound.doesSoundBankUseReadyGoVoices && 
       settings.settings.voicebank != 'off' && 
       settings.settings.voiceVolume != 0) {
-    playSoundBankReadyGoSoundOrVoice = false;
-  }
+      playSoundBankReadyGoSoundOrVoice = false;
+    }
 
     if (this.parent.stat.piece === 0 && !this.parent.hold.hasHeld) {
       if (this.parent.isRaceMode) {
@@ -896,15 +899,17 @@ export default class Piece extends GameModule {
   }
   checkSpin() {
     const name = this.name;
-    if (this.spinDetectionType == null) {
+    if (this.spinDetectionType === null || this.spinDetectionType === 'null') {
       return {isSpin: false, isMini: false};
     }
-    if (this.spinDetectionType === 'immobile' && name != 'O') {
+    if ((this.spinDetectionType === 'immobile' || this.spinDetectionType === 'EZimmobile') && name != 'O') {
       if (!this.canShiftLeft && !this.canShiftRight && !this.canShiftUp && !this.canShiftDown) {
         return {isSpin: true, isMini: false};
       }
-      if (this.lastKickIndex != 0 && !this.canShiftDown) {
-        return {isSpin: true, isMini: true};
+      if (this.spinDetectionType === 'EZimmobile') {
+        if (this.lastKickIndex != 0 && !this.canShiftDown) {
+          return {isSpin: true, isMini: true};
+        }
       }
       return {isSpin: false, isMini: false};
     }
