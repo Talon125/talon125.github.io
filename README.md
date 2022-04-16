@@ -33,16 +33,18 @@ https://talon125.github.io/changelog.html
 btw I've been using Microsoft Edge to test my changes.
 
 *   Additions
+    *   Arcade modes and extra soundbanks from Tetra Legends Plus
     *   4-Point All-Spin
         *   Dr Ocelot started but didn't finish the code. So, I finished it
-        *   This is on by default and cannot be changed (yet)
+        <!-- *   This is on by default and cannot be changed (yet) -->
         *   I piece has its own special code now (because the I piece is weird in 4-Point All-Spin)
     *   EZ-Immobile
         *   Functions the same way as it does in NullpoMino (if a piece is kicked, it's a mini spin)
-        *   This only applies in Tetra-X modes You can't choose between spin detections yet
+        <!-- *   This only applies in Tetra-X modes You can't choose between spin detections yet -->
     *   O-Spin Detection
         *   Hybrid detection type that uses Immobile rules to decide if it's a spin, and some 4-Point-style rules to decide whether it's mini or not
         *   Detection is used in all spin-enabled modes (both Immobile and 4-Point)
+    *   Ability to control spin detection (which system, which pieces)
     *   My voice
         *   Both in English and in German
         <!-- *   I plan on updating the voices in the future, like adding more clips for all the other spins/spin types
@@ -66,7 +68,7 @@ btw I've been using Microsoft Edge to test my changes.
         *   The board may be a bit too far down -->
 *   Known Bugs
     *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot)
-    *   When the board flips upside-down in Night Of Nights X, the animation is too slow
+    <!-- *   When the board flips upside-down in Night Of Nights X, the animation is too slow -->
     *   Sometimes (perhaps with right timing), the gameover UI will appear when the game has restarted
     *   In Survival mode, there's a chance one garbage particle may stay on your Matrix
         *   The following error notification may show in the bottom right (also in the developer tools' console of the browser)
