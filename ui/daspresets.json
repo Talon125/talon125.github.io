@@ -17,9 +17,7 @@
       "description": "The default chosen for Tetra Legends Ultimate",
       "fixedText": true,
       "action": "daspreset",
-      "isShort": true,
-      "delay": 100,
-      "rate": 16.666666666666666666666666666667
+      "isShort": true
     },
     {
       "string": "guidelineLabel",

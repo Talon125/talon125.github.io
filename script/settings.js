@@ -42,6 +42,13 @@ class Settings {
       particleScale: 2,
       useLockdownBar: true,
       displayActionText: true,
+      spinI: true,
+      spinL: true,
+      spinO: true,
+      spinZ: true,
+      spinT: true,
+      spinJ: true,
+      spinS: true,
       // Audio
       sfxVolume: 50,
       musicVolume: 50,

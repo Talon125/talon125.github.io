@@ -324,7 +324,11 @@ class Menu {
         element.appendChild(value);
       } else if (currentData.type === 'toggle') {
         const label = document.createElement('div');
-        label.textContent = locale.getString(this.current.lang, currentData.string);
+        if (!currentData.fixedText) {
+          label.textContent = locale.getString(this.current.lang, currentData.string);
+        } else {
+          label.textContent = currentData.label;
+        }
         label.classList.add('setting-text');
         const bubble = document.createElement('div');
         bubble.classList.add('bubble');
@@ -797,8 +801,48 @@ class Menu {
       case 'daspreset':
         $(`#option-${this.selected}`).classList.add('chosen');
         sound.playMenuSe('optionselect');
-        settings.changeSetting('DAS', this.selectedData.delay);
-        settings.changeSetting('ARR', this.selectedData.rate);
+        if (this.selectedData.label === 'Default 2'){
+          settings.changeSetting('DAS', 100);
+        settings.changeSetting('ARR', 1000/60);
+        }
+        else{
+          settings.changeSetting('DAS', this.selectedData.delay);
+          settings.changeSetting('ARR', this.selectedData.rate);
+        }
+        this.back(false);
+        break;
+      case 'spinpreset':
+        $(`#option-${this.selected}`).classList.add('chosen');
+        sound.playMenuSe('optionselect');
+        switch(this.selectedData.label){
+          case 'T-Spins':
+            settings.changeSetting('spinI', false);
+            settings.changeSetting('spinL', false);
+            settings.changeSetting('spinO', false);
+            settings.changeSetting('spinZ', false);
+            settings.changeSetting('spinT', true);
+            settings.changeSetting('spinJ', false);
+            settings.changeSetting('spinS', false);
+            break;
+          case 'All Spins':
+            settings.changeSetting('spinI', true);
+            settings.changeSetting('spinL', true);
+            settings.changeSetting('spinO', true);
+            settings.changeSetting('spinZ', true);
+            settings.changeSetting('spinT', true);
+            settings.changeSetting('spinJ', true);
+            settings.changeSetting('spinS', true);
+            break;
+          case 'None':
+            settings.changeSetting('spinI', false);
+            settings.changeSetting('spinL', false);
+            settings.changeSetting('spinO', false);
+            settings.changeSetting('spinZ', false);
+            settings.changeSetting('spinT', false);
+            settings.changeSetting('spinJ', false);
+            settings.changeSetting('spinS', false);
+            break;
+        }
         this.back(false);
         break;
       case 'functionClearControls':

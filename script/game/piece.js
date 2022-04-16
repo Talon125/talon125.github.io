@@ -902,6 +902,29 @@ export default class Piece extends GameModule {
     if (this.spinDetectionType === null || this.spinDetectionType === 'null') {
       return {isSpin: false, isMini: false};
     }
+    switch(name){
+      case 'I':
+        if (!settings.settings.spinI) { return {isSpin: false, isMini: false}; }
+        break;
+      case 'L':
+        if (!settings.settings.spinL) { return {isSpin: false, isMini: false}; }
+        break;
+      case 'O':
+        if (!settings.settings.spinO) { return {isSpin: false, isMini: false}; }
+        break;
+      case 'Z':
+        if (!settings.settings.spinZ) { return {isSpin: false, isMini: false}; }
+        break;
+      case 'T':
+        if (!settings.settings.spinT) { return {isSpin: false, isMini: false}; }
+        break;
+      case 'J':
+        if (!settings.settings.spinJ) { return {isSpin: false, isMini: false}; }
+        break;
+      case 'S':
+        if (!settings.settings.spinS) { return {isSpin: false, isMini: false}; }
+        break;
+    }
     if ((this.spinDetectionType === 'immobile' || this.spinDetectionType === 'EZimmobile') && name != 'O') {
       if (!this.canShiftLeft && !this.canShiftRight && !this.canShiftUp && !this.canShiftDown) {
         return {isSpin: true, isMini: false};
