@@ -903,8 +903,8 @@ export default class Piece extends GameModule {
       return {isSpin: false, isMini: false};
     }
     switch(name){
-      case 'I':
-        if (!settings.settings.spinI) { return {isSpin: false, isMini: false}; }
+      case 'Z':
+        if (!settings.settings.spinZ) { return {isSpin: false, isMini: false}; }
         break;
       case 'L':
         if (!settings.settings.spinL) { return {isSpin: false, isMini: false}; }
@@ -912,17 +912,17 @@ export default class Piece extends GameModule {
       case 'O':
         if (!settings.settings.spinO) { return {isSpin: false, isMini: false}; }
         break;
-      case 'Z':
-        if (!settings.settings.spinZ) { return {isSpin: false, isMini: false}; }
-        break;
-      case 'T':
-        if (!settings.settings.spinT) { return {isSpin: false, isMini: false}; }
-        break;
-      case 'J':
-        if (!settings.settings.spinJ) { return {isSpin: false, isMini: false}; }
-        break;
       case 'S':
         if (!settings.settings.spinS) { return {isSpin: false, isMini: false}; }
+        break;
+      case 'I':
+        if (!settings.settings.spinI) { return {isSpin: false, isMini: false}; }
+        break;
+        case 'J':
+          if (!settings.settings.spinJ) { return {isSpin: false, isMini: false}; }
+          break;
+      case 'T':
+        if (!settings.settings.spinT) { return {isSpin: false, isMini: false}; }
         break;
     }
     if ((this.spinDetectionType === 'immobile' || this.spinDetectionType === 'EZimmobile') && name != 'O') {

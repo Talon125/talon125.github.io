@@ -12,10 +12,9 @@
       "action": "functionResetColors"
     },
     {
-      "label": "I",
+      "label": "Z",
       "description": "",
       "fixedText": true,
-      "default": true,
       "type": "select",
       "action": "select",
       "selectOptions": [
@@ -30,7 +29,7 @@
         {"string": "whiteOption", "value": "white"},
         {"string": "blackOption", "value": "black"}
       ],
-      "setting": "colorI",
+      "setting": "colorZ",
       "settingType": "setting"
     },
     {
@@ -76,7 +75,7 @@
       "settingType": "setting"
     },
     {
-      "label": "Z",
+      "label": "S",
       "description": "",
       "fixedText": true,
       "type": "select",
@@ -93,13 +92,14 @@
         {"string": "whiteOption", "value": "white"},
         {"string": "blackOption", "value": "black"}
       ],
-      "setting": "colorZ",
+      "setting": "colorS",
       "settingType": "setting"
     },
     {
-      "label": "T",
+      "label": "I",
       "description": "",
       "fixedText": true,
+      "default": true,
       "type": "select",
       "action": "select",
       "selectOptions": [
@@ -114,7 +114,7 @@
         {"string": "whiteOption", "value": "white"},
         {"string": "blackOption", "value": "black"}
       ],
-      "setting": "colorT",
+      "setting": "colorI",
       "settingType": "setting"
     },
     {
@@ -139,7 +139,7 @@
       "settingType": "setting"
     },
     {
-      "label": "S",
+      "label": "T",
       "description": "",
       "fixedText": true,
       "type": "select",
@@ -156,7 +156,7 @@
         {"string": "whiteOption", "value": "white"},
         {"string": "blackOption", "value": "black"}
       ],
-      "setting": "colorS",
+      "setting": "colorT",
       "settingType": "setting"
     }
   ]

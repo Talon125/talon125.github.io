@@ -48,12 +48,12 @@
             "submenu": "spinpresets"
         },
         {
-            "label": "I-Spins",
-            "description": "Toggle whether I-Spins are detected/rewarded",
+            "label": "Z-Spins",
+            "description": "Toggle whether Z-Spins are detected/rewarded",
             "fixedText": true,
             "type": "toggle",
             "action": "toggle",
-            "setting": "spinI",
+            "setting": "spinZ",
             "settingType": "setting"
         },
         {
@@ -75,21 +75,21 @@
             "settingType": "setting"
         },
         {
-            "label": "Z-Spins",
-            "description": "Toggle whether Z-Spins are detected/rewarded",
+            "label": "S-Spins",
+            "description": "Toggle whether S-Spins are detected/rewarded",
             "fixedText": true,
             "type": "toggle",
             "action": "toggle",
-            "setting": "spinZ",
+            "setting": "spinS",
             "settingType": "setting"
         },
         {
-            "label": "T-Spins",
-            "description": "Toggle whether T-Spins are detected/rewarded",
+            "label": "I-Spins",
+            "description": "Toggle whether I-Spins are detected/rewarded",
             "fixedText": true,
             "type": "toggle",
             "action": "toggle",
-            "setting": "spinT",
+            "setting": "spinI",
             "settingType": "setting"
         },
         {
@@ -102,12 +102,12 @@
             "settingType": "setting"
         },
         {
-            "label": "S-Spins",
-            "description": "Toggle whether S-Spins are detected/rewarded",
+            "label": "T-Spins",
+            "description": "Toggle whether T-Spins are detected/rewarded",
             "fixedText": true,
             "type": "toggle",
             "action": "toggle",
-            "setting": "spinS",
+            "setting": "spinT",
             "settingType": "setting"
         }
     ]
