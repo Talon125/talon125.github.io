@@ -11,10 +11,10 @@ https://github.com/Rexxt/tetralegendsplus
 
 Thank you:
 
-*   zacharylohrman
-*   MillaBasset
-*   MattMayuga
-*   Rexxt
+*   [zacharylohrman](https://github.com/zacharylohrman) (Dr Ocelot)
+*   [MillaBasset](https://github.com/MillaBasset)
+*   [MattMayuga](https://github.com/MattMayuga)
+*   [Rexxt](https://github.com/Rexxt) (Mizu)
 
 
 Play at: https://talon125.github.io/
