@@ -155,7 +155,6 @@ class Menu {
     this.hide();
   }
   open() {
-    console.log("Method \"open()\" was called!")
     $('#lights-warning').classList.add('hidden')
     if (gameHandler.game.isOver) {
       gameHandler.game.settings = {
