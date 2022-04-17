@@ -16,7 +16,7 @@ import locale from '../lang.js';
 let endScreenTimeout = null;
 export default class Game {
   constructor(gametype) {
-    if (gametype === 'non'){
+    if (gametype === 'beat'){
       document.getElementById('myVideo').style.opacity = 1;
     } else {
       document.getElementById('myVideo').style.opacity = 0;
@@ -113,7 +113,7 @@ export default class Game {
           $('#kill-message-container').classList.add('hidden');
           $('#next-piece').classList.remove('immediate-death');
 
-          this.resetNonStuff()
+          this.resetBeatStuff()
 
           if (this.type === 'nontwo') {
             $('#lights-warning').classList.remove('hidden')
@@ -178,6 +178,11 @@ export default class Game {
           this.resize();
           loops[gametype].onInit(this);
           sound.killBgm();
+
+          if (gametype === 'beat'){
+            this.settings.music = settings.game.beat.song;
+          }
+
           if (this.settings.musicLinePoints != null) {
             // eslint-disable-next-line no-unused-vars
             for (const point of this.settings.musicLinePoints) {
@@ -246,7 +251,7 @@ export default class Game {
     $('#game-container').classList.remove('hidden');
     this.isVisible = true;
   }
-  resetNonStuff() {
+  resetBeatStuff() {
     $('#game-container').style.transitionTimingFunction = ''
     $('#game-container').style.transitionProperty = ''
     $('#game-container').style.transitionDuration = ''
@@ -264,7 +269,7 @@ export default class Game {
   }
   end(victory = false) {
     document.getElementById('myVideo').style.opacity = 0;
-    this.resetNonStuff()
+    this.resetBeatStuff()
     this.isOver = true;
     $('#combo-counter-container').classList.add('hidden');
     this.stack.endAlarm();

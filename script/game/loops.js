@@ -26,7 +26,7 @@ import softDropRetro from './loop-modules/soft-drop-retro.js';
 import softDropNes from './loop-modules/soft-drop-nes.js';
 import sound from '../sound.js';
 import updateLasts from './loop-modules/update-lasts.js';
-import {extendedLockdown, retroLockdown, classicLockdown, infiniteLockdown, nonLockdown} from './loop-modules/lockdown.js';
+import {extendedLockdown, retroLockdown, classicLockdown, infiniteLockdown, beatLockdown} from './loop-modules/lockdown.js';
 import updateFallSpeed from './loop-modules/update-fallspeed.js';
 import shiftingNes from './loop-modules/shifting-nes.js';
 import nesDasAre from './loop-modules/nes-das-are.js';
@@ -40,6 +40,7 @@ let shown20GMessage = false;
 let shownHoldWarning = false;
 let lastSeenI = 0;
 let nonEvents = [];
+let bpm;
 const levelUpdate = (game) => {
   let returnValue = false;
   if (game.stat.level !== lastLevel) {
@@ -324,12 +325,12 @@ export const loops = {
       game.updateStats();
     },
   },
-  non: {
+  beat: {
     update: (arg) => {
       const game = gameHandler.game;
       let respawn = false;
       if (arg.piece.startingAre >= arg.piece.startingAreLimit) {
-        game.nonTime += arg.ms;
+        game.beatTime += arg.ms;
       }
       collapse(arg);
       if (arg.piece.inAre) {
@@ -350,12 +351,12 @@ export const loops = {
         }
         arg.piece.isFrozen = true;
       }
-      while (game.nonTime > bpmToMs(166)) {
+      while (game.beatTime > bpmToMs(bpm)) {
         arg.piece.hardDrop();
         respawn = true;
-        game.nonTime -= bpmToMs(166);
+        game.beatTime -= bpmToMs(bpm);
       }
-      nonLockdown(arg);
+      beatLockdown(arg);
       if (!arg.piece.inAre) {
         hold(arg);
       }
@@ -380,11 +381,19 @@ export const loops = {
     },
     onPieceSpawn: (game) => {
       game.piece.gravity = framesToMs(1 / 20);
-      game.piece.lockDelayLimit = roundBpmToMs(166);
+      game.piece.lockDelayLimit = roundBpmToMs(bpm);
     },
     onInit: (game) => {
+      switch(settings.game.beat.song){
+        case 'non':
+          bpm = 180;
+          break;
+        case 'beat':
+          bpm = 166;
+          break;
+      }
       /* game.isRaceMode = true; */
-      game.nonTime = bpmToMs(166);
+      game.beatTime = bpmToMs(bpm);
       game.updateStats();
     },
   },

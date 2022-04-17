@@ -66,7 +66,10 @@ class Menu {
         (gameHandler.game.isDead || gameHandler.game.isOver || gameHandler.game.isDead == null)
         && !this.skipMusicChange
       ) {
-        if (this.current.properties.pgmusic) {
+        if (this.current.properties.game === 'beat'){
+          sound.killBgm();
+        }
+        else if (this.current.properties.pgmusic) {
           if (sound.bgmName !== `menu-${this.current.properties.pgmusic}`) {
             sound.killBgm();
             sound.loadBgm([this.current.properties.pgmusic], 'menu');
@@ -152,6 +155,7 @@ class Menu {
     this.hide();
   }
   open() {
+    console.log("Method \"open()\" was called!")
     $('#lights-warning').classList.add('hidden')
     if (gameHandler.game.isOver) {
       gameHandler.game.settings = {
@@ -159,7 +163,12 @@ class Menu {
         hasDangerBgm: false,
         hasPaceBgm: false,
       };
-      if (this.current.properties.pgmusic) {
+      if (this.current.properties.game === 'beat'){
+        sound.killBgm();
+        sound.loadBgm([`pg-${settings.game.beat.song}`], 'menu');
+        sound.playBgm([`pg-${settings.game.beat.song}`], 'menu');
+      }
+      else if (this.current.properties.pgmusic) {
         sound.killBgm();
         sound.loadBgm([this.current.properties.pgmusic], 'menu');
         sound.playBgm([this.current.properties.pgmusic], 'menu');
@@ -515,6 +524,13 @@ class Menu {
               label = locale.getString(lang, valueData.string, valueData.replace);
             }
             element.textContent = label;
+
+            if (this.current.properties.game === 'beat' && ( gameHandler.game.b2b == null || ( gameHandler.game.isOver == true || gameHandler.game.isPaused == false ) ) ){
+              sound.killBgm();
+              sound.loadBgm([`pg-${settings.game.beat.song}`], 'menu');
+              sound.playBgm([`pg-${settings.game.beat.song}`], 'menu');
+            }
+
             break;
         }
       }

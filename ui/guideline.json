@@ -51,7 +51,7 @@
       "description": "PPS is forced to the beat of the music! Good luck!",
       "fixedText": true,
       "action": "submenu",
-      "submenu": "mode/non"
+      "submenu": "mode/beat"
     }
   ]
 }

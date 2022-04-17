@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "parent": "guideline",
+    "parentSecret": true,
+    "langOverride": "mode-options",
+    "game": "beat"
+  },
+  "data": [
+    {
+      "label": "Beat Mode",
+      "description": "",
+      "fixedText": true,
+      "type": "header"
+    },
+    {
+      "label": "Song",
+      "description": "Choose which song plays during the game",
+      "fixedText": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "label": "Night Of Nights",
+          "fixedText": true,
+          "value": "non"
+        },
+        {
+          "label": "Ludicrous Speed",
+          "fixedText": true,
+          "value": "beat"
+        }
+      ],
+      "setting": "song",
+      "gameName": "beat",
+      "settingType": "game"
+    }
+  ]
+}

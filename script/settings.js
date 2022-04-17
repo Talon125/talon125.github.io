@@ -151,6 +151,9 @@ class Settings {
       },
       handheld: {
         startingLevel: 0,
+      },
+      beat: {
+        song: 'non',
       }
     };
     this.settings = {};

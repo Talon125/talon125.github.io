@@ -70,10 +70,20 @@ export function extendedLockdown(arg) {
     $(`#pip-${i}`).classList.add('disabled');
   }
 }
-export function nonLockdown(arg) {
+export function beatLockdown(arg) {
   const piece = arg.piece;
   piece.lockDelay = 0;
   piece.lockdownType = 'extended';
+  let bpmInMs;
+
+  switch(gameHandler.game.type){
+    case 'non':
+      bpmInMs = bpmToMs(180);
+      break;
+    case 'beat':
+      bpmInMs = bpmToMs(166);
+      break;
+  }
 
   if (piece.isDead || piece.isFrozen) {
     $('#lockdown').value = 0;
@@ -89,7 +99,7 @@ export function nonLockdown(arg) {
     piece.lockDelay = piece.lockDelayLimit;
   }
   $('#lockdown').max = 100;
-  $('#lockdown').value = $('#lockdown').max - ((gameHandler.game.nonTime / bpmToMs(166)) * $('#lockdown').max);
+  $('#lockdown').value = $('#lockdown').max - ((gameHandler.game.beatTime / bpmInMs) * $('#lockdown').max);
   setLowestY(piece);
   for (let i = 1; i <= piece.manipulationLimit; i++) {
     $(`#pip-${i}`).classList.remove('disabled');
