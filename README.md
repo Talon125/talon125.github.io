@@ -58,8 +58,9 @@ btw I've been using Microsoft Edge to test my changes.
     *   Hidden modes are no longer hidden
     *   Night of Nights mode is now called Beat Mode
         *   While in this mode, uses the unused Disco Lights background
-        *   Song is now Ludicrous Speed (F777). Using your own song might be added in the future
-        *   BPM is 166 instead of 180, so it might be a slight bit easier
+        *   You can choose which song to play: Night Of Nights or Ludicrous Speed (F777)
+        <!-- *   Song is now Ludicrous Speed (F777). Using your own song might be added in the future
+        *   BPM is 166 instead of 180, so it might be a slight bit easier -->
     *   Some German translations have been updated
     *   Some default settings may have been changed to suit me
     *   Music no longer mutes when the game gets unfocused. It instead gets quieter
