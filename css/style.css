@@ -301,6 +301,15 @@
   }
 }
 
+@keyframes matrix-warning {
+  from {
+    background-color: #f003
+  }
+  to {
+    background-color: #f009
+  }
+}
+
 @keyframes space-out {
   from {
     filter: brightness(1);
@@ -1274,6 +1283,15 @@ body[theme="tetrjs"] .stats label {
   margin-top: -.5em;
   border-style: solid;
   border-width: .5em;
+}
+
+.early-gameover-warning-bgflash {
+  animation-name: matrix-warning;
+  animation-duration: 0.1013375s;
+  /* 0.1013375 * 2 = 0.202675 */
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: alternate; 
 }
 
 body[theme="tetrjs"] .game-center {

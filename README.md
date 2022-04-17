@@ -68,8 +68,7 @@ btw I've been using Microsoft Edge to test my changes.
     *   Some default settings may have been changed to suit me
     *   Music no longer mutes when the game gets unfocused. It instead gets quieter
     *   Made the Top/Lock/Block Out warning sounds not fade quieter after 2 seconds
-    <!-- *   Made the Top/Lock/Block Out warnings a bit more urgent-looking
-        *   The board may be a bit too far down -->
+    *   Gave the Top/Lock/Block Out warnings more urgent-looking effect
 *   Known Bugs
     *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot)
     <!-- *   When the board flips upside-down in Night Of Nights X, the animation is too slow -->
