@@ -49,6 +49,7 @@ export default class Game {
     this.startedOnPaceEvent = false;
     this.background = '';
     this.stat = {
+      b2b: 0,
       level: 0,
       score: 0,
       line: 0,
@@ -59,11 +60,13 @@ export default class Game {
     this.prefixes = {};
     this.smallStats = {
       score: true,
+      piece: true,
       fallspeed: true,
       entrydelay: true,
       pace: true,
     };
     this.endingStats = {
+      b2b: true,
       score: true,
       level: true,
       piece: true,
@@ -418,7 +421,9 @@ export default class Game {
       stat.classList.add('stat-group');
       const label = document.createElement('label');
       const number = document.createElement('div');
-      label.textContent = locale.getString('ui', statName);
+      if (statName === 'b2b') { label.textContent = "B2B"; }
+      // else if (statName === 'pps') { label.textContent = "PPS"; }
+      else { label.textContent = locale.getString('ui', statName); }
       number.innerHTML = game.stat[statName];
       number.id = `stat-${statName}`;
       if (!game.smallStats[statName]) {
@@ -486,6 +491,9 @@ export default class Game {
       const append = (this.appends[statName]) ? this.appends[statName] : '';
       const value = this.stat[statName];
       $(`#stat-${statName}`).innerHTML = `${prefix}${value}${append}`;
+      if (statName === 'piece'){
+        $('#stat-piece').innerHTML = `<span class="medium">${value}</span><br><b>${Math.round(gameHandler.game.pps * 100) / 100}</b>/sec`
+      }
     }
   }
   shiftMatrix(direction) {
@@ -630,6 +638,8 @@ export default class Game {
               }
             }
             game.pps = game.stat.piece / (game.timePassed / 1000);
+            // game.stat.pps = Math.round(game.pps * 100) / 100;
+            game.updateStats();
             if (game.stack.alarmIsOn) {
               const cellSize = game.cellSize;
               const redLineParticleSettings = {

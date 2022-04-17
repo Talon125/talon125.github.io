@@ -1197,6 +1197,14 @@ body {
   font-weight: 300;
 }
 
+.medium {
+  font-size: 2em;
+  font-weight: 200;
+  text-align: right;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
 .stats {
   height: calc(var(--matrix-height-base) * 1.55);
   display: flex;
@@ -1224,7 +1232,7 @@ body[theme="tetrjs"] .stats {
 
 .stats div.stat-group div.big {
   color: #fff;
-  font-size: 2.5em;
+  font-size: 2.3em;
   font-weight: 200;
   margin-bottom: .4em;
   padding-right: .2em;
