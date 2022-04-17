@@ -205,6 +205,11 @@ class Sound {
                 });
           }
         });
+    this.files.push('clutch');
+    this.sounds['clutch'] = new Howl({
+      src: ['./se/game/clutch.ogg'],
+      volume: settings.settings.sfxVolume / 100,
+    });
   }
   loadBgm(name, type) {
     for (const currentName of name) {
@@ -384,6 +389,9 @@ class Sound {
     }
   }
   playSeQueue() {
+    if (Object.keys(this.toPlay).includes('clutch')){
+      this.sounds['clutch'].play();
+    }
     if (this.mustWait) {
       return;
     }

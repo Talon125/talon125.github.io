@@ -55,6 +55,9 @@ btw I've been using Microsoft Edge to test my changes.
         *   It uses the "Glossy" skin (might be changed in the future --> more piece skins?)
         *   If you don't know what this is: [Click Me!](https://asc.winternebs.com/assets/home/kicktablesq.gif)
 *   Changes
+    *   Clutch clears are now allowed
+        *   i.e. placing a piece that would clear a line, but is placed fully above the Skyline (should be a Lock Out)  
+            will no longer Lock Out. The line will clear, and a clutch effect is played
     *   Hidden modes are no longer hidden
     *   Night of Nights mode is now called Beat Mode
         *   While in this mode, uses the unused Disco Lights background

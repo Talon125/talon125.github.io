@@ -353,6 +353,7 @@ export default class Piece extends GameModule {
     if (this.isDead) {
       $('#warning-message-container-hold').classList.add('hidden');
       $('#warning-message-container').classList.add('hidden');
+      $('#clutch-message').classList.add('hidden');
       if ($('#warning-message-container-hold').classList.contains('hidden') &&
         $('#warning-message-container').classList.contains('hidden') &&
         !$('#rotation-warning').classList.contains('hidden')) {
@@ -397,9 +398,11 @@ export default class Piece extends GameModule {
       this.parent.pieceCanvas.classList.remove('spin-pulse-mini');
     }
     this.showBlockOutHold();
-    if (!this.showLockOut()) {
-      if (!this.showTopOut()) {
-        this.showBlockOut();
+    if (!this.showClutch()){
+      if (!this.showLockOut()) {
+        if (!this.showTopOut()) {
+          this.showBlockOut();
+        }
       }
     }
     if (this.killLockDelayOnRotate) {
@@ -435,6 +438,9 @@ export default class Piece extends GameModule {
     $('#warning-message-container').classList.add('hidden');
   }
   showLockOut() {
+    if (this.parent.stack.wouldCauseLineClear()) {
+      return true;
+    }
     const finalBlocks = this.getFinalBlockLocations();
     const toCheck = finalBlocks.length;
     let failed = 0;
@@ -449,6 +455,21 @@ export default class Piece extends GameModule {
       return true;
     }
     $('#warning-message-container').classList.add('hidden');
+  }
+  showClutch() {
+    const finalBlocks = this.getFinalBlockLocations();
+    const toCheck = finalBlocks.length;
+    let failed = 0;
+    for (const finalBlock of finalBlocks) {
+      if (finalBlock[1] < 0) {
+        failed++;
+      }
+    }
+    if (failed >= toCheck && this.parent.stack.wouldCauseLineClear()) {
+      $('#clutch-message').classList.remove('hidden');
+      return true;
+    }
+    $('#clutch-message').classList.add('hidden');
   }
   showBlockOutHold() {
     if (this.parent.hold.isDisabled) {

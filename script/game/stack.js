@@ -34,6 +34,7 @@ export default class Stack extends GameModule {
     this.garbageRandomHole = 0;
     this.antiGarbageBuffer = 0;
     this.copyBottomForGarbage = false;
+    this.isClutch = false;
   }
   makeAllDirty() {
     for (let x = 0; x < this.grid.length; x++) {
@@ -142,11 +143,17 @@ export default class Stack extends GameModule {
       }
     }
     if (passedLockOut >= shape.length) {
-      $('#kill-message').textContent = locale.getString('ui', 'lockOut');
-      sound.killVox();
-      sound.add('voxlockout');
-      this.parent.end();
-      return;
+      if (this.wouldCauseLineClear() > 0){
+        this.isClutch = true;
+        this.collapse();
+      }
+      else{
+        $('#kill-message').textContent = locale.getString('ui', 'lockOut');
+        sound.killVox();
+        sound.add('voxlockout');
+        this.parent.end();
+        return;
+      }
     }
 
     for (let y = 0; y < this.grid[0].length; y++) {
@@ -271,7 +278,8 @@ export default class Stack extends GameModule {
     }
     // console.log(this.highest, this.skyToFloor);
     // console.log(this.skyToFloor);
-    this.parent.calculateActionText(this.lineClear, isSpin, isMini, this.parent.b2b);
+    this.parent.calculateActionText(this.lineClear, isSpin, isMini, this.parent.b2b, this.isClutch);
+    this.isClutch = false;
     if (pc) {
       for (let i = 0; i < 200 * this.width / 10; i++) {
         sound.add('perfectclear');

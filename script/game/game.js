@@ -305,7 +305,7 @@ export default class Game {
       $('#return-to-menu').textContent = locale.getString('ui', 'returnToMenu');
     }, 1700);
   }
-  calculateActionText(lineClear, isSpin, isMini, b2b) {
+  calculateActionText(lineClear, isSpin, isMini, b2b, isClutch) {
     if (!settings.settings.displayActionText) {
       return;
     }
@@ -333,7 +333,31 @@ export default class Game {
       const pulseCount = (lineClear) ? lineClear * 3 : 2;
       finalLocale = `<span class="pulse-spin-text" style="--duration: ${duration}; --pulse-count: ${pulseCount}">${finalLocale}</span>`;
     }
-    this.displayActionText(finalLocale + b2bName);
+    if (isClutch){
+      this.displayActionText(`Clutch ${finalLocale + b2bName}`);
+      this.displayClutch();
+    }
+    else{
+      this.displayActionText(finalLocale + b2bName);
+    }
+  }
+  displayClutch() {
+    const id = `at-${performance.now()}`;
+    const element = document.createElement('div');
+    element.innerHTML = "CLUTCH";
+    element.id = id;
+    element.classList.add("clutch-active");
+    $('#clutch-message-container').appendChild(element);
+    sound.add('clutch');
+    setTimeout(() => {
+      try {
+        element.parentNode.removeChild(element);
+      } catch (e) {
+        // If you restart the game, these are deleted prematurely
+        // This isn't actually a problem, so this is just to stop
+        // errors from appearing
+      }
+    }, 500);
   }
   displayActionText(text, options) {
     options = {
