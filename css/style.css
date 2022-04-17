@@ -1721,7 +1721,7 @@ progress[value]::-moz-progress-bar {
   color: #fff;
   left: 50%;
   margin-left: -10em;
-  top: 42.5%;
+  top: 40%;
   margin-top: -6em;
   width: 20em;
   height: 12em;
