@@ -1,5 +1,7 @@
 import $, {framesToMs, bpmToMs} from '../../shortcuts.js';
 import gameHandler from '../game-handler.js';
+import input from '../../input.js';
+
 // SHARED
 function tryLockdown(piece, arg) {
   if (
@@ -13,7 +15,7 @@ function tryLockdown(piece, arg) {
     piece.die();
   }
 }
-function stepReset(piece, arg) {
+function stepReset(piece, arg, zen = false) {
   if (piece.isLanded) {
     if (
       piece.lastX !== piece.x ||
@@ -22,7 +24,12 @@ function stepReset(piece, arg) {
     ) {
       piece.lockDelay = 0;
     }
-    piece.lockDelay += arg.ms;
+    if (!zen){
+      piece.lockDelay += arg.ms;
+    }
+    else if (input.getGameDown('softDrop')){
+      piece.lockDelay += arg.ms;
+    }
     piece.isDirty = true;
   } else {
     piece.lockDelay = 0;
@@ -163,6 +170,21 @@ export function infiniteLockdown(arg) {
   fallReset(piece, false);
   tryLockdown(piece, arg);
   stepReset(piece, arg);
+  updateLockdownBar(piece);
+  setLowestY(piece);
+}
+
+export function zenLockdown(arg) {
+  const piece = arg.piece;
+  piece.lockdownType = 'zen';
+  if (piece.isDead) {
+    $('#lockdown').value = 0;
+    return;
+  }
+  piece.manipulations = 0;
+  fallReset(piece, false);
+  tryLockdown(piece, arg);
+  stepReset(piece, arg, true);
   updateLockdownBar(piece);
   setLowestY(piece);
 }

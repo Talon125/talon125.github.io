@@ -209,6 +209,7 @@ export default class Stack extends GameModule {
       if (isSpin) {
         type = 'tspin';
         this.parent.b2b++;
+        this.parent.maxb2b = Math.max(this.parent.b2b, this.parent.maxb2b);
       } else if (this.lineClear < 4) {
         this.parent.b2b = 0;
       }
@@ -216,6 +217,7 @@ export default class Stack extends GameModule {
         sound.add(`${type}not4${version}`);
       } else if (type !== 'tspin') {
         this.parent.b2b++;
+        this.parent.maxb2b = Math.max(this.parent.b2b, this.parent.maxb2b);
       }
       const b2bPrefix = (this.parent.b2b > 1) ? 'b2b_' : '';
       sound.add(`${b2bPrefix}${type}${version}`);
@@ -281,6 +283,7 @@ export default class Stack extends GameModule {
     this.parent.calculateActionText(this.lineClear, isSpin, isMini, this.parent.b2b, this.isClutch);
     this.isClutch = false;
     if (pc) {
+      this.parent.stat.pcCount++;
       for (let i = 0; i < 200 * this.width / 10; i++) {
         sound.add('perfectclear');
         const colors = hsvToRgb(Math.random(), .7, 1);
@@ -367,6 +370,7 @@ export default class Stack extends GameModule {
     this.parent.updateStats();
   }
   alarmCheck() {
+    if (this.parent.type === 'zen') { return; }
     if (
       this.height - this.highest - Math.max(0, this.waitingGarbage) < 2 ||
       (

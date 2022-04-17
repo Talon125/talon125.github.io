@@ -1,0 +1,63 @@
+{
+    "properties": {
+      "parent": "root",
+      "langOverride": "mode-options",
+      "game": "zen",
+      "pgmusic": "pg-marathon"
+    },
+    "data": [
+      {
+        "label": "Zen",
+        "description": "",
+        "fixedText": true,
+        "type": "header"
+      },
+      {
+        "string": "holdTypeLabel",
+        "stringDesc": "holdTypeDescription",
+        "type": "select",
+        "action": "select",
+        "selectOptions": [
+          {
+              "string": "holdOption",
+              "value": "hold"
+          },
+          {
+            "string": "skipOption",
+            "value": "skip"
+          }
+        ],
+        "setting": "holdType",
+        "gameName": "zen",
+        "settingType": "game"
+      },
+      {
+        "string": "lockdownModeLabel",
+        "stringDesc": "lockdownModeDescription",
+        "type": "select",
+        "action": "select",
+        "selectOptions": [
+          {
+            "label": "Zen",
+            "fixedText": true,
+            "value": "zen"
+          },
+          {
+            "string": "infinityLdOption",
+            "value": "infinity"
+          },
+          {
+            "string": "extendedLdOption",
+            "value": "extended"
+          },
+          {
+            "string": "classicLdOption",
+            "value": "classic"
+          }
+        ],
+        "setting": "lockdownMode",
+        "gameName": "zen",
+        "settingType": "game"
+      }
+    ]
+  }

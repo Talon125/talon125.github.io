@@ -50,6 +50,8 @@ export default class Game {
     this.background = '';
     this.stat = {
       b2b: 0,
+      pcCount: 0,
+      skipCount: 0,
       level: 0,
       score: 0,
       line: 0,
@@ -59,6 +61,8 @@ export default class Game {
     this.appends = {};
     this.prefixes = {};
     this.smallStats = {
+      b2b: true,
+      skipCount: true,
       score: true,
       piece: true,
       fallspeed: true,
@@ -66,7 +70,8 @@ export default class Game {
       pace: true,
     };
     this.endingStats = {
-      b2b: true,
+      pcCount: true,
+      skipCount: true,
       score: true,
       level: true,
       piece: true,
@@ -74,6 +79,7 @@ export default class Game {
       maxcombo: true,
     };
     this.b2b = 0;
+    this.maxb2b = 0;
     this.combo = -1;
     this.matrix = {
       position: {
@@ -223,6 +229,7 @@ export default class Game {
           this.onPieceSpawn(this);
           window.onresize = this.resize;
           $('.game').classList.remove('paused');
+          $('.game').classList.remove('zen-paused');
           this.request = requestAnimationFrame(this.gameLoop);
           document.documentElement.style.setProperty('--current-background', `url("../img/bg/${this.settings.background}")`);
           setTimeout(() => {this.resize();}, 10);
@@ -234,16 +241,18 @@ export default class Game {
     sound.add('pause');
     this.isDirty = true;
     this.isPaused = false;
-    $('.game').classList.remove('paused');
+    if (this.type === 'zen') { $('.game').classList.remove('zen-paused'); }
+    else { $('.game').classList.remove('paused'); }
   }
   pause() {
-    if (this.type === 'nontwo') return
+    if (this.type === 'nontwo') {return;}
     if (this.isPaused || this.noUpdate) {return;}
     $('#pause-label').textContent = locale.getString('ui', 'pause');
     sound.add('pause');
     sound.playSeQueue();
     this.isPaused = true;
-    $('.game').classList.add('paused');
+    if (this.type === 'zen') { $('.game').classList.add('zen-paused'); }
+    else { $('.game').classList.add('paused'); }
   }
   hide() {
     if (this.type === 'nontwo') this.die()
@@ -277,10 +286,26 @@ export default class Game {
     $('#combo-counter-container').classList.add('hidden');
     this.stack.endAlarm();
     this.noUpdate = true;
+    if (this.type === 'zen' && settings.game.zen.holdType === 'skip') { this.stats.splice(0, 0, 'skipCount'); }
     $('#end-stats').innerHTML = '';
     for (const statName of this.stats) {
-      if (this.endingStats[statName]) {
+      if (this.endingStats[statName] && !"b2b piece pcCount skipCount".includes(statName)) {
         $('#end-stats').innerHTML += `<b>${locale.getString('ui', statName)}:</b> ${this.stat[statName]}<br>`;
+      }
+      switch(statName){
+        case 'b2b':
+          $('#end-stats').innerHTML += `<b>Max. ${locale.getString('action-text', 'b2b').substring(1, locale.getString('action-text', 'b2b').length-1)}:</b> ×${this.maxb2b-1 < 0 ? 0 : this.maxb2b-1}<br>`;
+          break;
+        case 'piece':
+          $('#end-stats').innerHTML += `<b>${locale.getString('ui', 'piece')}:</b> ${this.stat['piece']}<br>`;
+          $('#end-stats').innerHTML += `<b>Avg. PPS:</b> ${Math.round(gameHandler.game.stat.piece / (gameHandler.game.timePassed / 1000) * 100) / 100}<br>`;
+          break;
+        case 'pcCount':
+          $('#end-stats').innerHTML += `<b>${locale.getString('action-text', 'pc')}:</b> ${this.stat['pcCount']}<br>`;
+          break;
+        case 'skipCount':
+          $('#end-stats').innerHTML += `<b>${locale.getString('ui', 'skip')}:</b> ${this.stat['skipCount']}<br>`;
+          break;
       }
     }
     if (this.timeGoal == null) {
@@ -421,8 +446,8 @@ export default class Game {
       stat.classList.add('stat-group');
       const label = document.createElement('label');
       const number = document.createElement('div');
-      if (statName === 'b2b') { label.textContent = "B2B"; }
-      // else if (statName === 'pps') { label.textContent = "PPS"; }
+      if (statName === 'b2b') { label.textContent = locale.getString('action-text', 'b2b').substring(1, locale.getString('action-text', 'b2b').length-1); }
+      else if (statName === 'pcCount') { label.textContent = locale.getString('action-text', 'pc'); }
       else { label.textContent = locale.getString('ui', statName); }
       number.innerHTML = game.stat[statName];
       number.id = `stat-${statName}`;
@@ -455,6 +480,7 @@ export default class Game {
       $('#lockdown').classList.add('hidden');
       $('#delay').classList.add('hidden');
       $('#infinity-symbol').classList.add('hidden');
+      $('#infinity-symbol').classList.remove('gold');
       return;
     }
     switch (this.piece.lockdownType) {
@@ -463,25 +489,35 @@ export default class Game {
         $('#lockdown').classList.remove('hidden');
         $('#delay').classList.remove('hidden');
         $('#infinity-symbol').classList.add('hidden');
+        $('#infinity-symbol').classList.remove('gold');
         break;
       case 'infinite':
         $('#pip-grid').classList.add('hidden');
         $('#lockdown').classList.remove('hidden');
         $('#delay').classList.remove('hidden');
         $('#infinity-symbol').classList.remove('hidden');
+        $('#infinity-symbol').classList.remove('gold');
+        break;
+      case 'zen':
+        $('#pip-grid').classList.add('hidden');
+        $('#lockdown').classList.remove('hidden');
+        $('#delay').classList.remove('hidden');
+        $('#infinity-symbol').classList.remove('hidden');
+        $('#infinity-symbol').classList.add('gold');
         break;
       case 'classic':
         $('#pip-grid').classList.add('hidden');
         $('#lockdown').classList.remove('hidden');
         $('#delay').classList.remove('hidden');
         $('#infinity-symbol').classList.add('hidden');
-
+        $('#infinity-symbol').classList.remove('gold');
         break;
       default:
         $('#pip-grid').classList.add('hidden');
         $('#lockdown').classList.add('hidden');
         $('#delay').classList.add('hidden');
         $('#infinity-symbol').classList.add('hidden');
+        $('#infinity-symbol').classList.remove('gold');
         break;
     }
   }
@@ -492,7 +528,10 @@ export default class Game {
       const value = this.stat[statName];
       $(`#stat-${statName}`).innerHTML = `${prefix}${value}${append}`;
       if (statName === 'piece'){
-        $('#stat-piece').innerHTML = `<span class="medium">${value}</span><br><b>${Math.round(gameHandler.game.pps * 100) / 100}</b>/sec`
+        $('#stat-piece').innerHTML = `<span class="medium">${value}</span><br><b>${Math.round(gameHandler.game.pps * 100) / 100}</b>/sec`;
+      }
+      if (statName === 'b2b'){
+        $('#stat-b2b').innerHTML = `×${value}<br>(Max: ×${this.maxb2b-1 < 0 ? 0 : this.maxb2b-1})`;
       }
     }
   }

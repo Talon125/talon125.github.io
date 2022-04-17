@@ -301,6 +301,21 @@
   }
 }
 
+@keyframes glow-gold {
+  0% {
+    text-shadow: none;
+  }
+  25% {
+    text-shadow: gold 0px 0px 4px;
+  }
+  75% {
+    text-shadow: gold 0px 0px 4px;
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
 @keyframes matrix-warning {
   from {
     background-color: #f003
@@ -1456,6 +1471,17 @@ body[theme="tetrjs"] .next-label, body[theme="tetrjs"] .hold-label {
   right: -2em;
 }
 
+.infinity-symbol.gold {
+  color: gold;
+  font-size: 1.75em;
+  bottom: -1.575em;
+  right: -1.5em;
+  animation-name: glow-gold;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
 .manip-grid {
   position: absolute;
   display: grid;
@@ -1695,7 +1721,7 @@ progress[value]::-moz-progress-bar {
   color: #fff;
   left: 50%;
   margin-left: -10em;
-  top: 50%;
+  top: 42.5%;
   margin-top: -6em;
   width: 20em;
   height: 12em;
@@ -1743,7 +1769,8 @@ progress[value]::-moz-progress-bar {
   display: none;
 }
 
-.game.paused .pause {
+.game.paused .pause, 
+.game.zen-paused .pause {
   animation-name: pulse-opacity;
   animation-duration: .5s;
   animation-iteration-count: infinite;
@@ -1757,7 +1784,8 @@ progress[value]::-moz-progress-bar {
   width: 100%;
 }
 
-.game.paused .pause.vertical {
+.game.paused .pause.vertical, 
+.game.zen-paused .pause.vertical {
   writing-mode: vertical-rl;
   display: flex;
   justify-content: center;

@@ -154,6 +154,10 @@ class Settings {
       },
       beat: {
         song: 'non',
+      },
+      zen: {
+        lockdownMode: 'zen',
+        holdType: 'hold',
       }
     };
     this.settings = {};

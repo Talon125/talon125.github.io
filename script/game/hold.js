@@ -23,23 +23,27 @@ export default class Hold extends GameModule {
     return (this.pieceName) ? this.pieceName : (this.parent.piece.inAre) ? this.parent.next.queue[1] : this.parent.next.queue[0];
   }
   hold() {
-    if ((this.isLocked && !this.useSkip) || this.isDisabled ||
-      (this.holdAmount <= 0 && this.holdAmountLimit > 0)) {
-      return;
-    }
-    if (this.holdAmountLimit > 0) {
-      this.holdAmount--;
+    if (this.parent.type !== 'zen'){
+      if ((this.isLocked && !this.useSkip) || this.isDisabled ||
+        (this.holdAmount <= 0 && this.holdAmountLimit > 0)) {
+        return;
+      }
+      if (this.holdAmountLimit > 0) {
+        this.holdAmount--;
+      }
     }
     this.hasHeld = true;
     if (this.ihs) {
       if (this.useSkip) {
         sound.add('initialskip');
+        this.parent.stat.skipCount++;
       } else {
         sound.add('initialhold');
       }
     } else {
       if (this.useSkip) {
         sound.add('skip');
+        this.parent.stat.skipCount++;
       } else {
         sound.add('hold');
       }
@@ -66,7 +70,9 @@ export default class Hold extends GameModule {
       $('#hold-container').classList.remove('hidden');
     }
     if (this.useSkip) {
-      $('#skip-amount').textContent = this.holdAmount;
+      if (this.parent.type !== 'zen') { $('#skip-amount').textContent = this.holdAmount; }
+      // else { $('#skip-amount').innerHTML = '∞'; }
+      else { $('#skip-amount').innerHTML = this.parent.stat.skipCount; }
       return;
     } else {
       $('#skip-amount').textContent = '';
@@ -74,10 +80,12 @@ export default class Hold extends GameModule {
     if (this.pieceName === null) {
       return;
     }
-    if (this.isLocked || this.useSkip) {
-      $('#hold').classList.add('locked');
-    } else {
-      $('#hold').classList.remove('locked');
+    if (this.parent.type !== 'zen'){
+      if (this.isLocked || this.useSkip) {
+        $('#hold').classList.add('locked');
+      } else {
+        $('#hold').classList.remove('locked');
+      }
     }
     clearCtx(this.ctx);
     if (this.isDisabled) {

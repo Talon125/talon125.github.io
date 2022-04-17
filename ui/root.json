@@ -47,6 +47,13 @@
       "submenu": "arcade"
     },
     {
+      "fixedText": true,
+      "label": "Zen",
+      "description": "Relax, there are no restrictions!",
+      "action": "submenu",
+      "submenu": "mode/zen"
+    },
+    {
       "string": "settingsOverline",
       "type": "overline"
     },

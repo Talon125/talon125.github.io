@@ -26,7 +26,7 @@ import softDropRetro from './loop-modules/soft-drop-retro.js';
 import softDropNes from './loop-modules/soft-drop-nes.js';
 import sound from '../sound.js';
 import updateLasts from './loop-modules/update-lasts.js';
-import {extendedLockdown, retroLockdown, classicLockdown, infiniteLockdown, beatLockdown} from './loop-modules/lockdown.js';
+import {extendedLockdown, retroLockdown, classicLockdown, infiniteLockdown, beatLockdown, zenLockdown} from './loop-modules/lockdown.js';
 import updateFallSpeed from './loop-modules/update-fallspeed.js';
 import shiftingNes from './loop-modules/shifting-nes.js';
 import nesDasAre from './loop-modules/nes-das-are.js';
@@ -192,7 +192,6 @@ export const loops = {
       updateFallSpeed(game);
     }
   },
-  
   novice: {
     update: (arg) => {
       gameHandler.game.b2b = 0;
@@ -323,6 +322,60 @@ export const loops = {
       game.piece.gravity = 1000;
       updateFallSpeed(game);
       game.updateStats();
+    },
+  },
+  zen: {
+    update: (arg) => {
+      collapse(arg);
+      if (arg.piece.inAre) {
+        initialDas(arg);
+        initialRotation(arg);
+        initialHold(arg);
+        arg.piece.are += arg.ms;
+      } else {
+        respawnPiece(arg);
+        rotate(arg);
+        rotate180(arg);
+        shifting(arg);
+      }
+      softDrop(arg, 20, true);
+      hardDrop(arg);
+      switch (settings.game.zen.lockdownMode) {
+        case 'zen':
+          zenLockdown(arg);
+          break;
+        case 'infinity':
+          infiniteLockdown(arg);
+          break;
+        case 'extended':
+          extendedLockdown(arg);
+          break;
+        case 'classic':
+          classicLockdown(arg);
+          break;
+      }
+      if (!arg.piece.inAre) {
+        hold(arg);
+      }
+      lockFlash(arg);
+      updateLasts(arg);
+    },
+    onPieceSpawn: (game) => {
+      game.stat.b2b = game.b2b - 1 < 0 ? 0 : game.b2b - 1;
+      game.updateStats();
+    },
+    onInit: (game) => {
+      if (settings.game.zen.holdType === 'skip') {
+        game.hold.useSkip = true;
+        // game.hold.holdAmount = 2;
+        // game.hold.holdAmountLimit = 2;
+        // game.hold.gainHoldOnPlacement = true;
+        // game.resize();
+      }
+      // game.piece.gravity = 1000;
+      // updateFallSpeed(game);
+      // game.stat.b2b = 0;
+      // game.updateStats();
     },
   },
   beat: {
