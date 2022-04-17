@@ -372,6 +372,7 @@ export const loops = {
         // game.hold.gainHoldOnPlacement = true;
         // game.resize();
       }
+      game.stat.level = 1;
       // game.piece.gravity = 1000;
       // updateFallSpeed(game);
       // game.stat.b2b = 0;
