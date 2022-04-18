@@ -34,6 +34,12 @@ btw I've been using Microsoft Edge to test my changes.
 
 *   Additions
     *   Arcade modes and extra soundbanks from Tetra Legends Plus
+    *   Zen mode
+        *   In this mode there's no gravity
+        *   You can hold/skip as many times as you want
+        *   New lockdown mode: Zen
+            *   It's like infinite/forgiving, but the lockdown bar only depletes when softdropping
+        *   There is no goal or end, so play to your heart's content!
     *   4-Point All-Spin
         *   Dr Ocelot started but didn't finish the code. So, I finished it
         <!-- *   This is on by default and cannot be changed (yet) -->
