@@ -39,6 +39,7 @@ btw I've been using Microsoft Edge to test my changes.
         *   You can hold/skip as many times as you want
         *   New lockdown mode: Zen
             *   It's like infinite/forgiving, but the lockdown bar only depletes when softdropping
+        *   Pausing doesn't hide your stack/next/hold
         *   There is no goal or end, so play to your heart's content!
     *   4-Point All-Spin
         *   Dr Ocelot started but didn't finish the code. So, I finished it
