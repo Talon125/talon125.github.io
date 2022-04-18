@@ -77,7 +77,7 @@ btw I've been using Microsoft Edge to test my changes.
     *   Made the Top/Lock/Block Out warning sounds not fade quieter after 2 seconds
     *   Gave the Top/Lock/Block Out warnings more urgent-looking effect
 *   Known Bugs
-    *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot)
+    <!-- *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot) -->
     <!-- *   When the board flips upside-down in Night Of Nights X, the animation is too slow -->
     *   Sometimes (perhaps with right timing), the gameover UI will appear when the game has restarted
     *   In Survival mode, there's a chance one garbage particle may stay on your Matrix
