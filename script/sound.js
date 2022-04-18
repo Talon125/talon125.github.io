@@ -71,6 +71,7 @@ class Sound {
     }
   }
   loadMenuVoice() {
+    if (settings.settings.voicebank === 'off') { return; }
     const files = ['menuguideline', 'menutetrax', 'menuretro', 'menuarcade', 'menucontrols',
       'menutuning', 'menuvideo', 'menuaudio'];
     for (const soundName of files) {
