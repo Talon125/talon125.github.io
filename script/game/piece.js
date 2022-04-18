@@ -443,7 +443,7 @@ export default class Piece extends GameModule {
   }
   showLockOut() {
     if (this.parent.stack.wouldCauseLineClear()) {
-      return true;
+      return;
     }
     const finalBlocks = this.getFinalBlockLocations();
     const toCheck = finalBlocks.length;
