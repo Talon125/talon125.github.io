@@ -354,8 +354,8 @@ export default class Piece extends GameModule {
       $('#warning-message-container-hold').classList.add('hidden');
       $('#warning-message-container').classList.add('hidden');
       $('#clutch-message').classList.add('hidden');
-      $('#game-center').classList.remove('early-gameover-warning-bgflash');
-      $('#hold-container-container').classList.remove('early-gameover-warning-bgflash');
+      $('#game-center').classList.remove('gameover-early-warning-bgflash');
+      $('#hold-container-container').classList.remove('gameover-early-warning-bgflash');
       if ($('#warning-message-container-hold').classList.contains('hidden') &&
         $('#warning-message-container').classList.contains('hidden') &&
         !$('#rotation-warning').classList.contains('hidden')) {
@@ -435,16 +435,13 @@ export default class Piece extends GameModule {
     ) {
       $('#warning-message').textContent = locale.getString('ui', 'topOutWarning');
       $('#warning-message-container').classList.remove('hidden');
-      $('#game-center').classList.add('early-gameover-warning-bgflash');
+      $('#game-center').classList.add('gameover-early-warning-bgflash');
       return true;
     }
     $('#warning-message-container').classList.add('hidden');
-    $('#game-center').classList.remove('early-gameover-warning-bgflash');
+    $('#game-center').classList.remove('gameover-early-warning-bgflash');
   }
   showLockOut() {
-    if (this.parent.stack.wouldCauseLineClear()) {
-      return;
-    }
     const finalBlocks = this.getFinalBlockLocations();
     const toCheck = finalBlocks.length;
     let failed = 0;
@@ -456,13 +453,17 @@ export default class Piece extends GameModule {
     if (failed >= toCheck) {
       $('#warning-message').textContent = locale.getString('ui', 'lockOutWarning');
       $('#warning-message-container').classList.remove('hidden');
-      $('#game-center').classList.add('early-gameover-warning-bgflash');
+      $('#game-center').classList.add('gameover-early-warning-bgflash');
       return true;
     }
     $('#warning-message-container').classList.add('hidden');
-    $('#game-center').classList.remove('early-gameover-warning-bgflash');
+    $('#game-center').classList.remove('gameover-early-warning-bgflash');
   }
   showClutch() {
+    if (!this.showBlockOut()){
+      $('#warning-message-container').classList.add('hidden');
+      $('#game-center').classList.remove('gameover-early-warning-bgflash');
+    }
     const finalBlocks = this.getFinalBlockLocations();
     const toCheck = finalBlocks.length;
     let failed = 0;
@@ -480,6 +481,7 @@ export default class Piece extends GameModule {
   showBlockOutHold() {
     if (this.parent.hold.isDisabled) {
       $('#warning-message-container-hold').classList.add('hidden');
+      $('#hold-container-container').classList.remove('gameover-early-warning-bgflash');
       return false;
     }
     const holdBlocks = this.getHoldPieceBlocks();
@@ -492,12 +494,12 @@ export default class Piece extends GameModule {
       ) {
         $('#warning-message-hold').textContent = locale.getString('ui', 'blockOutHoldWarning');
         $('#warning-message-container-hold').classList.remove('hidden');
-        $('#hold-container-container').classList.add('early-gameover-warning-bgflash');
+        $('#hold-container-container').classList.add('gameover-early-warning-bgflash');
         return true;
       }
     }
     $('#warning-message-container-hold').classList.add('hidden');
-    $('#hold-container-container').classList.remove('early-gameover-warning-bgflash');
+    $('#hold-container-container').classList.remove('gameover-early-warning-bgflash');
   }
   showBlockOut() {
     const lineClear = this.parent.stack.wouldCauseLineClear();
@@ -520,21 +522,21 @@ export default class Piece extends GameModule {
       ) {
         $('#warning-message').textContent = locale.getString('ui', 'blockOutWarning');
         $('#warning-message-container').classList.remove('hidden');
-        $('#game-center').classList.add('early-gameover-warning-bgflash');
+        $('#game-center').classList.add('gameover-early-warning-bgflash');
         return true;
       }
       for (const finalBlock of finalBlocks) {
-        const newNext = [nextBlock[0], nextBlock[1] + garbageAdd];
+        const newNext = [nextBlock[0], nextBlock[1] - lineClear + garbageAdd];
         if (arraysEqual(finalBlock, newNext)) {
           $('#warning-message').textContent = locale.getString('ui', 'blockOutWarning');
           $('#warning-message-container').classList.remove('hidden');
-          $('#game-center').classList.add('early-gameover-warning-bgflash');
+          $('#game-center').classList.add('gameover-early-warning-bgflash');
           return true;
         }
       }
     }
     $('#warning-message-container').classList.add('hidden');
-    $('#game-center').classList.remove('early-gameover-warning-bgflash');
+    $('#game-center').classList.remove('gameover-early-warning-bgflash');
   }
   getFinalBlockLocations() {
     const finalBlocks = [];

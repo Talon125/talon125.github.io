@@ -1308,7 +1308,7 @@ body[theme="tetrjs"] .stats label {
   border-width: .5em;
 }
 
-.early-gameover-warning-bgflash {
+.gameover-early-warning-bgflash {
   animation-name: matrix-warning;
   animation-duration: 0.1013375s;
   /* 0.1013375 * 2 = 0.202675 */
