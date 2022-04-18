@@ -376,9 +376,9 @@ export default class Game {
       this.displayClutch();
     }
     else{
-      if (!(finalLocale + b2bName === locale.getString('action-text', 'single') && settings.settings.stillShowFullActionTextDespiteZeroLineClearAre)) {
+      // if (!(finalLocale + b2bName === locale.getString('action-text', 'single') && settings.settings.stillShowFullActionTextDespiteZeroLineClearAre)) {
         this.displayActionText(finalLocale + b2bName);
-      }
+      // }
     }
   }
   displayClutch() {
