@@ -40,7 +40,7 @@
     },
     {
       "label": "Entry Delay",
-      "description": "Also known as ARE, produce a delay every time a new piece spawns",
+      "description": "Also known as ARE, produce a delay every time a new piece spawns (may be enforced in some modes)",
       "fixedText": true,
       "type": "toggle",
       "action": "toggle",
@@ -49,7 +49,7 @@
     },
     {
       "label": "Line Clear Delay",
-      "description": "Also known as Line Clear ARE, produce a delay every time a line is cleared",
+      "description": "Also known as Line Clear ARE, produce a delay every time a line is cleared (may be enforced in some modes)",
       "fixedText": true,
       "type": "toggle",
       "action": "toggle",
