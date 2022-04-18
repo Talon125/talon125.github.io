@@ -275,7 +275,7 @@ export default class Stack extends GameModule {
     } else {
       $('#combo-counter-container').classList.add('hidden');
     }
-    if (this.parent.piece.areLineLimit === 0) {
+    if (this.parent.piece.areLineLimit === 0 && !settings.settings.stillShowFullActionTextDespiteZeroLineClearAre) {
       this.collapse();
     }
     // console.log(this.highest, this.skyToFloor);

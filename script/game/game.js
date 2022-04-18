@@ -186,6 +186,16 @@ export default class Game {
           }
           this.resize();
           loops[gametype].onInit(this);
+
+          if (!this.userSettings.useAre) {
+            this.piece.areLimit = 0;
+          }
+          if (!this.userSettings.useLineClearAre) {
+            this.piece.areLineLimit = 0;
+            this.piece.areLimitLineModifier = 0;
+            this.settings.stillShowFullActionTextDespiteZeroLineClearAre = true;
+          }
+
           sound.killBgm();
 
           if (gametype === 'beat'){
@@ -366,7 +376,9 @@ export default class Game {
       this.displayClutch();
     }
     else{
-      this.displayActionText(finalLocale + b2bName);
+      if (!(finalLocale + b2bName === locale.getString('action-text', 'single') && settings.settings.stillShowFullActionTextDespiteZeroLineClearAre)) {
+        this.displayActionText(finalLocale + b2bName);
+      }
     }
   }
   displayClutch() {

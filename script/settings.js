@@ -14,6 +14,9 @@ class Settings {
       IAS: true,
       rotationSystem: 'auto',
       spinDetectionType: 'auto',
+      useAre: true,
+      useLineClearAre: true,
+      stillShowFullActionTextDespiteZeroLineClearAre: false,
       // Graphics
       theme: 'default',
       size: 100,

@@ -39,6 +39,24 @@
       "settingType": "setting"
     },
     {
+      "label": "Entry Delay",
+      "description": "Also known as ARE, produce a delay every time a new piece spawns",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "useAre",
+      "settingType": "setting"
+    },
+    {
+      "label": "Line Clear Delay",
+      "description": "Also known as Line Clear ARE, produce a delay every time a line is cleared",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "useLineClearAre",
+      "settingType": "setting"
+    },
+    {
       "string": "dasPreloadLabel",
       "stringDesc": "dasPreloadDescription",
       "type": "toggle",
