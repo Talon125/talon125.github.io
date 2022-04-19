@@ -495,10 +495,14 @@ export default class Stack extends GameModule {
     if (this.toCollapse.length === 0) {
       return;
     }
+    let fallenBlocks = 0;
     for (const y of this.toCollapse) {
       for (let x = 0; x < this.grid.length; x++) {
         for (let shiftY = y; shiftY >= 0; shiftY--) {
           this.grid[x][shiftY] = this.grid[x][shiftY - 1];
+          if (this.grid[x][shiftY] != null && this.grid[x][shiftY - 1] != null) {
+            fallenBlocks++;
+          }
           this.dirtyCells.push([x, shiftY + 1]);
         }
       }
@@ -511,11 +515,13 @@ export default class Stack extends GameModule {
     this.parent.stat.line += this.lineClear;
     this.parent.addScore(`erase${this.lineClear}`);
     this.parent.updateStats();
-    sound.add('collapse');
-    if (this.toCollapse.length >= 4) {
-      sound.add('collapse4');
-    } else {
-      sound.add('collapsenot4');
+    if (fallenBlocks !== 0){
+      sound.add('collapse');
+      if (this.toCollapse.length >= 4) {
+        sound.add('collapse4');
+      } else {
+        sound.add('collapsenot4');
+      }
     }
     this.parent.particle.generate({
       amount: 100,
