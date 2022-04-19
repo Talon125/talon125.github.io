@@ -360,7 +360,7 @@ class Menu {
           label.textContent = locale.getString(this.current.lang, currentData.string);
         } else {
           label.textContent = currentData.label;
-          $('#description').textContent = currentData.description;
+          $('#description').innerHTML = currentData.description;
         }
         label.classList.add('setting-text');
 
@@ -459,12 +459,12 @@ class Menu {
         element.scrollIntoView({block: 'center'});
         if (!currentData.omitDescription) {
           if (!currentData.fixedText) {
-            $('#description').textContent = locale.getString(this.current.lang, currentData.stringDesc);
+            $('#description').innerHTML = locale.getString(this.current.lang, currentData.stringDesc);
           } else {
-            $('#description').textContent = currentData.description;
+            $('#description').innerHTML = currentData.description;
           }
         } else {
-          $('#description').textContent = '';
+          $('#description').innerHTML = '';
         }
       }
     }
@@ -631,16 +631,16 @@ class Menu {
     }
     if (!this.current.data[number].omitDescription) {
       if (this.current.data[number].langOverride) {
-        $('#description').textContent = locale.getString(this.current.data[number].langOverride, this.current.data[number].stringDesc);
+        $('#description').innerHTML = locale.getString(this.current.data[number].langOverride, this.current.data[number].stringDesc);
       } else {
         if (!this.current.data[number].fixedText) {
-          $('#description').textContent = locale.getString(this.current.lang, this.current.data[number].stringDesc);
+          $('#description').innerHTML = locale.getString(this.current.lang, this.current.data[number].stringDesc);
         } else {
-          $('#description').textContent = this.current.data[number].description;
+          $('#description').innerHTML = this.current.data[number].description;
         }
       }
     } else {
-      $('#description').textContent = '';
+      $('#description').innerHTML = '';
     }
   }
   up() {
