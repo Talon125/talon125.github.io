@@ -62,6 +62,8 @@ btw I've been using Microsoft Edge to test my changes.
         <!-- *   It uses the Tetra-X skin (might be changed in the future  -> more piece skins?) -->
         *   It uses the "Glossy" skin (might be changed in the future --> more piece skins?)
         *   If you don't know what this is: [Click Me!](https://asc.winternebs.com/assets/home/kicktablesq.gif)
+    *   ASC-X Rotation System
+        *   Same as ASC but with SRS-X 180° kicks
 *   Changes
     *   Clutch clears are now allowed
         *   i.e. placing a piece that would clear a line, but is placed fully above the Skyline (should be a Lock Out)  

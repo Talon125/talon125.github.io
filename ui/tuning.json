@@ -141,6 +141,11 @@
           "value": "asc"
         },
         {
+          "label": "ASC-X",
+          "fixedText": true,
+          "value": "ascx"
+        },
+        {
           "label": "ARS",
           "fixedText": true,
           "value": "ars"
