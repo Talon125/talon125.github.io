@@ -1,8 +1,9 @@
 import GameModule from './game-module.js';
 import $, {clearCtx} from '../shortcuts.js';
 import * as randomizer from './modules/randomizers.js';
-import {PIECE_SETS, PIECES, INITIAL_ORIENTATION} from '../consts.js';
+import {PIECE_SETS, PIECES, MONOMINO_PIECES, INITIAL_ORIENTATION} from '../consts.js';
 import sound from '../sound.js';
+import settings from '../settings.js';
 
 export default class Next extends GameModule {
   constructor(parent, ctx, ctxSub, seed) {
@@ -60,7 +61,10 @@ export default class Next extends GameModule {
       $('#main-next-container').classList.remove('hidden');
     }
     const piece = this.queue[0];
-    const shape = PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+    let shape = PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+    if (settings.settings.monomino) {
+      shape = MONOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+    }
     let cellSize = this.parent.cellSize;
     const offset = this.parent.nextOffsets[piece];
     let ctx = this.ctx;
@@ -91,7 +95,10 @@ export default class Next extends GameModule {
     const multiplier = 3;
     for (let nextSpace = 0; nextSpace < nextCount; nextSpace++) {
       const piece = this.queue[nextSpace + 1];
-      const shape = PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+      let shape = PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+      if (settings.settings.monomino) {
+        shape = MONOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+      }
       const offset = this.parent.nextOffsets[piece];
       for (let y = 0; y < shape.length; y++) {
         for (let x = 0; x < shape[y].length; x++) {

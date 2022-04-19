@@ -1,5 +1,5 @@
 import GameModule from './game-module.js';
-import {PIECES, SPAWN_OFFSETS, KICK_TABLES, INITIAL_ORIENTATION, PIECE_OFFSETS, SPIN_POINTS} from '../consts.js';
+import {PIECES, MONOMINO_PIECES, SPAWN_OFFSETS, KICK_TABLES, INITIAL_ORIENTATION, PIECE_OFFSETS, SPIN_POINTS} from '../consts.js';
 import $, {clearCtx, framesToMs} from '../shortcuts.js';
 import settings from '../settings.js';
 import sound from '../sound.js';
@@ -71,7 +71,7 @@ export default class Piece extends GameModule {
   }
   new(name = this.parent.next.next()) {
     this.isFrozen = false;
-    const rotSys = this.parent.rotationSystem;
+    let rotSys = this.parent.rotationSystem;
     this.killLockDelayOnRotate = false;
     if (this.parent.spinDetectionType != null) {
       this.spinDetectionType = this.parent.spinDetectionType;
@@ -129,8 +129,20 @@ export default class Piece extends GameModule {
     this.kicks = KICK_TABLES[rotSys][name];
     this.manipulations = 0;
     this.color = this.parent.colors[this.name];
-    for (let i = 0; i < SPAWN_OFFSETS[rotSys].downShift; i++) {
-      this.shiftDown();
+    if (settings.settings.monomino) {
+      this.piece = MONOMINO_PIECES[name].shape;
+      this.shape = this.piece[this.orientation];
+      this.x = 0 + SPAWN_OFFSETS['monomino'][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
+      this.y = 0 + SPAWN_OFFSETS['monomino'][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
+      this.lowestY = this.y;
+      for (let i = 0; i < SPAWN_OFFSETS['monomino'].downShift; i++) {
+        this.shiftDown();
+      }
+    }
+    else{
+      for (let i = 0; i < SPAWN_OFFSETS[rotSys].downShift; i++) {
+        this.shiftDown();
+      }
     }
 
     this.rotatedX = null;
@@ -560,8 +572,12 @@ export default class Piece extends GameModule {
   getNextPieceBlocks() {
     const nextBlocks = [];
     const nextPiece = this.parent.next.queue[0];
-    const nextPieceShape = PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-    const spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
+    let nextPieceShape = PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
+    let spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
+    if (settings.settings.monomino) {
+      nextPieceShape = MONOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
+      spawnOffsets = SPAWN_OFFSETS['monomino'][nextPiece];
+    }
     for (let y = 0; y < nextPieceShape.length; y++) {
       for (let x = 0; x < nextPieceShape[y].length; x++) {
         const isFilled = nextPieceShape[y][x];
@@ -575,8 +591,12 @@ export default class Piece extends GameModule {
   getHoldPieceBlocks() {
     const holdBlocks = [];
     const holdPiece = this.parent.hold.getPiece();
-    const holdPieceShape = PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-    const spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
+    let holdPieceShape = PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
+    let spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
+    if (settings.settings.monomino) {
+      holdPieceShape = MONOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
+      spawnOffsets = SPAWN_OFFSETS['monomino'][holdPiece];
+    }
     for (let y = 0; y < holdPieceShape.length; y++) {
       for (let x = 0; x < holdPieceShape[y].length; x++) {
         const isFilled = holdPieceShape[y][x];

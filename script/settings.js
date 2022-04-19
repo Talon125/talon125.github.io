@@ -17,6 +17,7 @@ class Settings {
       useAre: true,
       useLineClearAre: true,
       stillShowFullActionTextDespiteZeroLineClearAre: false,
+      monomino: false,
       // Graphics
       theme: 'default',
       size: 100,

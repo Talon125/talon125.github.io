@@ -199,6 +199,16 @@
       "fixedText": true,
       "action": "submenu",
       "submenu": "spindetectionoverride"
+    },
+    {
+      "label": "Monomino Mode",
+      "description": "Use monominoes instead of tetrominoes",
+      "fixedText": true,
+      "secretA": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "monomino",
+      "settingType": "setting"
     }
   ]
 }

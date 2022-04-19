@@ -1,8 +1,9 @@
 import GameModule from './game-module.js';
 import $, {clearCtx, resetAnimation} from '../shortcuts.js';
 import * as randomizer from './modules/randomizers.js';
-import {PIECE_SETS, PIECES, INITIAL_ORIENTATION} from '../consts.js';
+import {PIECE_SETS, PIECES, MONOMINO_PIECES, INITIAL_ORIENTATION} from '../consts.js';
 import sound from '../sound.js';
+import settings from '../settings.js';
 
 export default class Hold extends GameModule {
   constructor(parent, ctx) {
@@ -91,7 +92,10 @@ export default class Hold extends GameModule {
     if (this.isDisabled) {
       return;
     }
-    const shape = PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
+    let shape = PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
+    if (settings.settings.monomino) {
+      shape = MONOMINO_PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
+    }
     const cellSize = this.parent.cellSize;
     const offset = this.parent.nextOffsets[this.pieceName];
     const ctx = this.ctx;
