@@ -41,6 +41,7 @@ btw I've been using Microsoft Edge to test my changes.
         *   Pausing doesn't hide your stack/next/hold
         *   There is no goal or end, so play to your heart's content!
     *   Ability to disable delays (ARE)
+    *   Ability to disable Lock Out
     *   4-Point All-Spin
         *   Dr Ocelot started but didn't finish the code. So, I finished it
         <!-- *   This is on by default and cannot be changed (yet) -->
