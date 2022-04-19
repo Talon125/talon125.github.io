@@ -360,6 +360,7 @@ class Menu {
           label.textContent = locale.getString(this.current.lang, currentData.string);
         } else {
           label.textContent = currentData.label;
+          $('#description').textContent = currentData.description;
         }
         label.classList.add('setting-text');
 
@@ -419,7 +420,9 @@ class Menu {
               menuButton.default = true;
             }
             menuButton.isShort = true;
-            menuButton.omitDescription = true;
+            if (!currentData.fixedText) {
+              menuButton.omitDescription = true;
+            }
             menuButton.action = 'settingChange';
             menuButton.setting = this.selectedData.setting;
             menuButton.settingType = this.selectedData.settingType;
