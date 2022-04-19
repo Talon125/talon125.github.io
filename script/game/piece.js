@@ -475,6 +475,9 @@ export default class Piece extends GameModule {
     $('#game-center').classList.remove('gameover-early-warning-bgflash');
   }
   showClutch() {
+    if (!settings.settings.useLockOut) {
+      return false;
+    }
     if (!this.showBlockOut()){
       $('#warning-message-container').classList.add('hidden');
       $('#game-center').classList.remove('gameover-early-warning-bgflash');
