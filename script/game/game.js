@@ -360,7 +360,8 @@ export default class Game {
     if (!settings.settings.displayActionText) {
       return;
     }
-    const clearName = ['', 'single', 'double', 'triple', 'tetra'][lineClear];
+    let clearName = ['', 'single', 'double', 'triple', 'tetra', 'penta', 'tetraplus'][lineClear];
+    if (lineClear > 6) { clearName = 'tetraplus'; }
     const spinName = (isSpin) ? 'spin' : '';
     const miniName = (isMini) ? 'mini' : '';
     const b2bName = (b2b > 1 && lineClear > 0) ? `<br>${locale.getString('action-text', 'b2b')}` : '';

@@ -221,7 +221,12 @@ export default class Stack extends GameModule {
       }
       const b2bPrefix = (this.parent.b2b > 1) ? 'b2b_' : '';
       sound.add(`${b2bPrefix}${type}${version}`);
-      sound.add(`${b2bPrefix}${type}${this.lineClear}${version}`);
+      if (this.lineClear > 4) {
+        sound.add(`${b2bPrefix}${type}4${version}`);
+      }
+      else {
+        sound.add(`${b2bPrefix}${type}${this.lineClear}${version}`);
+      }
       if (this.parent.b2b > 1) {
         sound.add('b2b');
       }
