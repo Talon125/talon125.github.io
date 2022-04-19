@@ -193,8 +193,9 @@ export default class Game {
           if (!this.userSettings.useLineClearAre) {
             this.piece.areLineLimit = 0;
             this.piece.areLimitLineModifier = 0;
-            this.settings.stillShowFullActionTextDespiteZeroLineClearAre = true;
+            settings.settings.stillShowFullActionTextDespiteZeroLineClearAre = true;
           }
+          else { settings.settings.stillShowFullActionTextDespiteZeroLineClearAre = false; }
 
           sound.killBgm();
 
