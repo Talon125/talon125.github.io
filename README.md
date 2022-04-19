@@ -79,6 +79,7 @@ btw I've been using Microsoft Edge to test my changes.
     *   Music no longer mutes when the game gets unfocused. It instead gets quieter
     *   Made the Top/Lock/Block Out warning sounds not fade quieter after 2 seconds
     *   Gave the Top/Lock/Block Out warnings more urgent-looking effect
+    *   The collapse sound no longer plays if your stack doesn't fall
 *   Known Bugs
     <!-- *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot) -->
     <!-- *   When the board flips upside-down in Night Of Nights X, the animation is too slow -->
@@ -97,7 +98,7 @@ btw I've been using Microsoft Edge to test my changes.
         *   Holding at the right time may cause piece duplication
         *   Rotating, then hard-dropping an O-Piece (so that it turns gray) rewards a Mini O-Spin
     *   Sometimes errors can occur during IRS before the game starts
-    *   The collapse sound still plays even when your stack doesn't fall
+    <!-- *   The collapse sound still plays even when your stack doesn't fall -->
     *   Even if IRS/IHS avoids a Block Out, the Block Out still occurs
     <!-- *   Doing an I-Spin Tetra will always be Back-To-Back, even if the previous line clear was not Back-To-Back
         *   Also occurs if this is your first line clear -->
