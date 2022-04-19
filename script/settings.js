@@ -18,6 +18,7 @@ class Settings {
       useLineClearAre: true,
       stillShowFullActionTextDespiteZeroLineClearAre: false,
       monomino: false,
+      useLockOut: true,
       // Graphics
       theme: 'default',
       size: 100,

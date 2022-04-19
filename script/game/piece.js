@@ -454,6 +454,9 @@ export default class Piece extends GameModule {
     $('#game-center').classList.remove('gameover-early-warning-bgflash');
   }
   showLockOut() {
+    if (!settings.settings.useLockOut) {
+      return false;
+    }
     const finalBlocks = this.getFinalBlockLocations();
     const toCheck = finalBlocks.length;
     let failed = 0;

@@ -142,7 +142,7 @@ export default class Stack extends GameModule {
         }
       }
     }
-    if (passedLockOut >= shape.length) {
+    if (passedLockOut >= shape.length && settings.settings.useLockOut) {
       if (this.wouldCauseLineClear() > 0){
         this.isClutch = true;
         this.collapse();

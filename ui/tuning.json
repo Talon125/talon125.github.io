@@ -57,6 +57,15 @@
       "settingType": "setting"
     },
     {
+      "label": "Lock Out",
+      "description": "End the game when a piece is placed completely above the Skyline",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "useLockOut",
+      "settingType": "setting"
+    },
+    {
       "string": "dasPreloadLabel",
       "stringDesc": "dasPreloadDescription",
       "type": "toggle",
