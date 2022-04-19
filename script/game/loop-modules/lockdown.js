@@ -90,6 +90,9 @@ export function beatLockdown(arg) {
     case 'beat':
       bpmInMs = bpmToMs(166);
       break;
+    case 'ritn':
+      bpmInMs = bpmToMs(158.5);
+      break;
   }
 
   if (piece.isDead || piece.isFrozen) {

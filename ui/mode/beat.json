@@ -21,15 +21,21 @@
       "selectOptions": [
         {
           "label": "Night Of Nights",
-          "description": "180 BPM",
+          "description": "COOL&CREATE<br>180 BPM",
           "fixedText": true,
           "value": "non"
         },
         {
           "label": "Ludicrous Speed",
-          "description": "166 BPM",
+          "description": "F-777<br>166 BPM",
           "fixedText": true,
           "value": "beat"
+        },
+        {
+          "label": "Running In The 90's",
+          "description": "Initial D<br>158.5 BPM",
+          "fixedText": true,
+          "value": "ritn"
         }
       ],
       "setting": "song",

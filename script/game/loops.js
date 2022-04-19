@@ -445,6 +445,9 @@ export const loops = {
         case 'beat':
           bpm = 166;
           break;
+        case 'ritn':
+          bpm = 158.5;
+          break;
       }
       /* game.isRaceMode = true; */
       game.beatTime = bpmToMs(bpm);
