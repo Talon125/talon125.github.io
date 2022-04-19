@@ -134,8 +134,10 @@ export default class Piece extends GameModule {
       case 'pento':
         this.piece = PENTOMINO_PIECES[name].shape;
         this.shape = this.piece[this.orientation];
-        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS['srs'][name][this.orientation][0] + this.xSpawnOffset;
-        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS['srs'][name][this.orientation][0];
+        // this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS['srs'][name][this.orientation][0] + this.xSpawnOffset;
+        // this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS['srs'][name][this.orientation][0];
+        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
+        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
         this.lowestY = this.y;
         break;
       default:
@@ -866,19 +868,21 @@ export default class Piece extends GameModule {
         break;
       }
 
-      let offset;
+      const offset = PIECE_OFFSETS[this.parent.rotationSystem][this.name];
 
-      switch(settings.settings.shapeOverride) {
-        case 'mono':
-          offset = PIECE_OFFSETS[this.parent.rotationSystem][this.name];
-          break;
-        case 'pento':
-          offset = PIECE_OFFSETS['srs'][this.name];
-          break;
-        default:
-          offset = PIECE_OFFSETS[this.parent.rotationSystem][this.name];
-          break;
-      }
+      // let offset;
+
+      // switch(settings.settings.shapeOverride) {
+      //   case 'mono':
+      //     offset = PIECE_OFFSETS[this.parent.rotationSystem][this.name];
+      //     break;
+      //   case 'pento':
+      //     offset = PIECE_OFFSETS['srs'][this.name];
+      //     break;
+      //   default:
+      //     offset = PIECE_OFFSETS[this.parent.rotationSystem][this.name];
+      //     break;
+      // }
 
       const kickX = kickTable[i][0] + offset[newOrientation][0] - offset[this.orientation][0];
       const kickY = kickTable[i][1] + offset[newOrientation][1] - offset[this.orientation][1];
