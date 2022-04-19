@@ -607,6 +607,26 @@ INITIAL_ORIENTATION.original = INITIAL_ORIENTATION.retro;
 INITIAL_ORIENTATION.arsti = INITIAL_ORIENTATION.ars;
 INITIAL_ORIENTATION.arsx = INITIAL_ORIENTATION.ars;
 const KICK_TEMPLATES = {
+  o: {
+    right: [
+      [[0, 0], [0, 1], [-1, 0], [0, -1], [1, 0]],
+      [[0, 0], [0, 1], [-1, 0], [0, -1], [1, 0]],
+      [[0, 0], [0, 1], [-1, 0], [0, -1], [1, 0]],
+      [[0, 0], [0, 1], [-1, 0], [0, -1], [1, 0]]
+    ],
+    left: [
+      [[0, 0], [-1, 0], [0, -1], [1, 0], [0, 1]],
+      [[0, 0], [-1, 0], [0, -1], [1, 0], [0, 1]],
+      [[0, 0], [-1, 0], [0, -1], [1, 0], [0, 1]],
+      [[0, 0], [-1, 0], [0, -1], [1, 0], [0, 1]]
+    ],
+    double: [
+      [[0, 0], ],
+      [[0, 0], ],
+      [[0, 0], ],
+      [[0, 0], ]
+    ]
+  },
   asc: {
     x: {
       right: [
@@ -1020,7 +1040,7 @@ export const KICK_TABLES = {
   srs: {
     I: KICK_TEMPLATES.srs.I,
     L: KICK_TEMPLATES.srs.x,
-    O: KICK_TEMPLATES.none.all,
+    O: KICK_TEMPLATES.o,
     Z: KICK_TEMPLATES.srs.x,
     T: KICK_TEMPLATES.srs.x,
     J: KICK_TEMPLATES.srs.x,
@@ -1029,7 +1049,7 @@ export const KICK_TABLES = {
   world: {
     I: KICK_TEMPLATES.world.I,
     L: KICK_TEMPLATES.world.x,
-    O: KICK_TEMPLATES.none.all,
+    O: KICK_TEMPLATES.o,
     Z: KICK_TEMPLATES.world.x,
     T: KICK_TEMPLATES.world.x,
     J: KICK_TEMPLATES.world.x,
@@ -1038,7 +1058,7 @@ export const KICK_TABLES = {
   tetrax: {
     I: KICK_TEMPLATES.tetrax.I,
     L: KICK_TEMPLATES.tetrax.x,
-    O: KICK_TEMPLATES.none.all,
+    O: KICK_TEMPLATES.o,
     Z: KICK_TEMPLATES.tetrax.x,
     T: KICK_TEMPLATES.tetrax.x,
     J: KICK_TEMPLATES.tetrax.x,
@@ -1047,7 +1067,7 @@ export const KICK_TABLES = {
   retro: {
     I: KICK_TEMPLATES.none.all,
     L: KICK_TEMPLATES.none.all,
-    O: KICK_TEMPLATES.none.all,
+    O: KICK_TEMPLATES.o,
     Z: KICK_TEMPLATES.none.all,
     T: KICK_TEMPLATES.none.all,
     J: KICK_TEMPLATES.none.all,
@@ -1056,7 +1076,7 @@ export const KICK_TABLES = {
   deluxe: {
     I: KICK_TEMPLATES.deluxe.x,
     L: KICK_TEMPLATES.deluxe.x,
-    O: KICK_TEMPLATES.none.all,
+    O: KICK_TEMPLATES.o,
     Z: KICK_TEMPLATES.deluxe.x,
     T: KICK_TEMPLATES.deluxe.x,
     J: KICK_TEMPLATES.deluxe.x,
@@ -1065,7 +1085,7 @@ export const KICK_TABLES = {
   ars: {
     I: KICK_TEMPLATES.none.all,
     L: KICK_TEMPLATES.ars.x,
-    O: KICK_TEMPLATES.none.all,
+    O: KICK_TEMPLATES.o,
     Z: KICK_TEMPLATES.ars.x,
     T: KICK_TEMPLATES.ars.x,
     J: KICK_TEMPLATES.ars.x,
@@ -1108,7 +1128,7 @@ export const KICK_TABLES = {
   oshisaure: {
     I: KICK_TEMPLATES.oshisaure.I,
     L: KICK_TEMPLATES.oshisaure.x,
-    O: KICK_TEMPLATES.none.all,
+    O: KICK_TEMPLATES.o,
     Z: KICK_TEMPLATES.oshisaure.x,
     T: KICK_TEMPLATES.oshisaure.x,
     J: KICK_TEMPLATES.oshisaure.x,
@@ -1140,7 +1160,7 @@ KICK_TABLES.arsti = {
 KICK_TABLES.arsx = {
   I: KICK_TEMPLATES.arsx.I,
   L: KICK_TEMPLATES.arsx.x,
-  O: KICK_TEMPLATES.none.all,
+  O: KICK_TEMPLATES.o,
   Z: KICK_TEMPLATES.arsx.x,
   T: KICK_TEMPLATES.arsx.T,
   J: KICK_TEMPLATES.arsx.x,
