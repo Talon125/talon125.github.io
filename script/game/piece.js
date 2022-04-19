@@ -1,5 +1,5 @@
 import GameModule from './game-module.js';
-import {PIECES, MONOMINO_PIECES, SPAWN_OFFSETS, KICK_TABLES, INITIAL_ORIENTATION, PIECE_OFFSETS, SPIN_POINTS} from '../consts.js';
+import {PIECES, MONOMINO_PIECES, PENTOMINO_PIECES, SPAWN_OFFSETS, KICK_TABLES, INITIAL_ORIENTATION, PIECE_OFFSETS, SPIN_POINTS} from '../consts.js';
 import $, {clearCtx, framesToMs} from '../shortcuts.js';
 import settings from '../settings.js';
 import sound from '../sound.js';
@@ -120,30 +120,43 @@ export default class Piece extends GameModule {
     this.name = name;
     this.orientation = INITIAL_ORIENTATION[rotSys][name];
 
-    this.piece = PIECES[name].shape;
-    this.shape = this.piece[this.orientation];
-    this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
-    this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
-    this.lowestY = this.y;
+    let backUpRotSys = rotSys;
+
+    switch(settings.settings.shapeOverride) {
+      case 'mono':
+        this.piece = MONOMINO_PIECES[name].shape;
+        this.shape = this.piece[this.orientation];
+        this.x = 0 + SPAWN_OFFSETS['monomino'][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
+        this.y = 0 + SPAWN_OFFSETS['monomino'][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
+        this.lowestY = this.y;
+        rotSys = 'monomino';
+        break;
+      case 'pento':
+        this.piece = PENTOMINO_PIECES[name].shape;
+        this.shape = this.piece[this.orientation];
+        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
+        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
+        this.lowestY = this.y;
+        break;
+      default:
+        this.piece = PIECES[name].shape;
+        this.shape = this.piece[this.orientation];
+        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
+        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
+        this.lowestY = this.y;
+        break;
+    }
+
     this.lowestVisualY = this.visualY;
-    this.kicks = KICK_TABLES[rotSys][name];
+    this.kicks = KICK_TABLES[backUpRotSys][name];
     this.manipulations = 0;
     this.color = this.parent.colors[this.name];
-    if (settings.settings.monomino) {
-      this.piece = MONOMINO_PIECES[name].shape;
-      this.shape = this.piece[this.orientation];
-      this.x = 0 + SPAWN_OFFSETS['monomino'][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
-      this.y = 0 + SPAWN_OFFSETS['monomino'][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
-      this.lowestY = this.y;
-      for (let i = 0; i < SPAWN_OFFSETS['monomino'].downShift; i++) {
-        this.shiftDown();
-      }
+    
+    for (let i = 0; i < SPAWN_OFFSETS[rotSys].downShift; i++) {
+      this.shiftDown();
     }
-    else{
-      for (let i = 0; i < SPAWN_OFFSETS[rotSys].downShift; i++) {
-        this.shiftDown();
-      }
-    }
+    
+    rotSys = backUpRotSys;
 
     this.rotatedX = null;
     this.rotatedY = null;
@@ -597,12 +610,24 @@ export default class Piece extends GameModule {
   getHoldPieceBlocks() {
     const holdBlocks = [];
     const holdPiece = this.parent.hold.getPiece();
-    let holdPieceShape = PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-    let spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
-    if (settings.settings.monomino) {
-      holdPieceShape = MONOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-      spawnOffsets = SPAWN_OFFSETS['monomino'][holdPiece];
+    
+    let holdPieceShape; let spawnOffsets;
+    
+    switch(settings.settings.shapeOverride) {
+      case 'mono':
+        holdPieceShape = MONOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
+        spawnOffsets = SPAWN_OFFSETS['monomino'][holdPiece];
+        break;
+      case 'pento':
+        holdPieceShape = PENTOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
+        break;
+      default:
+        holdPieceShape = PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
+        break;
     }
+
     for (let y = 0; y < holdPieceShape.length; y++) {
       for (let x = 0; x < holdPieceShape[y].length; x++) {
         const isFilled = holdPieceShape[y][x];

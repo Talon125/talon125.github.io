@@ -210,13 +210,33 @@
       "submenu": "spindetectionoverride"
     },
     {
-      "label": "Monomino Mode",
-      "description": "Use monominoes instead of tetrominoes",
+      "label": "Piece Shape Override",
+      "description": "Select which type of shapes the pieces will be",
       "fixedText": true,
       "secretA": true,
-      "type": "toggle",
-      "action": "toggle",
-      "setting": "monomino",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "label": "Tetromino",
+          "description": "Tetrominoes are made up of 4 smaller blocks. This is the default",
+          "fixedText": true,
+          "value": "tetro"
+        },
+        {
+          "label": "Pentomino",
+          "description": "Pentominoes are made up of 5 smaller blocks. This makes the game significantly more difficult<br>Note: piece set is the same as in PPT",
+          "fixedText": true,
+          "value": "pento"
+        },
+        {
+          "label": "Monomino",
+          "description": "Monominoes are 1 single block",
+          "fixedText": true,
+          "value": "mono"
+        }
+      ],
+      "setting": "shapeOverride",
       "settingType": "setting"
     }
   ]

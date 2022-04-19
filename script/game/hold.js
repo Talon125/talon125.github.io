@@ -1,7 +1,7 @@
 import GameModule from './game-module.js';
 import $, {clearCtx, resetAnimation} from '../shortcuts.js';
 import * as randomizer from './modules/randomizers.js';
-import {PIECE_SETS, PIECES, MONOMINO_PIECES, INITIAL_ORIENTATION} from '../consts.js';
+import {PIECE_SETS, PIECES, MONOMINO_PIECES, PENTOMINO_PIECES, INITIAL_ORIENTATION} from '../consts.js';
 import sound from '../sound.js';
 import settings from '../settings.js';
 
@@ -92,9 +92,17 @@ export default class Hold extends GameModule {
     if (this.isDisabled) {
       return;
     }
-    let shape = PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
-    if (settings.settings.monomino) {
-      shape = MONOMINO_PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
+    let shape;
+    switch(settings.settings.shapeOverride) {
+      case 'mono':
+        shape = MONOMINO_PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
+        break;
+      case 'pento':
+        shape = PENTOMINO_PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
+        break;
+      default:
+        shape = PIECES[this.pieceName].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]];
+        break;
     }
     const cellSize = this.parent.cellSize;
     const offset = this.parent.nextOffsets[this.pieceName];

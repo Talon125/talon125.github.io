@@ -17,7 +17,7 @@ class Settings {
       useAre: true,
       useLineClearAre: true,
       stillShowFullActionTextDespiteZeroLineClearAre: false,
-      monomino: false,
+      shapeOverride: 'tetro',
       useLockOut: true,
       // Graphics
       theme: 'default',

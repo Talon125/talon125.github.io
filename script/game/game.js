@@ -174,7 +174,19 @@ export default class Game {
             }
             this.colors[pieceName] = color;
           }
-          this.nextOffsets = NEXT_OFFSETS[this.settings.rotationSystem];
+          
+          switch(settings.settings.shapeOverride) {
+            case 'mono':
+              this.nextOffsets = NEXT_OFFSETS['monomino'];
+              break;
+            // case 'pento':
+            //   this.nextOffsets = NEXT_OFFSETS['pentomino'];
+            //   break;
+            default:
+              this.nextOffsets = NEXT_OFFSETS[this.settings.rotationSystem];
+              break;
+          }
+
           this.loop = loops[gametype].update;
           this.onPieceSpawn = loops[gametype].onPieceSpawn;
           for (const element of ['piece', 'stack', 'next', 'hold']) {
