@@ -71,6 +71,14 @@
     "message": "Mini %1-Spin Triple",
     "description": "Displays when a mini spin clears 4 lines. %1 is the name of the piece ('T', 'S')"
   },
+  "spinpentamini": {
+    "message": "Mini %1-Spin Penta",
+    "description": "Displays when a mini spin clears 5 lines. %1 is the name of the piece ('T', 'S')"
+  },
+  "spintetraplusmini": {
+    "message": "Mini %1-Spin Tetra Plus",
+    "description": "Displays when a mini spin clears 6 or more lines. %1 is the name of the piece ('T', 'S')"
+  },
   "b2b": {
     "message": "(Back-To-Back)",
     "description": "Displays when a tetra or spin line clear is performed when the previous one was also a tetra or spin line clear"
