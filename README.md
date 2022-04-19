@@ -5,8 +5,7 @@ Combining the original Tetra Legends with Tetra Legends Plus, and adding some ex
 
 Original repositories:
 
-https://github.com/zacharylohrman/tetralegends/
-
+https://github.com/zacharylohrman/tetralegends/  
 https://github.com/Rexxt/tetralegendsplus
 
 Thank you:
@@ -71,7 +70,7 @@ btw I've been using Microsoft Edge to test my changes.
     *   Hidden modes are no longer hidden
     *   Night of Nights mode is now called Beat Mode
         *   While in this mode, uses the unused Disco Lights background
-        *   You can choose which song to play: Night Of Nights or Ludicrous Speed (F777)
+        *   You can choose which song to play
         <!-- *   Song is now Ludicrous Speed (F777). Using your own song might be added in the future
         *   BPM is 166 instead of 180, so it might be a slight bit easier -->
     *   Some German translations have been updated
