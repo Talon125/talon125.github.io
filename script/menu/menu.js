@@ -625,6 +625,7 @@ class Menu {
     for (const element of $('#menu > div')) {
       element.classList.remove('selected');
     }
+    if (!$(`#option-${number}`)) { number = 0; }
     $(`#option-${number}`).classList.add('selected');
     if (!mouseOver) {
       $(`#option-${number}`).scrollIntoView({block: 'center', behavior: (noScrollAnimation) ? 'auto' : 'smooth'});
