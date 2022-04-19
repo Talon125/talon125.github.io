@@ -21,11 +21,13 @@
       "selectOptions": [
         {
           "label": "Night Of Nights",
+          "description": "180 BPM",
           "fixedText": true,
           "value": "non"
         },
         {
           "label": "Ludicrous Speed",
+          "description": "166 BPM",
           "fixedText": true,
           "value": "beat"
         }
