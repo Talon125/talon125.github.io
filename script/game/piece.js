@@ -591,12 +591,24 @@ export default class Piece extends GameModule {
   getNextPieceBlocks() {
     const nextBlocks = [];
     const nextPiece = this.parent.next.queue[0];
-    let nextPieceShape = PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-    let spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
-    if (settings.settings.monomino) {
-      nextPieceShape = MONOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-      spawnOffsets = SPAWN_OFFSETS['monomino'][nextPiece];
+
+    let nextPieceShape; let spawnOffsets;
+    
+    switch (settings.settings.shapeOverride) {
+      case 'mono':
+        nextPieceShape = MONOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
+        spawnOffsets = SPAWN_OFFSETS['monomino'][nextPiece];
+        break;
+      case 'pento':
+        nextPieceShape = PENTOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
+        break;
+      default:
+        nextPieceShape = PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
+        break;
     }
+    
     for (let y = 0; y < nextPieceShape.length; y++) {
       for (let x = 0; x < nextPieceShape[y].length; x++) {
         const isFilled = nextPieceShape[y][x];
