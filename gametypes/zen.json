@@ -19,8 +19,7 @@
         "spinDetectionType": "3corner"
     },
     "stack": {
-        "useGarbageSending": true,
-        "showGarbageSendAnimation": true
+        "useGarbageSending": true
     },
     "stats": [
         "b2b",
