@@ -552,6 +552,7 @@ export default class Game {
   }
   updateStats() {
     for (const statName of this.stats) {
+      if (statName === 'skipCount') { continue; }
       const prefix = (this.prefixes[statName]) ? this.prefixes[statName] : '';
       const append = (this.appends[statName]) ? this.appends[statName] : '';
       const value = this.stat[statName];
