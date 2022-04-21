@@ -44,6 +44,18 @@ class Input {
     }
 
     document.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        if (gameHandler.game != null) {
+          if (gameHandler.game.isVisible && 
+              !gameHandler.game.isPaused && 
+              !gameHandler.game.isDead && 
+              !gameHandler.game.isOver && 
+              gameHandler.game.type === 'zen'
+          ) {
+            gameHandler.game.stack.addGarbageToCounter();
+          }
+        }
+      }
       if (event.key !== 'Escape') {
         buttonHints.change('keyboard');
         buttonHints.show();
