@@ -40,6 +40,7 @@ btw I've been using Microsoft Edge to test my changes.
             *   It's like infinite/forgiving, but the lockdown bar only depletes when softdropping
         *   Pausing doesn't hide your stack/next/hold
         *   There is no goal or end, so play to your heart's content!
+        *   You can also send garbage to yourself by pressing Enter
     *   Ability to disable delays (ARE)
     *   Ability to disable Lock Out
     *   4-Point All-Spin
