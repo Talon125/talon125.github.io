@@ -47,6 +47,10 @@
     "message": "초당 라인 수: %1",
     "description": "The unit label for 'seconds per row'. %1 is the amount of seconds"
   },
+  "sec": {
+    "message": "초",
+    "description": "The unit label for something 'per second'"
+  },
   "pause": {
     "message": "일시정지",
     "description": "Displays on screen when the game is paused"
@@ -66,6 +70,10 @@
   "gameover": {
     "message": "게임 종료",
     "description": "Displays when the game is finished. It does not connotate winning or losing, just that the game has completed"
+  },
+  "pleasetryagain": {
+    "message": "다시 시도하십시오",
+    "description": "Displays when the game is finished. Encourages the player to try again"
   },
   "blockOut": {
     "message": "Block Out",

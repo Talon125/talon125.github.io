@@ -47,6 +47,10 @@
     "message": "%1 seg/linha",
     "description": "The unit label for 'seconds per row'. %1 is the amount of seconds"
   },
+  "sec": {
+    "message": "seg",
+    "description": "The unit label for something 'per second'"
+  },
   "pause": {
     "message": "Pausar",
     "description": "Displays on screen when the game is paused"
@@ -66,6 +70,10 @@
   "gameover": {
     "message": "Fim da partida",
     "description": "Displays when the game is finished. It does not connotate winning or losing, just that the game has completed"
+  },
+  "pleasetryagain": {
+    "message": "Por favor, tente novamente",
+    "description": "Displays when the game is finished. Encourages the player to try again"
   },
   "blockOut": {
     "message": "Bloquear post",

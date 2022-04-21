@@ -47,6 +47,10 @@
     "message": "%1 сек/линия",
     "description": "The unit label for 'seconds per row'. %1 is the amount of seconds"
   },
+  "sec": {
+    "message": "сек",
+    "description": "The unit label for something 'per second'"
+  },
   "pause": {
     "message": "Пауза",
     "description": "Displays on screen when the game is paused"
@@ -66,6 +70,10 @@
   "gameover": {
     "message": "Игра окончена",
     "description": "Displays when the game is finished. It does not connotate winning or losing, just that the game has completed"
+  },
+  "pleasetryagain": {
+    "message": "пожалуйста, попробуйте снова",
+    "description": "Displays when the game is finished. Encourages the player to try again"
   },
   "blockOut": {
     "message": "Block Out",

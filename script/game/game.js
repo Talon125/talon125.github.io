@@ -352,6 +352,9 @@ export default class Game {
       sound.add('gameover');
       sound.add('voxgameover');
       $('#end-message').textContent = locale.getString('ui', 'gameover');
+      if (this.type === 'handheld' || this.type === 'deluxe') {
+        $('#end-message').innerHTML = `${locale.getString('ui', 'gameover')}<br><span class="small">${locale.getString('ui', 'pleasetryagain')}♥</span>`;
+      }
       $('#end-message-container').classList.remove('hidden');
       $('#return-to-menu').textContent = locale.getString('ui', 'returnToMenu');
     }, 1700);
@@ -554,7 +557,7 @@ export default class Game {
       const value = this.stat[statName];
       $(`#stat-${statName}`).innerHTML = `${prefix}${value}${append}`;
       if (statName === 'piece'){
-        $('#stat-piece').innerHTML = `<span class="medium">${value}</span><br><b>${Math.round(gameHandler.game.pps * 100) / 100}</b>/sec`;
+        $('#stat-piece').innerHTML = `<span class="medium">${value}</span><br><b>${Math.round(gameHandler.game.pps * 100) / 100}</b>/${locale.getString('ui', 'sec')}`;
       }
       if (statName === 'b2b'){
         $('#stat-b2b').innerHTML = `×${value}<br>(Max: ×${this.maxb2b-1 < 0 ? 0 : this.maxb2b-1})`;
