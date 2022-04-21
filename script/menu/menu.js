@@ -561,7 +561,7 @@ class Menu {
         if (i === 0) {
           element.classList.add('selected');
         }
-        if (duplicates.indexOf(item) !== -1) {
+        if (duplicates.indexOf(item) !== -1 || item === 'Enter') {
           element.classList.add('conflict');
         }
         element.textContent = `${item} ×`;
