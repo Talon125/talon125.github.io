@@ -1421,7 +1421,7 @@ body[theme="tetrjs"] .next-label, body[theme="tetrjs"] .hold-label {
   text-align: right;
   font-size: 2.5em;
   font-weight: 100;
-  bottom: -.7em;
+  bottom: .1em;
   right: -1.5em;
   animation-name: float;
   animation-duration: .8s;
