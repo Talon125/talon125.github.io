@@ -323,9 +323,9 @@ export default class Stack extends GameModule {
       this.parent.displayActionText(`<span class="perfect-clear-secondary">${locale.getString('action-text', 'pc').replace(' ', '<br>')}</span>`, {...options, time: 2000});
     }
     if (this.useGarbageSending) {
-      garbageToClear += [0, 0, 1, 2, 4][this.lineClear];
+      garbageToClear += [0, 0, 1, 2, 4, 7][this.lineClear];
       if (isSpin && !isMini) {
-        garbageToClear += [0, 2, 3, 4, 5][this.lineClear];
+        garbageToClear += [0, 2, 3, 4, 4, 4][this.lineClear];
       }
       if (this.parent.b2b > 1 && this.lineClear) {
         garbageToClear++;
