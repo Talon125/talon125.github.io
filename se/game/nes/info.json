@@ -12,11 +12,17 @@
     "hold",
     "initialhold",
     "initialrotate",
+    "initialskip",
     "ko",
     "levelup",
     "locknohd",
     "move",
-    "rotate"
+    "pause",
+    "perfectdas",
+    "ready",
+    "rotate",
+    "skip",
+    "start"
   ],
   "ren": []
 }
