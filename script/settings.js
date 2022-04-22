@@ -157,6 +157,9 @@ class Settings {
       handheld: {
         startingLevel: 0,
       },
+      deluxe: {
+        startingLevel: 0,
+      },
       beat: {
         song: 'non',
       },

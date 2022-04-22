@@ -1709,7 +1709,8 @@ export const loops = {
       updateLasts(arg);
     },
     onPieceSpawn: (game) => {
-      game.stat.level = Math.floor(game.stat.line / 10);
+      // game.stat.level = Math.floor(game.stat.line / 10);
+      game.stat.level = Math.max(settings.game.deluxe.startingLevel, Math.floor(game.stat.line / 10));
       const SPEED_TABLE = [53, 49, 45, 41, 37, 33, 28, 22, 17, 11, 10, 9, 8, 7, 6, 6, 5, 5, 4, 4, 3];
       let levelAdd = 0;
       if (game.appends.level === '♥') {
@@ -1719,9 +1720,11 @@ export const loops = {
       levelUpdate(game);
     },
     onInit: (game) => {
-      game.stat.level = 0;
+      // game.stat.level = 0;
       // game.appends.level = '♥';
-      lastLevel = 0;
+      // lastLevel = 0;
+      game.stat.level = settings.game.deluxe.startingLevel;
+      lastLevel = parseInt(settings.game.deluxe.startingLevel);
       if (settings.settings.skin !== 'auto') {
         game.makeSprite();
         game.piece.useSpecialI = false;
