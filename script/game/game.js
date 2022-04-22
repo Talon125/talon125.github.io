@@ -312,8 +312,9 @@ export default class Game {
     if (this.type === 'zen' && settings.game.zen.holdType === 'skip') { this.stats.splice(0, 0, 'skipCount'); }
     $('#end-stats').innerHTML = '';
     for (const statName of this.stats) {
+      const append = (this.appends[statName]) ? this.appends[statName] : '';
       if (this.endingStats[statName] && !"b2b piece pcCount skipCount".includes(statName)) {
-        $('#end-stats').innerHTML += `<b>${locale.getString('ui', statName)}:</b> ${this.stat[statName]}<br>`;
+        $('#end-stats').innerHTML += `<b>${locale.getString('ui', statName)}:</b> ${this.stat[statName]}${append}<br>`;
       }
       switch(statName){
         case 'b2b':
