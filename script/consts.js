@@ -569,7 +569,7 @@ export const SPAWN_OFFSETS = {
 };
 SPAWN_OFFSETS.asc = SPAWN_OFFSETS.srs;
 SPAWN_OFFSETS.ascx = SPAWN_OFFSETS.srs;
-SPAWN_OFFSETS.tetrax = {...SPAWN_OFFSETS.srs, downShift: 2, I: [3, -3]};
+SPAWN_OFFSETS.tetrax = {...SPAWN_OFFSETS.srs, downShift: 2, I: [2, -4]};
 SPAWN_OFFSETS.oshisaure = {...SPAWN_OFFSETS.srs, downShift: 0};
 SPAWN_OFFSETS.world = SPAWN_OFFSETS.srs;
 SPAWN_OFFSETS.arsti = SPAWN_OFFSETS.ars;
