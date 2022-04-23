@@ -64,12 +64,9 @@ class Menu {
       }
       if (
         (gameHandler.game.isDead || gameHandler.game.isOver || gameHandler.game.isDead == null)
-        && !this.skipMusicChange
+        && !this.skipMusicChange && !this.current.properties.game === 'beat'
       ) {
-        if (this.current.properties.game === 'beat'){
-          sound.killBgm();
-        }
-        else if (this.current.properties.pgmusic) {
+        if (this.current.properties.pgmusic) {
           if (sound.bgmName !== `menu-${this.current.properties.pgmusic}`) {
             sound.killBgm();
             sound.loadBgm([this.current.properties.pgmusic], 'menu');
@@ -162,7 +159,7 @@ class Menu {
         hasDangerBgm: false,
         hasPaceBgm: false,
       };
-      if (this.current.properties.game === 'beat'){
+      if (this.current.properties.game === 'beat' && sound.bgmName !== `menu-pg-${settings.game.beat.song}`){
         sound.killBgm();
         sound.loadBgm([`pg-${settings.game.beat.song}`], 'menu');
         sound.playBgm([`pg-${settings.game.beat.song}`], 'menu');
@@ -527,7 +524,10 @@ class Menu {
             }
             element.textContent = label;
 
-            if (this.current.properties.game === 'beat' && ( gameHandler.game.b2b == null || ( gameHandler.game.isOver == true || gameHandler.game.isPaused == false ) ) ){
+            if (this.current.properties.game === 'beat' && 
+                ( gameHandler.game.b2b == null || ( gameHandler.game.isOver == true || gameHandler.game.isPaused == false ) ) &&
+                sound.bgmName !== `menu-pg-${settings.game.beat.song}`
+               ) {
               sound.killBgm();
               sound.loadBgm([`pg-${settings.game.beat.song}`], 'menu');
               sound.playBgm([`pg-${settings.game.beat.song}`], 'menu');
