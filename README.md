@@ -103,4 +103,8 @@ btw I've been using Microsoft Edge to test my changes.
     *   Even if IRS/IHS avoids a Block Out, the Block Out still occurs
     <!-- *   Doing an I-Spin Tetra will always be Back-To-Back, even if the previous line clear was not Back-To-Back
         *   Also occurs if this is your first line clear -->
+    *   Hold Block Out warning may not be completeley accurate when using skip instead of hold
+        *   If you are using pentominoes in combo challenge with skip, if the next piece is too big for the Matrix, and you initially skip it, the Hold Block Out warning will keep playing
+    *   In rare cases, the Matrix will be shifted a bit downwards. The borders are fine, but inside is shifted downwards. This is fixed after restarting the current game
+    <!-- *   In vary rare cases, hard-dropping(?) pieces may make them fractured (lose (a) mino(es)) or disappear -->
     *   Stuff may not work if using Chrome, or maybe Firefox.
