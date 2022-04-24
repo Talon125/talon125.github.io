@@ -1,7 +1,7 @@
 import GameModule from './game-module.js';
 import $, {clearCtx} from '../shortcuts.js';
 import * as randomizer from './modules/randomizers.js';
-import {PIECE_SETS, PIECES, MONOMINO_PIECES, PENTOMINO_PIECES, INITIAL_ORIENTATION} from '../consts.js';
+import {PIECE_SETS, PIECES, MONOMINO_PIECES, DOMINO_PIECES, TROMINO_PIECES, PENTOMINO_PIECES, INITIAL_ORIENTATION} from '../consts.js';
 import sound from '../sound.js';
 import settings from '../settings.js';
 
@@ -66,6 +66,12 @@ export default class Next extends GameModule {
       case 'mono':
         shape = MONOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
         break;
+      case 'do':
+        shape = DOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+        break;
+      case 'tro':
+        shape = TROMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+        break;
       case 'pento':
         shape = PENTOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
         break;
@@ -107,6 +113,12 @@ export default class Next extends GameModule {
       switch(settings.settings.shapeOverride) {
         case 'mono':
           shape = MONOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+          break;
+        case 'do':
+          shape = DOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
+          break;
+        case 'tro':
+          shape = TROMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];
           break;
         case 'pento':
           shape = PENTOMINO_PIECES[piece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][piece]];

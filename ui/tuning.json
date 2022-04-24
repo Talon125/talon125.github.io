@@ -234,6 +234,18 @@
           "description": "Monominoes are 1 single block",
           "fixedText": true,
           "value": "mono"
+        },
+        {
+          "label": "Domino",
+          "description": "Dominoes are 2 smaller blocks",
+          "fixedText": true,
+          "value": "do"
+        },
+        {
+          "label": "Tromino",
+          "description": "Trominoes are made up of 3 smaller blocks. This makes the game significantly easier",
+          "fixedText": true,
+          "value": "tro"
         }
       ],
       "setting": "shapeOverride",

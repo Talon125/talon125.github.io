@@ -1,5 +1,5 @@
 import GameModule from './game-module.js';
-import {PIECES, MONOMINO_PIECES, PENTOMINO_PIECES, SPAWN_OFFSETS, KICK_TABLES, INITIAL_ORIENTATION, PIECE_OFFSETS, SPIN_POINTS} from '../consts.js';
+import {PIECES, MONOMINO_PIECES, DOMINO_PIECES, TROMINO_PIECES, PENTOMINO_PIECES, SPAWN_OFFSETS, KICK_TABLES, INITIAL_ORIENTATION, PIECE_OFFSETS, SPIN_POINTS} from '../consts.js';
 import $, {clearCtx, framesToMs} from '../shortcuts.js';
 import settings from '../settings.js';
 import sound from '../sound.js';
@@ -130,6 +130,21 @@ export default class Piece extends GameModule {
         this.y = 0 + SPAWN_OFFSETS['monomino'][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
         this.lowestY = this.y;
         rotSys = 'monomino';
+        break;
+      case 'do':
+        this.piece = DOMINO_PIECES[name].shape;
+        this.shape = this.piece[this.orientation];
+        this.x = 0 + SPAWN_OFFSETS['monomino'][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
+        this.y = 0 + SPAWN_OFFSETS['monomino'][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
+        this.lowestY = this.y;
+        rotSys = 'monomino';
+        break;
+      case 'tro':
+        this.piece = TROMINO_PIECES[name].shape;
+        this.shape = this.piece[this.orientation];
+        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
+        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
+        this.lowestY = this.y;
         break;
       case 'pento':
         this.piece = PENTOMINO_PIECES[name].shape;
@@ -601,6 +616,14 @@ export default class Piece extends GameModule {
         nextPieceShape = MONOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
         spawnOffsets = SPAWN_OFFSETS['monomino'][nextPiece];
         break;
+      case 'do':
+        nextPieceShape = DOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
+        spawnOffsets = SPAWN_OFFSETS['monomino'][nextPiece];
+        break;
+      case 'tro':
+        nextPieceShape = TROMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
+        break;
       case 'pento':
         nextPieceShape = PENTOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
         spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
@@ -631,6 +654,14 @@ export default class Piece extends GameModule {
       case 'mono':
         holdPieceShape = MONOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
         spawnOffsets = SPAWN_OFFSETS['monomino'][holdPiece];
+        break;
+      case 'do':
+        holdPieceShape = DOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
+        spawnOffsets = SPAWN_OFFSETS['monomino'][holdPiece];
+        break;
+      case 'tro':
+        holdPieceShape = TROMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
         break;
       case 'pento':
         holdPieceShape = PENTOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
