@@ -47,7 +47,11 @@ export default class Stack extends GameModule {
     const finalBlocks = this.parent.piece.getFinalBlockLocations();
     const newGrid = JSON.parse(JSON.stringify(this.grid));
     for (const finalBlock of finalBlocks) {
-      newGrid[finalBlock[0]][finalBlock[1] + this.hiddenHeight] = 'test';
+      if (finalBlock[0] < 0 || finalBlock[0] >= this.parent.settings.width || finalBlock[1] >= this.parent.settings.height) { 
+        console.log("Piece is too big for Matrix!!")
+      }
+      else
+        newGrid[finalBlock[0]][finalBlock[1] + this.hiddenHeight] = 'test';
     }
     return newGrid;
   }
