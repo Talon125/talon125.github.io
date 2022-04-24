@@ -107,4 +107,8 @@ btw I've been using Microsoft Edge to test my changes.
         *   If you are using pentominoes in combo challenge with skip, if the next piece is too big for the Matrix, and you initially skip it, the Hold Block Out warning will keep playing
     *   In rare cases, the Matrix will be shifted a bit downwards. The borders are fine, but inside is shifted downwards. This is fixed after restarting the current game
     <!-- *   In vary rare cases, hard-dropping(?) pieces may make them fractured (lose (a) mino(es)) or disappear -->
+    *   Sometimes sounds are not played in the correct order when loading a new game for the first time
+    *   Sometimes sounds are cut off when loading a new game for the first time
+    *   Both "ready" voices/sounds will play when loading an arcade game mode for the first time
+    *   In rare cases, the game looks scrunched when resized at a certain time
     *   Stuff may not work if using Chrome, or maybe Firefox.
