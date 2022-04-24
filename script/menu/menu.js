@@ -64,9 +64,9 @@ class Menu {
       }
       if (
         (gameHandler.game.isDead || gameHandler.game.isOver || gameHandler.game.isDead == null)
-        && !this.skipMusicChange && !this.current.properties.game === 'beat'
-      ) {
-        if (this.current.properties.pgmusic) {
+        && !this.skipMusicChange && this.current.properties.game !== 'beat'
+        ) {
+          if (this.current.properties.pgmusic) {
           if (sound.bgmName !== `menu-${this.current.properties.pgmusic}`) {
             sound.killBgm();
             sound.loadBgm([this.current.properties.pgmusic], 'menu');
