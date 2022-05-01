@@ -72,7 +72,7 @@
     "description": "Displays when the game is finished. It does not connotate winning or losing, just that the game has completed"
   },
   "pleasetryagain": {
-    "message": "vui lòng thử lại",
+    "message": "Hãy thử lại lần sau",
     "description": "Displays when the game is finished. Encourages the player to try again"
   },
   "blockOut": {
