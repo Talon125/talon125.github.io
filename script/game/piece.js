@@ -472,7 +472,14 @@ export default class Piece extends GameModule {
     if (this.parent.stack.wouldCauseLineClear()) {
       return;
     }
-    if (this.parent.stack.highest + Math.max(0, this.parent.stack.waitingGarbage) >
+    const finalBlocks = this.getFinalBlockLocations()
+    let finalBlocksY = []
+    for (const finalBlock of finalBlocks) {
+      finalBlocksY.push(finalBlock[1])
+    }
+    let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+    const height = finalBlocksY.length - findDuplicates(finalBlocksY).length
+    if (this.parent.stack.highest + height + Math.max(0, this.parent.stack.waitingGarbage) >
       this.parent.stack.height + this.parent.stack.hiddenHeight
     ) {
       $('#warning-message').textContent = locale.getString('ui', 'topOutWarning');

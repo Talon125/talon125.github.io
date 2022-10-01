@@ -111,4 +111,3 @@ btw I've been using Microsoft Edge to test my changes.
     *   Sometimes sounds are cut off when loading a new game for the first time
     *   Both "ready" voices/sounds will play when loading an arcade game mode for the first time
     *   In rare cases, the game looks scrunched when resized at a certain time
-    *   Top Out warning doesn't include piece placement in its check
