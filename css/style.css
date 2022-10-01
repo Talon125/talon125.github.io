@@ -1544,6 +1544,7 @@ progress[value="0"] {
   animation-duration: .2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+  background-color: #f00;
 }
 
 /* Chrome */
