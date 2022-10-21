@@ -78,7 +78,7 @@
     "message": "Помочь с переводом игры"
   },
   "discordLabel": {
-    "message": "Discord"
+    "message": "Discord (Выключено)"
   },
   "discordDescription": {
     "message": "Зайти на Discord сервер для обсуждения игры, получения обновлений и предложения идей и переводов"
