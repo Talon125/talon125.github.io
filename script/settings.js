@@ -7,7 +7,7 @@ class Settings {
     this.defaultSettings = {
       language: 'en_US',
       // Tuning
-      DAS: 100,
+      DAS: 150,
       ARR: 1000/60,
       IRS: 'tap',
       IHS: 'tap',

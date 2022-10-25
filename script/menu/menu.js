@@ -821,7 +821,7 @@ class Menu {
         $(`#option-${this.selected}`).classList.add('chosen');
         sound.playMenuSe('optionselect');
         if (this.selectedData.label === 'Default 2'){
-          settings.changeSetting('DAS', 100);
+          settings.changeSetting('DAS', 150);
         settings.changeSetting('ARR', 1000/60);
         }
         else{
