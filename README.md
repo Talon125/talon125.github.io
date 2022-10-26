@@ -113,3 +113,4 @@ https://talon125.github.io/changelog.html
     *   Both "ready" voices/sounds will play when loading an arcade game mode for the first time
     *   In rare cases, the game looks scrunched when resized at a certain time
     *   Upon resetting settings, updated audio volumes don't immediately take effect
+    *   Importing settings: Doesn't work by pressing Enter. Gamepad behavior is unknown
