@@ -29,7 +29,7 @@ https://talon125.github.io/changelog.html
 
 <!-- Most changes were made in early December. Early March 2022 is when I uploaded this here, and also tweaked the changelog below a bit. -->
 
-btw I've been using Microsoft Edge to test my changes.
+<!-- btw I've been using Microsoft Edge to test my changes. -->
 
 *   Additions
     *   Arcade modes and extra soundbanks from Tetra Legends Plus
