@@ -65,6 +65,7 @@ btw I've been using Microsoft Edge to test my changes.
         *   If you don't know what this is: [Click Me!](https://asc.winternebs.com/assets/home/kicktablesq.gif)
     *   ASC-X Rotation System
         *   Same as ASC but with SRS-X 180° kicks
+    *   Ability to import, export, and reset your settings
 *   Changes
     *   Clutch clears are now allowed
         *   i.e. placing a piece that would clear a line, but is placed fully above the Skyline (should be a Lock Out)  
@@ -111,3 +112,4 @@ btw I've been using Microsoft Edge to test my changes.
     *   Sometimes sounds are cut off when loading a new game for the first time
     *   Both "ready" voices/sounds will play when loading an arcade game mode for the first time
     *   In rare cases, the game looks scrunched when resized at a certain time
+    *   Upon resetting settings, updated audio volumes don't immediately take effect
