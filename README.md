@@ -18,7 +18,7 @@ Thank you:
 
 Play at: https://talon125.github.io/
 
-I'm still deciding whether I'll keep this repository public or make it private.
+<!-- I'm still deciding whether I'll keep this repository public or make it private. -->
 
 
 Changes I have made - since 2021-12-04
