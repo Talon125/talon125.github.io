@@ -944,6 +944,12 @@ class Menu {
         a.click();
         a.remove();
         break;
+      case 'settingsreset':
+        sound.playMenuSe("optionselect");
+        settings.resetSettings();
+        settings.saveSettings();
+        settings.load();
+        break;
       default:
         // TODO wtf error
         break;
