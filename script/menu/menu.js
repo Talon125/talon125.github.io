@@ -443,6 +443,30 @@ class Menu {
             element.textContent = currentData.label;
           }
         }
+        if (currentData.label === "Import") {
+          const inputThingy = document.createElement("input");
+          inputThingy.id = "import-settings"
+          inputThingy.type = "file";
+          inputThingy.accept = ".json";
+          inputThingy.classList.add("input-thingy");
+          element.appendChild(inputThingy);
+          inputThingy.addEventListener("change", (event) => {
+            const theFile = event.target.files[0]
+            const reader = new FileReader();
+            let readData = "";
+            reader.addEventListener('load', (event) => {
+              readData = event.target.result;
+              localStorage.setItem('tetraSettings', readData);
+              settings.load()
+            });
+            reader.readAsText(theFile);
+          });
+          const labelForInputThingy = document.createElement("label");
+          labelForInputThingy.setAttribute("for", "import-settings");
+          labelForInputThingy.innerText = currentData.label;
+          labelForInputThingy.classList.add("label-for-input-thingy");
+          element.appendChild(labelForInputThingy);
+        }
       }
       if (currentData.useIcon) {
         element.classList.add('icon');
@@ -474,6 +498,9 @@ class Menu {
     this.current.data = [...newData];
     if (this.current.name === 'controls') {
       this.drawControls();
+    }
+    if (!NodeList.prototype.isPrototypeOf($("#menu > div"))) {
+      this.select(0)
     }
     this.drawSettings();
   }
@@ -622,8 +649,10 @@ class Menu {
     if (number !== this.selected && playSound) {
       sound.playMenuSe('move');
     }
-    for (const element of $('#menu > div')) {
-      element.classList.remove('selected');
+    if (NodeList.prototype.isPrototypeOf($("#menu > div"))) {
+      for (const element of $('#menu > div')) {
+        element.classList.remove('selected');
+      }
     }
     if (!$(`#option-${number}`)) { number = 0; }
     $(`#option-${number}`).classList.add('selected');
@@ -900,6 +929,20 @@ class Menu {
         break;
       case 'link':
         window.open(this.selectedData.url, '_blank');
+        break;
+      case 'settingsimport':
+        sound.playMenuSe("optionselect");
+        // Look at line 446 for logic
+        break;
+      case 'settingsexport':
+        sound.playMenuSe("optionselect");
+        const fileContent = localStorage.getItem(`tetraSettings`);
+        const bb = new Blob([fileContent ], { type: 'JSON' });
+        const a = document.createElement('a');
+        a.download = 'tetraSettings.json';
+        a.href = window.URL.createObjectURL(bb);
+        a.click();
+        a.remove();
         break;
       default:
         // TODO wtf error

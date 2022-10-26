@@ -1,0 +1,119 @@
+{
+  "properties": {
+    "parent": "tuning"
+  },
+  "data": [
+    {
+      "label": "Spin Detection Override",
+      "description": "Select which spin detection to use in place of the default for the mode",
+      "fixedText": true,
+      "default": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "auto",
+          "value": "auto",
+          "langOverride": "menu_general",
+          "omitDescription": true
+        },
+        {
+          "label": "4-Point",
+          "description": "Each piece gets 4 points around it. At least 3 must be filled for a spin. 2 specific points must be filled for a full spin; otherwise, the spin is mini, but only if the first 4 rotations in the offset table are used.",
+          "fixedText": true,
+          "value": "3corner"
+        },
+        {
+          "label": "Immobile",
+          "description": "If a piece gets rotated into a position where it cannot move up, down, left, or right, then it is a spin. There are no mini spins.",
+          "fixedText": true,
+          "value": "immobile"
+        },
+        {
+          "label": "EZ-Immobile",
+          "description": "Same as immobile, but if upon rotating a piece it kicks (rotates, but not on its center-axis) and it does not satisfy the requirements for an immobile spin, then it is a mini spin.",
+          "fixedText": true,
+          "value": "EZimmobile"
+        },
+        {
+          "label": "None",
+          "description": "Do not detect spins",
+          "fixedText": true,
+          "value": "null"
+        }
+      ],
+      "setting": "spinDetectionType",
+      "settingType": "setting"
+    },
+    {
+      "label": "Piece Spin Presets",
+      "description": "Select from a variety of presets that determine which spins are detected/rewarded for which pieces",
+      "fixedText": true,
+      "action": "submenu",
+      "submenu": "tuning/spinpresets"
+    },
+    {
+      "label": "Z-Spins",
+      "description": "Toggle whether Z-Spins are detected/rewarded",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "spinZ",
+      "settingType": "setting"
+    },
+    {
+      "label": "L-Spins",
+      "description": "Toggle whether L-Spins are detected/rewarded",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "spinL",
+      "settingType": "setting"
+    },
+    {
+      "label": "O-Spins",
+      "description": "Toggle whether O-Spins are detected/rewarded",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "spinO",
+      "settingType": "setting"
+    },
+    {
+      "label": "S-Spins",
+      "description": "Toggle whether S-Spins are detected/rewarded",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "spinS",
+      "settingType": "setting"
+    },
+    {
+      "label": "I-Spins",
+      "description": "Toggle whether I-Spins are detected/rewarded",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "spinI",
+      "settingType": "setting"
+    },
+    {
+      "label": "J-Spins",
+      "description": "Toggle whether J-Spins are detected/rewarded",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "spinJ",
+      "settingType": "setting"
+    },
+    {
+      "label": "T-Spins",
+      "description": "Toggle whether T-Spins are detected/rewarded",
+      "fixedText": true,
+      "type": "toggle",
+      "action": "toggle",
+      "setting": "spinT",
+      "settingType": "setting"
+    }
+  ]
+}

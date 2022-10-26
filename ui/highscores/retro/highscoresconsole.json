@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "parent": "highscores/highscoresretro",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Retro Console",
+      "type": "header"
+    }
+  ]
+}

@@ -13,13 +13,13 @@
       "string": "particleSettingsLabel",
       "stringDesc": "particleSettingsDescription",
       "action": "submenu",
-      "submenu": "particles"
+      "submenu": "video/particles"
     },
     {
       "string": "colorOverrideLabel",
       "stringDesc": "colorOverrideDescription",
       "action": "submenu",
-      "submenu": "coloroverride"
+      "submenu": "video/coloroverride"
     },
     {
       "string": "themeLabel",

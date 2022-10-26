@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "parent": "highscores/highscoresguideline",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Guideline Marathon",
+      "type": "header"
+    }
+  ]
+}

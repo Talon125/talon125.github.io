@@ -1,0 +1,35 @@
+{
+  "properties": {
+    "parent": "highscores",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Retro",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "Console",
+      "description": "Look at highscores for Console",
+      "default": true,
+      "action": "submenu",
+      "submenu": "highscores/retro/highscoresconsole"
+    },
+    {
+      "fixedText": true,
+      "label": "Handheld",
+      "description": "Look at highscores for Handheld",
+      "action": "submenu",
+      "submenu": "highscores/retro/highscoreshandheld"
+    },
+    {
+      "fixedText": true,
+      "label": "Deluxe",
+      "description": "Look at highscores for Deluxe",
+      "action": "submenu",
+      "submenu": "highscores/retro/highscoresdeluxe"
+    }
+  ]
+}

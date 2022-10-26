@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "parent": "highscores/highscorestetrax",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Tetra-X Night of Nights X",
+      "type": "header"
+    }
+  ]
+}

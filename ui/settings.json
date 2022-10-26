@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "parent": "root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Settings",
+      "type": "header"
+    },
+    {
+      "label": "Import",
+      "description": "Import settings from a JSON file",
+      "action": "settingsimport",
+      "isShort": true,
+      "fixedText": true
+    },
+    {
+      "label": "Export",
+      "description": "Export your current settings to a JSON file",
+      "action": "settingsexport",
+      "isShort": true,
+      "fixedText": true
+    },
+    {
+      "label": "Info",
+      "description": "Data managed: Tuning, Audio, and Video. Controls are not affected. Beware of importing incorrect JSON files.",
+      "default": true,
+      "width": "third",
+      "fixedText": true
+    }
+  ]
+}

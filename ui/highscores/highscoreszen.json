@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "parent": "highscores",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Zen",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "Work In Progress!",
+      "type": "overline"
+    },
+    {
+      "label": "button",
+      "description": "doesn't do anything (yet)",
+      "fixedText": true
+    }
+  ]
+}

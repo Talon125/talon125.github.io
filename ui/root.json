@@ -84,6 +84,32 @@
       "submenu": "video"
     },
     {
+      "fixedText": true,
+      "label": "Data Management",
+      "type": "overline"
+    },
+    {
+      "fixedText": true,
+      "label": "Settings",
+      "description": "Import and export your settings here",
+      "action": "submenu",
+      "submenu": "settings"
+    },
+    {
+      "fixedText": true,
+      "label": "Highscores",
+      "description": "Look at your highscores for each mode here",
+      "action": "submenu",
+      "submenu": "highscores"
+    },
+    {
+      "fixedText": true,
+      "label": "Replays",
+      "description": "Manage replays of games you played here",
+      "action": "submenu",
+      "submenu": "replays"
+    },
+    {
       "string": "miscOverline",
       "label": "Misc",
       "type": "overline"

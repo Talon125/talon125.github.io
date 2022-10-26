@@ -1,0 +1,28 @@
+{
+  "properties": {
+    "parent": "highscores",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Arcade",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "Novice",
+      "description": "Look at highscores for Novice",
+      "default": true,
+      "action": "submenu",
+      "submenu": "highscores/arcade/highscoresnovice"
+    },
+    {
+      "fixedText": true,
+      "label": "Sudden",
+      "description": "Look at highscores for Sudden",
+      "action": "submenu",
+      "submenu": "highscores/arcade/highscoressudden"
+    }
+  ]
+}

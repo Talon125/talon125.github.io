@@ -1,0 +1,163 @@
+{
+  "properties": {
+    "parent": "video",
+    "langOverride": "menu_video"
+  },
+  "data": [
+    {
+      "string": "resetLabel",
+      "stringDesc": "resetDescription",
+      "langOverride": "menu_controls",
+      "isShort": true,
+      "action": "functionResetColors"
+    },
+    {
+      "label": "Z",
+      "description": "",
+      "fixedText": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {"string": "auto","omitDescription": true, "value": "auto", "langOverride": "menu_general"},
+        {"string": "redOption", "omitDescription": true, "value": "red"},
+        {"string": "orangeOption", "omitDescription": true, "value": "orange"},
+        {"string": "yellowOption", "omitDescription": true, "value": "yellow"},
+        {"string": "greenOption", "omitDescription": true, "value": "green"},
+        {"string": "lightBlueOption", "omitDescription": true, "value": "lightBlue"},
+        {"string": "blueOption", "omitDescription": true, "value": "blue"},
+        {"string": "purpleOption", "omitDescription": true, "value": "purple"},
+        {"string": "whiteOption", "omitDescription": true, "value": "white"},
+        {"string": "blackOption", "omitDescription": true, "value": "black"}
+      ],
+      "setting": "colorZ",
+      "settingType": "setting"
+    },
+    {
+      "label": "L",
+      "description": "",
+      "fixedText": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {"string": "auto","omitDescription": true, "value": "auto", "langOverride": "menu_general"},
+        {"string": "redOption", "omitDescription": true, "value": "red"},
+        {"string": "orangeOption", "omitDescription": true, "value": "orange"},
+        {"string": "yellowOption", "omitDescription": true, "value": "yellow"},
+        {"string": "greenOption", "omitDescription": true, "value": "green"},
+        {"string": "lightBlueOption", "omitDescription": true, "value": "lightBlue"},
+        {"string": "blueOption", "omitDescription": true, "value": "blue"},
+        {"string": "purpleOption", "omitDescription": true, "value": "purple"},
+        {"string": "whiteOption", "omitDescription": true, "value": "white"},
+        {"string": "blackOption", "omitDescription": true, "value": "black"}
+      ],
+      "setting": "colorL",
+      "settingType": "setting"
+    },
+    {
+      "label": "O",
+      "description": "",
+      "fixedText": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {"string": "auto","omitDescription": true, "value": "auto", "langOverride": "menu_general"},
+        {"string": "redOption", "omitDescription": true, "value": "red"},
+        {"string": "orangeOption", "omitDescription": true, "value": "orange"},
+        {"string": "yellowOption", "omitDescription": true, "value": "yellow"},
+        {"string": "greenOption", "omitDescription": true, "value": "green"},
+        {"string": "lightBlueOption", "omitDescription": true, "value": "lightBlue"},
+        {"string": "blueOption", "omitDescription": true, "value": "blue"},
+        {"string": "purpleOption", "omitDescription": true, "value": "purple"},
+        {"string": "whiteOption", "omitDescription": true, "value": "white"},
+        {"string": "blackOption", "omitDescription": true, "value": "black"}
+      ],
+      "setting": "colorO",
+      "settingType": "setting"
+    },
+    {
+      "label": "S",
+      "description": "",
+      "fixedText": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {"string": "auto","omitDescription": true, "value": "auto", "langOverride": "menu_general"},
+        {"string": "redOption", "omitDescription": true, "value": "red"},
+        {"string": "orangeOption", "omitDescription": true, "value": "orange"},
+        {"string": "yellowOption", "omitDescription": true, "value": "yellow"},
+        {"string": "greenOption", "omitDescription": true, "value": "green"},
+        {"string": "lightBlueOption", "omitDescription": true, "value": "lightBlue"},
+        {"string": "blueOption", "omitDescription": true, "value": "blue"},
+        {"string": "purpleOption", "omitDescription": true, "value": "purple"},
+        {"string": "whiteOption", "omitDescription": true, "value": "white"},
+        {"string": "blackOption", "omitDescription": true, "value": "black"}
+      ],
+      "setting": "colorS",
+      "settingType": "setting"
+    },
+    {
+      "label": "I",
+      "description": "",
+      "fixedText": true,
+      "default": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {"string": "auto","omitDescription": true, "value": "auto", "langOverride": "menu_general"},
+        {"string": "redOption", "omitDescription": true, "value": "red"},
+        {"string": "orangeOption", "omitDescription": true, "value": "orange"},
+        {"string": "yellowOption", "omitDescription": true, "value": "yellow"},
+        {"string": "greenOption", "omitDescription": true, "value": "green"},
+        {"string": "lightBlueOption", "omitDescription": true, "value": "lightBlue"},
+        {"string": "blueOption", "omitDescription": true, "value": "blue"},
+        {"string": "purpleOption", "omitDescription": true, "value": "purple"},
+        {"string": "whiteOption", "omitDescription": true, "value": "white"},
+        {"string": "blackOption", "omitDescription": true, "value": "black"}
+      ],
+      "setting": "colorI",
+      "settingType": "setting"
+    },
+    {
+      "label": "J",
+      "description": "",
+      "fixedText": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {"string": "auto","omitDescription": true, "value": "auto", "langOverride": "menu_general"},
+        {"string": "redOption", "omitDescription": true, "value": "red"},
+        {"string": "orangeOption", "omitDescription": true, "value": "orange"},
+        {"string": "yellowOption", "omitDescription": true, "value": "yellow"},
+        {"string": "greenOption", "omitDescription": true, "value": "green"},
+        {"string": "lightBlueOption", "omitDescription": true, "value": "lightBlue"},
+        {"string": "blueOption", "omitDescription": true, "value": "blue"},
+        {"string": "purpleOption", "omitDescription": true, "value": "purple"},
+        {"string": "whiteOption", "omitDescription": true, "value": "white"},
+        {"string": "blackOption", "omitDescription": true, "value": "black"}
+      ],
+      "setting": "colorJ",
+      "settingType": "setting"
+    },
+    {
+      "label": "T",
+      "description": "",
+      "fixedText": true,
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {"string": "auto","omitDescription": true, "value": "auto", "langOverride": "menu_general"},
+        {"string": "redOption", "omitDescription": true, "value": "red"},
+        {"string": "orangeOption", "omitDescription": true, "value": "orange"},
+        {"string": "yellowOption", "omitDescription": true, "value": "yellow"},
+        {"string": "greenOption", "omitDescription": true, "value": "green"},
+        {"string": "lightBlueOption", "omitDescription": true, "value": "lightBlue"},
+        {"string": "blueOption", "omitDescription": true, "value": "blue"},
+        {"string": "purpleOption", "omitDescription": true, "value": "purple"},
+        {"string": "whiteOption", "omitDescription": true, "value": "white"},
+        {"string": "blackOption", "omitDescription": true, "value": "black"}
+      ],
+      "setting": "colorT",
+      "settingType": "setting"
+    }
+  ]
+}

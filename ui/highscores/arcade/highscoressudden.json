@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "parent": "highscores/highscoresarcade",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Arcade Sudden",
+      "type": "header"
+    },
+    {
+      "label": "button",
+      "description": "doesn't do anything (yet)",
+      "fixedText": true
+    }
+  ]
+}

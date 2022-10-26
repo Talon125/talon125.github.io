@@ -1,0 +1,24 @@
+{
+  "properties": {
+    "parent": "root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Replays",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "Work In Progress!",
+      "type": "overline"
+    },
+    {
+      "label": "Info",
+      "description": "Replays have not been implemented yet.",
+      "default": true,
+      "width": "third",
+      "fixedText": true
+    }
+  ]
+}

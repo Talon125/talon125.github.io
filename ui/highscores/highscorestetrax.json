@@ -1,0 +1,35 @@
+{
+  "properties": {
+    "parent": "highscores",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Tetra-X",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "Standard",
+      "description": "Look at highscores for Standard",
+      "default": true,
+      "action": "submenu",
+      "submenu": "highscores/tetrax/highscoresstandard"
+    },
+    {
+      "fixedText": true,
+      "label": "Pro",
+      "description": "Look at highscores for Pro",
+      "action": "submenu",
+      "submenu": "highscores/tetrax/highscorespro"
+    },
+    {
+      "fixedText": true,
+      "label": "Night of Nights X",
+      "description": "Look at highscores for Night of Nights X",
+      "action": "submenu",
+      "submenu": "highscores/tetrax/highscoresnonx"
+    }
+  ]
+}

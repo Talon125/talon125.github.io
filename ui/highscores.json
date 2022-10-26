@@ -1,0 +1,53 @@
+{
+  "properties": {
+    "parent": "root",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "Work In Progress!",
+      "type": "overline"
+    },
+    {
+      "fixedText": true,
+      "label": "Guideline",
+      "description": "Look at highscores for guideline modes",
+      "action": "submenu",
+      "submenu": "highscores/highscoresguideline"
+    },
+    {
+      "fixedText": true,
+      "label": "Tetra-X",
+      "description": "Look at highscores for Tetra-X modes",
+      "action": "submenu",
+      "submenu": "highscores/highscorestetrax"
+    },
+    {
+      "fixedText": true,
+      "label": "Retro",
+      "description": "Look at highscores for retro modes",
+      "action": "submenu",
+      "submenu": "highscores/highscoresretro"
+    },
+    {
+      "fixedText": true,
+      "label": "Arcade",
+      "description": "Look at highscores for arcade modes",
+      "action": "submenu",
+      "submenu": "highscores/highscoresarcade"
+    },
+    {
+      "label": "Info",
+      "description": "Highscores have not been implemented yet.",
+      "default": true,
+      "width": "third",
+      "fixedText": true
+    }
+  ]
+}

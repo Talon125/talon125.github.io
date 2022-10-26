@@ -13,7 +13,7 @@
       "string": "presetsLabel",
       "stringDesc": "presetDescription",
       "action": "submenu",
-      "submenu": "daspresets"
+      "submenu": "tuning/daspresets"
     },
     {
       "string": "dasLabel",
@@ -207,7 +207,7 @@
       "description": "Specify which spins are detected and how",
       "fixedText": true,
       "action": "submenu",
-      "submenu": "spindetectionoverride"
+      "submenu": "tuning/spindetectionoverride"
     },
     {
       "label": "Piece Shape Override",

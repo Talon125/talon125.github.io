@@ -1,0 +1,29 @@
+{
+  "properties": {
+    "parent": "tuning/spindetectionoverride"
+  },
+  "data": [
+    {
+      "label": "T-Spins",
+      "description": "Only T-Spins are detected and rewarded",
+      "fixedText": true,
+      "default": true,
+      "isShort": true,
+      "action": "spinpreset"
+    },
+    {
+      "label": "All Spins",
+      "description": "All spins are detected and rewarded",
+      "fixedText": true,
+      "isShort": true,
+      "action": "spinpreset"
+    },
+    {
+      "label": "None",
+      "description": "No spins are detected or rewarded",
+      "fixedText": true,
+      "isShort": true,
+      "action": "spinpreset"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "properties": {
+    "parent": "highscores",
+    "langOverride": "menu_root"
+  },
+  "data": [
+    {
+      "fixedText": true,
+      "label": "Highscores Guideline",
+      "type": "header"
+    },
+    {
+      "fixedText": true,
+      "label": "Marathon",
+      "description": "Look at highscores for Marathon",
+      "default": true,
+      "action": "submenu",
+      "submenu": "highscores/guideline/highscoresmarathon"
+    },
+    {
+      "fixedText": true,
+      "label": "Sprint",
+      "description": "Look at highscores for Sprint",
+      "action": "submenu",
+      "submenu": "highscores/guideline/highscoressprint"
+    },
+    {
+      "fixedText": true,
+      "label": "Ultra",
+      "description": "Look at highscores for Ultra",
+      "action": "submenu",
+      "submenu": "highscores/guideline/highscoresultra"
+    },
+    {
+      "fixedText": true,
+      "label": "Master",
+      "description": "Look at highscores for Master",
+      "action": "submenu",
+      "submenu": "highscores/guideline/highscoresmaster"
+    },
+    {
+      "fixedText": true,
+      "label": "Survival",
+      "description": "Look at highscores for Survival",
+      "action": "submenu",
+      "submenu": "highscores/guideline/highscoressurvival"
+    },
+    {
+      "fixedText": true,
+      "label": "Combo Challenge",
+      "description": "Look at highscores for Combo Challenge",
+      "action": "submenu",
+      "submenu": "highscores/guideline/highscorescombo"
+    },
+    {
+      "fixedText": true,
+      "label": "Beat Mode",
+      "description": "Look at highscores for Beat Mode",
+      "action": "submenu",
+      "submenu": "highscores/guideline/highscoresbeat"
+    }
+  ]
+}

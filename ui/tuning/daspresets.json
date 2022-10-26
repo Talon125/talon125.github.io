@@ -1,6 +1,7 @@
 {
   "properties": {
-    "parent": "tuning"
+    "parent": "tuning",
+    "langOverride": "menu_daspresets"
   },
   "data": [
     {
