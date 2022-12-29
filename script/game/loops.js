@@ -2408,12 +2408,63 @@ export const loops = {
     },
     onPieceSpawn: (game) => {},
     onInit: (game) => {
-      if (settings.game.survival.matrixWidth === "standard") {
-        game.settings.width = 10
-        game.stack.width = 10
-        game.stack.new()
-        game.piece.xSpawnOffset = 0
-        game.resize()
+      // if (settings.game.survival.matrixWidth === "standard") {
+      //   game.settings.width = 10
+      //   game.stack.width = 10
+      //   game.stack.new()
+      //   game.piece.xSpawnOffset = 0
+      //   game.resize()
+      // }
+      switch (settings.game.survival.matrixWidth) {
+        // case 4:
+        //   game.settings.width = 4
+        //   game.stack.width = 4
+        //   game.stack.new()
+        //   game.piece.xSpawnOffset = -3
+        //   game.resize()
+        //   break
+        case 5:
+          game.settings.width = 5
+          game.stack.width = 5
+          game.stack.new()
+          game.piece.xSpawnOffset = -3
+          game.resize()
+          break
+        case 6:
+          game.settings.width = 6
+          game.stack.width = 6
+          game.stack.new()
+          game.piece.xSpawnOffset = -2
+          game.resize()
+          break
+        case 7:
+          game.settings.width = 7
+          game.stack.width = 7
+          game.stack.new()
+          game.piece.xSpawnOffset = -2
+          game.resize()
+          break
+        case 8:
+          game.settings.width = 8
+          game.stack.width = 8
+          game.stack.new()
+          game.piece.xSpawnOffset = -1
+          game.resize()
+          break
+        case 9:
+          game.settings.width = 9
+          game.stack.width = 9
+          game.stack.new()
+          game.piece.xSpawnOffset = -1
+          game.resize()
+          break
+        case 10:
+          game.settings.width = 10
+          game.stack.width = 10
+          game.stack.new()
+          game.piece.xSpawnOffset = 0
+          game.resize()
+          break
       }
       const difficulty = settings.game.survival.difficulty
       game.garbageRateExponent = [1.91, 1.95, 1.97, 2, 2.03, 2.07, 2.1][
