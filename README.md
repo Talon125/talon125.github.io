@@ -4,12 +4,13 @@ Combining the original Tetra Legends with Tetra Legends Plus, and adding some ex
 
 Original repositories:
 
-https://github.com/zacharylohrman/tetralegends/  
+https://github.com/zacharylohrman/tetralegends/
+<!-- https://github.com/doktorocelot/tetralegends -->
 https://github.com/Rexxt/tetralegendsplus
 
 Thank you:
 
-- [zacharylohrman](https://github.com/zacharylohrman) (Dr Ocelot)
+- [zacharylohrman](https://github.com/zacharylohrman) [(Dr Ocelot)](https://github.com/doktorocelot)
 - [MillaBasset](https://github.com/MillaBasset)
 - [MattMayuga](https://github.com/MattMayuga)
 - [Rexxt](https://github.com/Rexxt) (Mizu)
