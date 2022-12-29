@@ -103,13 +103,6 @@
       "submenu": "highscores"
     },
     {
-      "fixedText": true,
-      "label": "Replays",
-      "description": "Manage replays of games you played here",
-      "action": "submenu",
-      "submenu": "replays"
-    },
-    {
       "string": "miscOverline",
       "label": "Misc",
       "type": "overline"
