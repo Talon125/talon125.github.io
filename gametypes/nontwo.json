@@ -20,9 +20,5 @@
     "areLimitLineModifier": 125,
     "spinDetectionType": "immobile"
   },
-  "stats": [
-    "score",
-    "line",
-    "piece"
-  ]
+  "stats": ["score", "line", "piece"]
 }

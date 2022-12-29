@@ -20,11 +20,5 @@
     "areLimitLineModifier": 166.666666667,
     "spinDetectionType": "immobile"
   },
-  "stats": [
-    "score",
-    "level",
-    "fallspeed",
-    "line",
-    "piece"
-  ]
+  "stats": ["score", "level", "fallspeed", "line", "piece"]
 }

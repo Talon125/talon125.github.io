@@ -1,11 +1,4 @@
 {
-  "files": [
-    "collapse",
-    "ko",
-    "levelup",
-    "lock",
-    "ready",
-    "start"
-  ],
+  "files": ["collapse", "ko", "levelup", "lock", "ready", "start"],
   "ren": []
 }
