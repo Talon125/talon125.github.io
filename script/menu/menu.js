@@ -309,10 +309,14 @@ class Menu {
       } else if (currentData.type === "slider") {
         element.onclick = () => {}
         const label = document.createElement("div")
-        label.textContent = locale.getString(
-          this.current.lang,
-          currentData.string
-        )
+        if (!currentData.fixedText) {
+          label.textContent = locale.getString(
+            this.current.lang,
+            currentData.string
+          )
+        } else {
+          label.textContent = currentData.label
+        }
         label.classList.add("setting-text")
         const value = document.createElement("div")
         value.id = `${currentData.settingType}-${currentData.setting}-value`
