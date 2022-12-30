@@ -1068,7 +1068,9 @@ class Menu {
       case "settingsreset":
         sound.playMenuSe("optionselect")
         settings.resetSettings()
+        settings.resetGame()
         settings.saveSettings()
+        settings.saveGame()
         settings.load()
         break
       default:
