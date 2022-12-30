@@ -34,9 +34,5 @@
   "hold": {
     "isDisabled": true
   },
-  "stats": [
-    "score",
-    "level",
-    "line"
-  ]
+  "stats": ["score", "level", "line"]
 }

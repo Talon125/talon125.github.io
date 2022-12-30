@@ -1,10 +1,4 @@
 {
-  "files": [
-    "collapse",
-    "excellent",
-    "harddrop",
-    "ko",
-    "locknohd"
-  ],
+  "files": ["collapse", "excellent", "harddrop", "ko", "locknohd"],
   "ren": []
 }

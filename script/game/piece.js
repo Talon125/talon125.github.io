@@ -1,290 +1,357 @@
-import GameModule from './game-module.js';
-import {PIECES, MONOMINO_PIECES, DOMINO_PIECES, TROMINO_PIECES, PENTOMINO_PIECES, SPAWN_OFFSETS, KICK_TABLES, INITIAL_ORIENTATION, PIECE_OFFSETS, SPIN_POINTS} from '../consts.js';
-import $, {clearCtx, framesToMs} from '../shortcuts.js';
-import settings from '../settings.js';
-import sound from '../sound.js';
-import locale from '../lang.js';
-import input from '../input.js';
+import GameModule from "./game-module.js"
+import {
+  PIECES,
+  MONOMINO_PIECES,
+  DOMINO_PIECES,
+  TROMINO_PIECES,
+  PENTOMINO_PIECES,
+  SPAWN_OFFSETS,
+  KICK_TABLES,
+  INITIAL_ORIENTATION,
+  PIECE_OFFSETS,
+  SPIN_POINTS,
+} from "../consts.js"
+import $, { clearCtx, framesToMs } from "../shortcuts.js"
+import settings from "../settings.js"
+import sound from "../sound.js"
+import locale from "../lang.js"
+import input from "../input.js"
 export default class Piece extends GameModule {
   constructor(parent, ctx, nextCtx) {
-    super(parent);
-    this.x;
-    this.lastX;
-    this.y;
-    this.lastY;
-    this.lastVisualY;
-    this.lowestY;
-    this.lowestVisualY;
-    this.name;
-    this.piece;
-    this.shape;
-    this.gravity = 1000;
-    this.gravityMultiplier = 1;
-    this.gravityOverride = 0;
-    this.ctx = ctx;
-    this.nextCtx = nextCtx;
-    this.orientation = 0;
-    this.lastOrientation;
-    this.lockDelay = 0;
-    this.lockDelayLimit = 500;
-    this.last = '';
-    this.kicks;
-    this.shiftDir = 'none';
-    this.das = 0;
-    this.dasLimit = settings.settings.DAS;
-    this.shiftReleased = false;
-    this.didInitialMove = false;
-    this.arr = 0;
-    this.arrLimit = settings.settings.ARR;
-    this.manipulations = 0;
-    this.manipulationLimit = 15;
-    this.mustLock = false;
-    this.color = 'white';
-    this.are = 0;
-    this.areLimit = 0;
-    this.areLineLimit = 0;
-    this.areLimitLineModifier = 0;
-    this.isDead = true;
-    this.ire = 0;
-    this.hasIas = false;
-    this.hasLineDelay = false;
-    this.hasHardDropped = false;
-    this.startingAre = 0;
-    this.startingAreLimit = 1500;
-    this.ghostIsVisible = true;
-    this.softDropIsLocked = false;
-    this.useSpecialI = false;
-    this.xSpawnOffset = 0;
-    this.lockdownType = null;
-    this.lockdownTypeLast = null;
-    this.spinDetectionType = null;
-    this.lastKickIndex = 0;
-    this.resetGravityOnKick = false;
-    this.resetDelayOnKick = false;
-    this.retroDas = 0;
-    this.holdingTime = 0;
-    this.holdingTimeLimit = 0;
-    this.breakHoldingTimeOnSoftDrop = true;
-    this.resetHoldingTime = false;
-    this.killLockDelayOnRotate = false;
-    this.lastSpinDirection = null;
+    super(parent)
+    this.x
+    this.lastX
+    this.y
+    this.lastY
+    this.lastVisualY
+    this.lowestY
+    this.lowestVisualY
+    this.name
+    this.piece
+    this.shape
+    this.gravity = 1000
+    this.gravityMultiplier = 1
+    this.gravityOverride = 0
+    this.ctx = ctx
+    this.nextCtx = nextCtx
+    this.orientation = 0
+    this.lastOrientation
+    this.lockDelay = 0
+    this.lockDelayLimit = 500
+    this.last = ""
+    this.kicks
+    this.shiftDir = "none"
+    this.das = 0
+    this.dasLimit = settings.settings.DAS
+    this.shiftReleased = false
+    this.didInitialMove = false
+    this.arr = 0
+    this.arrLimit = settings.settings.ARR
+    this.manipulations = 0
+    this.manipulationLimit = 15
+    this.mustLock = false
+    this.color = "white"
+    this.are = 0
+    this.areLimit = 0
+    this.areLineLimit = 0
+    this.areLimitLineModifier = 0
+    this.isDead = true
+    this.ire = 0
+    this.hasIas = false
+    this.hasLineDelay = false
+    this.hasHardDropped = false
+    this.startingAre = 0
+    this.startingAreLimit = 1500
+    this.ghostIsVisible = true
+    this.softDropIsLocked = false
+    this.useSpecialI = false
+    this.xSpawnOffset = 0
+    this.lockdownType = null
+    this.lockdownTypeLast = null
+    this.spinDetectionType = null
+    this.lastKickIndex = 0
+    this.resetGravityOnKick = false
+    this.resetDelayOnKick = false
+    this.retroDas = 0
+    this.holdingTime = 0
+    this.holdingTimeLimit = 0
+    this.breakHoldingTimeOnSoftDrop = true
+    this.resetHoldingTime = false
+    this.killLockDelayOnRotate = false
+    this.lastSpinDirection = null
   }
   new(name = this.parent.next.next()) {
-    this.isFrozen = false;
-    let rotSys = this.parent.rotationSystem;
-    this.killLockDelayOnRotate = false;
+    this.isFrozen = false
+    let rotSys = this.parent.rotationSystem
+    this.killLockDelayOnRotate = false
     if (this.parent.spinDetectionType != null) {
-      this.spinDetectionType = this.parent.spinDetectionType;
+      this.spinDetectionType = this.parent.spinDetectionType
     }
 
-    let playSoundBankReadyGoSoundOrVoice = true;
+    let playSoundBankReadyGoSoundOrVoice = true
 
-    if (sound.doesSoundBankUseReadyGoVoices && 
-      settings.settings.voicebank != 'off' && 
-      settings.settings.voiceVolume != 0) {
-      playSoundBankReadyGoSoundOrVoice = false;
+    if (
+      sound.doesSoundBankUseReadyGoVoices &&
+      settings.settings.voicebank != "off" &&
+      settings.settings.voiceVolume != 0
+    ) {
+      playSoundBankReadyGoSoundOrVoice = false
     }
 
     if (this.parent.stat.piece === 0 && !this.parent.hold.hasHeld) {
       if (this.parent.isRaceMode) {
         if (playSoundBankReadyGoSoundOrVoice) {
-          sound.add('go');
+          sound.add("go")
         }
-        sound.add('voxgo')
-        $('#message').textContent = locale.getString('ui', 'go');
+        sound.add("voxgo")
+        $("#message").textContent = locale.getString("ui", "go")
       } else {
         if (playSoundBankReadyGoSoundOrVoice) {
-          sound.add('start');
+          sound.add("start")
         }
-        sound.add('voxstart');
-        $('#message').textContent = locale.getString('ui', 'start');
+        sound.add("voxstart")
+        $("#message").textContent = locale.getString("ui", "start")
       }
-      $('#ready-meter').classList.add('hidden');
-      $('#message').classList.add('dissolve');
+      $("#ready-meter").classList.add("hidden")
+      $("#message").classList.add("dissolve")
       if (this.parent.useAltMusic) {
-        sound.playBgm(this.parent.settings.music[1], this.parent.type);
+        sound.playBgm(this.parent.settings.music[1], this.parent.type)
       } else {
-        sound.playBgm(this.parent.settings.music[0], this.parent.type);
+        sound.playBgm(this.parent.settings.music[0], this.parent.type)
       }
     }
-    this.parent.onPieceSpawn(this.parent);
-    this.parent.updateMusic();
-    this.parent.updateStats();
-    $('#delay').innerHTML = `${this.lockDelayLimit} <b>ms</b>`;
-    this.hasLineDelay = false;
-    this.isDead = false;
-    this.are = this.areLimit;
-    this.mustLock = false;
-    this.hasHardDropped = false;
-    this.lockDelay = 0;
-    this.name = name;
-    this.orientation = INITIAL_ORIENTATION[rotSys][name];
+    this.parent.onPieceSpawn(this.parent)
+    this.parent.updateMusic()
+    this.parent.updateStats()
+    $("#delay").innerHTML = `${this.lockDelayLimit} <b>ms</b>`
+    this.hasLineDelay = false
+    this.isDead = false
+    this.are = this.areLimit
+    this.mustLock = false
+    this.hasHardDropped = false
+    this.lockDelay = 0
+    this.name = name
+    this.orientation = INITIAL_ORIENTATION[rotSys][name]
 
-    let backUpRotSys = rotSys;
+    let backUpRotSys = rotSys
 
-    switch(settings.settings.shapeOverride) {
-      case 'mono':
-        this.piece = MONOMINO_PIECES[name].shape;
-        this.shape = this.piece[this.orientation];
-        this.x = 0 + SPAWN_OFFSETS['monomino'][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
-        this.y = 0 + SPAWN_OFFSETS['monomino'][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
-        this.lowestY = this.y;
-        rotSys = 'monomino';
-        break;
-      case 'do':
-        this.piece = DOMINO_PIECES[name].shape;
-        this.shape = this.piece[this.orientation];
-        this.x = 0 + SPAWN_OFFSETS['monomino'][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
-        this.y = 0 + SPAWN_OFFSETS['monomino'][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
-        this.lowestY = this.y;
-        rotSys = 'monomino';
-        break;
-      case 'tro':
-        this.piece = TROMINO_PIECES[name].shape;
-        this.shape = this.piece[this.orientation];
-        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
-        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
-        this.lowestY = this.y;
-        break;
-      case 'pento':
-        this.piece = PENTOMINO_PIECES[name].shape;
-        this.shape = this.piece[this.orientation];
+    switch (settings.settings.shapeOverride) {
+      case "mono":
+        this.piece = MONOMINO_PIECES[name].shape
+        this.shape = this.piece[this.orientation]
+        this.x =
+          0 +
+          SPAWN_OFFSETS["monomino"][name][0] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0] +
+          this.xSpawnOffset
+        this.y =
+          0 +
+          SPAWN_OFFSETS["monomino"][name][1] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0]
+        this.lowestY = this.y
+        rotSys = "monomino"
+        break
+      case "do":
+        this.piece = DOMINO_PIECES[name].shape
+        this.shape = this.piece[this.orientation]
+        this.x =
+          0 +
+          SPAWN_OFFSETS["monomino"][name][0] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0] +
+          this.xSpawnOffset
+        this.y =
+          0 +
+          SPAWN_OFFSETS["monomino"][name][1] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0]
+        this.lowestY = this.y
+        rotSys = "monomino"
+        break
+      case "tro":
+        this.piece = TROMINO_PIECES[name].shape
+        this.shape = this.piece[this.orientation]
+        this.x =
+          0 +
+          SPAWN_OFFSETS[rotSys][name][0] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0] +
+          this.xSpawnOffset
+        this.y =
+          0 +
+          SPAWN_OFFSETS[rotSys][name][1] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0]
+        this.lowestY = this.y
+        break
+      case "pento":
+        this.piece = PENTOMINO_PIECES[name].shape
+        this.shape = this.piece[this.orientation]
         // this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS['srs'][name][this.orientation][0] + this.xSpawnOffset;
         // this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS['srs'][name][this.orientation][0];
-        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
-        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
-        this.lowestY = this.y;
-        break;
+        this.x =
+          0 +
+          SPAWN_OFFSETS[rotSys][name][0] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0] +
+          this.xSpawnOffset
+        this.y =
+          0 +
+          SPAWN_OFFSETS[rotSys][name][1] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0]
+        this.lowestY = this.y
+        break
       default:
-        this.piece = PIECES[name].shape;
-        this.shape = this.piece[this.orientation];
-        this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS[rotSys][name][this.orientation][0] + this.xSpawnOffset;
-        this.y = 0 + SPAWN_OFFSETS[rotSys][name][1] + PIECE_OFFSETS[rotSys][name][this.orientation][0];
-        this.lowestY = this.y;
-        break;
+        this.piece = PIECES[name].shape
+        this.shape = this.piece[this.orientation]
+        this.x =
+          0 +
+          SPAWN_OFFSETS[rotSys][name][0] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0] +
+          this.xSpawnOffset
+        this.y =
+          0 +
+          SPAWN_OFFSETS[rotSys][name][1] +
+          PIECE_OFFSETS[rotSys][name][this.orientation][0]
+        this.lowestY = this.y
+        break
     }
 
-    this.lowestVisualY = this.visualY;
-    this.kicks = KICK_TABLES[backUpRotSys][name];
-    this.manipulations = 0;
-    this.color = this.parent.colors[this.name];
-    
+    this.lowestVisualY = this.visualY
+    this.kicks = KICK_TABLES[backUpRotSys][name]
+    this.manipulations = 0
+    this.color = this.parent.colors[this.name]
+
     for (let i = 0; i < SPAWN_OFFSETS[rotSys].downShift; i++) {
-      this.shiftDown();
+      this.shiftDown()
     }
-    
-    rotSys = backUpRotSys;
 
-    this.rotatedX = null;
-    this.rotatedY = null;
-    if (settings.settings.IRS === 'hold') {
-      if (input.getGameDown('rotateRight') && !input.getGamePress('rotateRight')) {
-        this.ire = 1;
-      } else if (input.getGameDown('rotateLeft') && !input.getGamePress('rotateLeft')) {
-        this.ire = 3;
-      } else if (input.getGameDown('rotate180') && !input.getGamePress('rotate180')) {
-        this.ire = 2;
+    rotSys = backUpRotSys
+
+    this.rotatedX = null
+    this.rotatedY = null
+    if (settings.settings.IRS === "hold") {
+      if (
+        input.getGameDown("rotateRight") &&
+        !input.getGamePress("rotateRight")
+      ) {
+        this.ire = 1
+      } else if (
+        input.getGameDown("rotateLeft") &&
+        !input.getGamePress("rotateLeft")
+      ) {
+        this.ire = 3
+      } else if (
+        input.getGameDown("rotate180") &&
+        !input.getGamePress("rotate180")
+      ) {
+        this.ire = 2
       }
     }
     if (this.ire !== 0) {
-      sound.add('initialrotate');
-      let ireDirection = '';
+      sound.add("initialrotate")
+      let ireDirection = ""
       switch (this.ire) {
         case 1:
-          ireDirection = 'right';
-          break;
+          ireDirection = "right"
+          break
         case 2:
-          ireDirection = 'double';
-          break;
+          ireDirection = "double"
+          break
         case 3:
-          ireDirection = 'left';
-          break;
+          ireDirection = "left"
+          break
       }
-      this.rotate(this.ire, ireDirection, false);
+      this.rotate(this.ire, ireDirection, false)
     }
     if (this.isStuck && !this.parent.hold.ihs) {
-      $('#kill-message').textContent = locale.getString('ui', 'blockOut');
-      sound.killVox();
-      sound.add('voxblockout');
-      this.parent.end();
-      return;
+      $("#kill-message").textContent = locale.getString("ui", "blockOut")
+      sound.killVox()
+      sound.add("voxblockout")
+      this.parent.end()
+      return
       // gameHandler.reset();
     }
-    this.ire = 0;
+    this.ire = 0
     if (this.gravity <= framesToMs(1 / 20)) {
-      sound.add('land');
-      this.sonicDrop();
-      this.genDropParticles();
+      sound.add("land")
+      this.sonicDrop()
+      this.genDropParticles()
     }
-    this.isDirty = true;
+    this.isDirty = true
   }
   die() {
-    this.isDead = true;
-    this.are = 0;
+    this.isDead = true
+    this.are = 0
   }
   get yFloor() {
-    return Math.floor(this.y);
+    return Math.floor(this.y)
   }
   get visualY() {
-    return (this.y + this.endY);
+    return this.y + this.endY
   }
   drawMino(x, y, buffer, type, number, color, ctx = this.ctx) {
-    const cellSize = this.parent.cellSize;
-    const xPos = x * cellSize;
-    const yPos = y * cellSize + cellSize * buffer;
+    const cellSize = this.parent.cellSize
+    const xPos = x * cellSize
+    const yPos = y * cellSize + cellSize * buffer
     // spriteCtx.drawImage(img, 0, 0, cellSize * 9, cellSize);
-    let img;
+    let img
     switch (type) {
-      case 'ghost':
-        img = document.getElementById(`ghost-${color}`);
-        break;
-      case 'piece':
-        let suffix = '';
-        if (this.useSpecialI && this.name === 'I') {
-          suffix = number;
+      case "ghost":
+        img = document.getElementById(`ghost-${color}`)
+        break
+      case "piece":
+        let suffix = ""
+        if (this.useSpecialI && this.name === "I") {
+          suffix = number
         }
         if (this.useRetroColors) {
-          suffix = `-${this.parent.stat.level % 10}`;
+          suffix = `-${this.parent.stat.level % 10}`
         }
-        img = document.getElementById(`mino-${color}${suffix}`);
+        img = document.getElementById(`mino-${color}${suffix}`)
       default:
-        break;
+        break
     }
-    img.height = cellSize;
+    img.height = cellSize
     // ctx.clearRect(xPos, yPos, cellSize, cellSize);
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalCompositeOperation = "source-over"
 
-    ctx.drawImage(img, xPos, Math.floor(yPos), cellSize, cellSize);
+    ctx.drawImage(img, xPos, Math.floor(yPos), cellSize, cellSize)
 
-    let darkness = ('0' + (Math.floor(this.lockDelay / this.lockDelayLimit * 255)).toString(16)).slice(-2);
+    let darkness = (
+      "0" +
+      Math.floor((this.lockDelay / this.lockDelayLimit) * 255).toString(16)
+    ).slice(-2)
     if (this.isFrozen) {
-      darkness = 'FF';
+      darkness = "FF"
     }
-    if (type === 'piece') {
-      ctx.globalCompositeOperation = 'saturation';
+    if (type === "piece") {
+      ctx.globalCompositeOperation = "saturation"
 
-      ctx.fillStyle = `#000000${darkness}`;
-      ctx.fillRect(xPos, Math.floor(yPos), cellSize, cellSize);
+      ctx.fillStyle = `#000000${darkness}`
+      ctx.fillRect(xPos, Math.floor(yPos), cellSize, cellSize)
     }
 
     // ctx.fillRect(x * cellSize, y * cellSize + cellSize * buffer, cellSize, cellSize);
   }
-  drawPiece(shape, offsetX = 0, offsetY = 0, type = 'piece', color = null) {
+  drawPiece(shape, offsetX = 0, offsetY = 0, type = "piece", color = null) {
     if (color == null) {
-      color = this.color;
+      color = this.color
     }
     for (let y = 0; y < shape.length; y++) {
       for (let x = 0; x < shape[y].length; x++) {
-        const isFilled = shape[y][x];
+        const isFilled = shape[y][x]
         if (isFilled) {
-          this.drawMino(this.x + x + offsetX, this.yFloor + y + offsetY, this.parent.bufferPeek, type, shape[y][x], color);
+          this.drawMino(
+            this.x + x + offsetX,
+            this.yFloor + y + offsetY,
+            this.parent.bufferPeek,
+            type,
+            shape[y][x],
+            color
+          )
         }
       }
     }
   }
   genDropParticles() {
-    const drop = this.getDrop();
-    const cellSize = this.parent.cellSize;
+    const drop = this.getDrop()
+    const cellSize = this.parent.cellSize
     this.parent.particle.generate({
       amount: 5 * (drop + 1),
       x: (this.x + this.startX) * cellSize,
@@ -298,10 +365,10 @@ export default class Piece extends GameModule {
       xDampening: 1.03,
       yDampening: 1.05,
       lifeVariance: 100,
-    });
+    })
   }
   genPieceParticles() {
-    const cellSize = this.parent.cellSize;
+    const cellSize = this.parent.cellSize
     this.parent.particle.generate({
       amount: 2,
       x: (this.x + this.startX) * cellSize,
@@ -315,60 +382,86 @@ export default class Piece extends GameModule {
       xDampening: 1.03,
       yDampening: 1.05,
       lifeVariance: 100,
-    });
+    })
   }
   draw() {
-    const ctx = this.ctx;
-    const nextCtx = this.nextCtx;
-    clearCtx(ctx);
-    clearCtx(nextCtx);
-    const cellSize = this.parent.cellSize;
+    const ctx = this.ctx
+    const nextCtx = this.nextCtx
+    clearCtx(ctx)
+    clearCtx(nextCtx)
+    const cellSize = this.parent.cellSize
     if (this.parent.stack.waitingGarbage) {
-      $('#garbage-counter-container').classList.remove('hidden');
-      $('#garbage-counter').textContent = `${this.parent.stack.waitingGarbage}`;
+      $("#garbage-counter-container").classList.remove("hidden")
+      $("#garbage-counter").textContent = `${this.parent.stack.waitingGarbage}`
       if (this.parent.stack.waitingGarbage < 0) {
-        $('#garbage-counter-container').classList.remove('danger');
-        $('#garbage-counter-container').classList.add('negative');
-      } else if (this.parent.stack.waitingGarbage > this.parent.settings.height / 2) {
-        $('#garbage-counter-container').classList.remove('negative');
-        $('#garbage-counter-container').classList.add('danger');
+        $("#garbage-counter-container").classList.remove("danger")
+        $("#garbage-counter-container").classList.add("negative")
+      } else if (
+        this.parent.stack.waitingGarbage >
+        this.parent.settings.height / 2
+      ) {
+        $("#garbage-counter-container").classList.remove("negative")
+        $("#garbage-counter-container").classList.add("danger")
       } else {
-        $('#garbage-counter-container').classList.remove('negative');
-        $('#garbage-counter-container').classList.remove('danger');
+        $("#garbage-counter-container").classList.remove("negative")
+        $("#garbage-counter-container").classList.remove("danger")
       }
     } else {
-      $('#garbage-counter-container').classList.add('hidden');
+      $("#garbage-counter-container").classList.add("hidden")
     }
-    if (this.parent.stack.waitingGarbage > 0 && !this.isDead && !this.parent.stack.wouldCauseLineClear()) {
-      ctx.beginPath();
-      const bottom = this.parent.stack.height + this.parent.bufferPeek;
-      ctx.moveTo(0, bottom * cellSize);
-      const ghostHeightValues = {};
+    let actualwaitingGarbage
+    if (this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit) {
+      actualwaitingGarbage = Math.max(0, settings.settings.brokenLineLimit)
+    } else {
+      actualwaitingGarbage = Math.max(0, this.parent.stack.waitingGarbage)
+    }
+    if (
+      this.parent.stack.waitingGarbage > 0 &&
+      !this.isDead &&
+      !this.parent.stack.wouldCauseLineClear()
+    ) {
+      ctx.beginPath()
+      const bottom = this.parent.stack.height + this.parent.bufferPeek
+      ctx.moveTo(0, bottom * cellSize)
+      const ghostHeightValues = {}
       for (let i = 0; i < this.parent.stack.grid.length; i++) {
-        ghostHeightValues[i] = 0;
+        ghostHeightValues[i] = 0
       }
       for (const final of this.getFinalBlockLocations()) {
-        const highest = this.parent.stack.height - final[1];
-        ghostHeightValues[final[0]] = Math.max(ghostHeightValues[final[0]], highest);
+        const highest = this.parent.stack.height - final[1]
+        ghostHeightValues[final[0]] = Math.max(
+          ghostHeightValues[final[0]],
+          highest
+        )
       }
       for (let x = 0; x < this.parent.stack.grid.length; x++) {
-        const highest = this.parent.stack.getHighestOfColumn(x);
-        const y = this.parent.stack.height - Math.max(highest, ghostHeightValues[x]) - this.parent.stack.waitingGarbage + this.parent.bufferPeek;
-        ctx.lineTo(x * cellSize, y * cellSize);
-        ctx.lineTo((x + 1) * cellSize, y * cellSize);
+        const highest = this.parent.stack.getHighestOfColumn(x)
+        const y =
+          this.parent.stack.height -
+          Math.max(highest, ghostHeightValues[x]) -
+          actualwaitingGarbage +
+          this.parent.bufferPeek
+        ctx.lineTo(x * cellSize, y * cellSize)
+        ctx.lineTo((x + 1) * cellSize, y * cellSize)
       }
-      ctx.lineTo(this.parent.stack.width * cellSize, bottom * cellSize);
-      ctx.lineTo(0, bottom * cellSize);
-      ctx.lineWidth = cellSize / 20;
-      ctx.strokeStyle = '#f00';
-      ctx.fillStyle = '#f003';
-      ctx.stroke();
-      ctx.fill();
+      ctx.lineTo(this.parent.stack.width * cellSize, bottom * cellSize)
+      ctx.lineTo(0, bottom * cellSize)
+      ctx.lineWidth = cellSize / 20
+      ctx.strokeStyle = "#f00"
+      ctx.fillStyle = "#f003"
+      ctx.stroke()
+      ctx.fill()
     }
-    ctx.fillStyle = '#f00';
-    ctx.fillRect((this.parent.settings.width - 0.1) * cellSize,
-        (this.parent.settings.height - this.parent.stack.waitingGarbage + this.parent.bufferPeek) * cellSize,
-        cellSize / 10, this.parent.stack.waitingGarbage * cellSize);
+    ctx.fillStyle = "#f00"
+    ctx.fillRect(
+      (this.parent.settings.width - 0.1) * cellSize,
+      (this.parent.settings.height -
+        actualwaitingGarbage +
+        this.parent.bufferPeek) *
+        cellSize,
+      cellSize / 10,
+      actualwaitingGarbage * cellSize
+    )
     // Do this later
     /* const nextBlocks = (this.parent.hold.ihs) ? this.getHoldPieceBlocks() : this.getNextPieceBlocks();
     const check = (x, y) => {return this.parent.stack.isFilled(x, y, this.parent.stack.gridWithLockdown());};
@@ -393,449 +486,549 @@ export default class Piece extends GameModule {
       this.drawMino(nextBlock[0], nextBlock[1] + fall, this.parent.bufferPeek, 'ghost', '', nextColor, nextCtx);
     }*/
     if (this.isDead) {
-      $('#warning-message-container-hold').classList.add('hidden');
-      $('#warning-message-container').classList.add('hidden');
-      $('#clutch-message').classList.add('hidden');
-      $('#game-center').classList.remove('gameover-early-warning-bgflash');
-      $('#hold-container-container').classList.remove('gameover-early-warning-bgflash');
-      if ($('#warning-message-container-hold').classList.contains('hidden') &&
-        $('#warning-message-container').classList.contains('hidden') &&
-        !$('#rotation-warning').classList.contains('hidden')) {
-        sound.stopSeLoop('topoutwarning');
+      $("#warning-message-container-hold").classList.add("hidden")
+      $("#warning-message-container").classList.add("hidden")
+      $("#clutch-message").classList.add("hidden")
+      $("#game-center").classList.remove("gameover-early-warning-bgflash")
+      $("#hold-container-container").classList.remove(
+        "gameover-early-warning-bgflash"
+      )
+      if (
+        $("#warning-message-container-hold").classList.contains("hidden") &&
+        $("#warning-message-container").classList.contains("hidden") &&
+        !$("#rotation-warning").classList.contains("hidden")
+      ) {
+        sound.stopSeLoop("topoutwarning")
       }
-      $('#rotation-warning').classList.add('hidden');
-      return;
+      $("#rotation-warning").classList.add("hidden")
+      return
     }
     if (this.ghostIsVisible) {
-      this.drawPiece(this.shape, 0, this.getDrop(), 'ghost');
+      this.drawPiece(this.shape, 0, this.getDrop(), "ghost")
     }
-    this.drawPiece(this.shape, 0, 0, 'piece');
+    this.drawPiece(this.shape, 0, 0, "piece")
     if (this.parent.stack.alarmIsOn) {
-      ctx.beginPath();
-      const y = cellSize * this.parent.bufferPeek;
-      ctx.moveTo(0, y);
-      ctx.lineTo(this.parent.settings.width * cellSize, y);
-      ctx.lineWidth = cellSize / 20;
-      ctx.strokeStyle = '#f00';
-      ctx.stroke();
+      ctx.beginPath()
+      const y = cellSize * this.parent.bufferPeek
+      ctx.moveTo(0, y)
+      ctx.lineTo(this.parent.settings.width * cellSize, y)
+      ctx.lineWidth = cellSize / 20
+      ctx.strokeStyle = "#f00"
+      ctx.stroke()
     }
 
     if (this.manipulations >= this.manipulationLimit) {
-      const cellSize = this.parent.cellSize;
-      ctx.beginPath();
-      const y = cellSize * (Math.floor(this.lowestVisualY) + 1) + cellSize * this.parent.bufferPeek;
-      ctx.moveTo(0, y);
-      ctx.lineTo(this.parent.settings.width * cellSize, y);
-      ctx.lineWidth = cellSize / 20;
-      ctx.strokeStyle = '#f00';
-      ctx.stroke();
+      const cellSize = this.parent.cellSize
+      ctx.beginPath()
+      const y =
+        cellSize * (Math.floor(this.lowestVisualY) + 1) +
+        cellSize * this.parent.bufferPeek
+      ctx.moveTo(0, y)
+      ctx.lineTo(this.parent.settings.width * cellSize, y)
+      ctx.lineWidth = cellSize / 20
+      ctx.strokeStyle = "#f00"
+      ctx.stroke()
     }
 
     if (this.hasSpun) {
       if (this.hasSpunMini) {
-        this.parent.pieceCanvas.classList.add('spin-pulse-mini');
+        this.parent.pieceCanvas.classList.add("spin-pulse-mini")
       } else {
-        this.parent.pieceCanvas.classList.add('spin-pulse');
+        this.parent.pieceCanvas.classList.add("spin-pulse")
       }
     } else {
-      this.parent.pieceCanvas.classList.remove('spin-pulse');
-      this.parent.pieceCanvas.classList.remove('spin-pulse-mini');
+      this.parent.pieceCanvas.classList.remove("spin-pulse")
+      this.parent.pieceCanvas.classList.remove("spin-pulse-mini")
     }
-    this.showBlockOutHold();
-    if (!this.showClutch()){
+    this.showBlockOutHold()
+    if (!this.showClutch()) {
       if (!this.showLockOut()) {
         if (!this.showTopOut()) {
-          this.showBlockOut();
+          this.showBlockOut()
         }
       }
     }
     if (this.killLockDelayOnRotate) {
-      $('#rotation-warning').classList.remove('hidden');
+      $("#rotation-warning").classList.remove("hidden")
     } else {
-      $('#rotation-warning').classList.add('hidden');
+      $("#rotation-warning").classList.add("hidden")
     }
-    if (!$('#warning-message-container-hold').classList.contains('hidden') ||
-      !$('#warning-message-container').classList.contains('hidden') ||
-      !$('#rotation-warning').classList.contains('hidden')) {
-      if ($('#rotation-warning').classList.contains('hidden')) {
-        $('#next-piece').classList.add('immediate-death');
+    if (
+      !$("#warning-message-container-hold").classList.contains("hidden") ||
+      !$("#warning-message-container").classList.contains("hidden") ||
+      !$("#rotation-warning").classList.contains("hidden")
+    ) {
+      if ($("#rotation-warning").classList.contains("hidden")) {
+        $("#next-piece").classList.add("immediate-death")
       } else {
-        $('#next-piece').classList.remove('immediate-death');
+        $("#next-piece").classList.remove("immediate-death")
       }
-      sound.startSeLoop('topoutwarning');
+      sound.startSeLoop("topoutwarning")
     } else {
-      $('#next-piece').classList.remove('immediate-death');
-      sound.stopSeLoop('topoutwarning');
+      $("#next-piece").classList.remove("immediate-death")
+      sound.stopSeLoop("topoutwarning")
     }
   }
   showTopOut() {
     if (this.parent.stack.wouldCauseLineClear()) {
-      return;
+      return
     }
     const finalBlocks = this.getFinalBlockLocations()
     let finalBlocksY = []
     for (const finalBlock of finalBlocks) {
       finalBlocksY.push(finalBlock[1])
     }
-    let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+    let findDuplicates = (arr) =>
+      arr.filter((item, index) => arr.indexOf(item) != index)
     const height = finalBlocksY.length - findDuplicates(finalBlocksY).length
-    if (this.parent.stack.highest + height + Math.max(0, this.parent.stack.waitingGarbage) >
+    let actualwaitingGarbage
+    if (this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit) {
+      actualwaitingGarbage = Math.max(0, settings.settings.brokenLineLimit)
+    } else {
+      actualwaitingGarbage = Math.max(0, this.parent.stack.waitingGarbage)
+    }
+    if (
+      this.parent.stack.highest + height + actualwaitingGarbage >
       this.parent.stack.height + this.parent.stack.hiddenHeight
     ) {
-      $('#warning-message').textContent = locale.getString('ui', 'topOutWarning');
-      $('#warning-message-container').classList.remove('hidden');
-      $('#game-center').classList.add('gameover-early-warning-bgflash');
-      return true;
+      $("#warning-message").textContent = locale.getString(
+        "ui",
+        "topOutWarning"
+      )
+      $("#warning-message-container").classList.remove("hidden")
+      $("#game-center").classList.add("gameover-early-warning-bgflash")
+      return true
     }
-    $('#warning-message-container').classList.add('hidden');
-    $('#game-center').classList.remove('gameover-early-warning-bgflash');
+    $("#warning-message-container").classList.add("hidden")
+    $("#game-center").classList.remove("gameover-early-warning-bgflash")
   }
   showLockOut() {
     if (!settings.settings.useLockOut) {
-      return false;
+      return false
     }
-    const finalBlocks = this.getFinalBlockLocations();
-    const toCheck = finalBlocks.length;
-    let failed = 0;
+    const finalBlocks = this.getFinalBlockLocations()
+    const toCheck = finalBlocks.length
+    let failed = 0
     for (const finalBlock of finalBlocks) {
       if (finalBlock[1] < 0) {
-        failed++;
+        failed++
       }
     }
     if (failed >= toCheck) {
-      $('#warning-message').textContent = locale.getString('ui', 'lockOutWarning');
-      $('#warning-message-container').classList.remove('hidden');
-      $('#game-center').classList.add('gameover-early-warning-bgflash');
-      return true;
+      $("#warning-message").textContent = locale.getString(
+        "ui",
+        "lockOutWarning"
+      )
+      $("#warning-message-container").classList.remove("hidden")
+      $("#game-center").classList.add("gameover-early-warning-bgflash")
+      return true
     }
-    $('#warning-message-container').classList.add('hidden');
-    $('#game-center').classList.remove('gameover-early-warning-bgflash');
+    $("#warning-message-container").classList.add("hidden")
+    $("#game-center").classList.remove("gameover-early-warning-bgflash")
   }
   showClutch() {
     if (!settings.settings.useLockOut) {
-      return false;
+      return false
     }
-    if (!this.showBlockOut()){
-      $('#warning-message-container').classList.add('hidden');
-      $('#game-center').classList.remove('gameover-early-warning-bgflash');
+    if (!this.showBlockOut()) {
+      $("#warning-message-container").classList.add("hidden")
+      $("#game-center").classList.remove("gameover-early-warning-bgflash")
     }
-    const finalBlocks = this.getFinalBlockLocations();
-    const toCheck = finalBlocks.length;
-    let failed = 0;
+    const finalBlocks = this.getFinalBlockLocations()
+    const toCheck = finalBlocks.length
+    let failed = 0
     for (const finalBlock of finalBlocks) {
       if (finalBlock[1] < 0) {
-        failed++;
+        failed++
       }
     }
     if (failed >= toCheck && this.parent.stack.wouldCauseLineClear()) {
-      $('#clutch-message').classList.remove('hidden');
-      return true;
+      $("#clutch-message").classList.remove("hidden")
+      return true
     }
-    $('#clutch-message').classList.add('hidden');
+    $("#clutch-message").classList.add("hidden")
   }
   showBlockOutHold() {
     if (this.parent.hold.isDisabled) {
-      $('#warning-message-container-hold').classList.add('hidden');
-      $('#hold-container-container').classList.remove('gameover-early-warning-bgflash');
-      return false;
+      $("#warning-message-container-hold").classList.add("hidden")
+      $("#hold-container-container").classList.remove(
+        "gameover-early-warning-bgflash"
+      )
+      return false
     }
-    const holdBlocks = this.getHoldPieceBlocks();
+    const holdBlocks = this.getHoldPieceBlocks()
     for (const nextBlock of holdBlocks) {
-      const currentX = nextBlock[0];
-      const currentY = nextBlock[1];
+      const currentX = nextBlock[0]
+      const currentY = nextBlock[1]
       if (
-        (currentX < 0 || currentX >= this.parent.settings.width || currentY >= this.parent.settings.height) ||
-        (this.parent.stack.grid[currentX][currentY + this.parent.settings.hiddenHeight])
+        currentX < 0 ||
+        currentX >= this.parent.settings.width ||
+        currentY >= this.parent.settings.height ||
+        this.parent.stack.grid[currentX][
+          currentY + this.parent.settings.hiddenHeight
+        ]
       ) {
-        $('#warning-message-hold').textContent = locale.getString('ui', 'blockOutHoldWarning');
-        $('#warning-message-container-hold').classList.remove('hidden');
-        $('#hold-container-container').classList.add('gameover-early-warning-bgflash');
-        return true;
+        $("#warning-message-hold").textContent = locale.getString(
+          "ui",
+          "blockOutHoldWarning"
+        )
+        $("#warning-message-container-hold").classList.remove("hidden")
+        $("#hold-container-container").classList.add(
+          "gameover-early-warning-bgflash"
+        )
+        return true
       }
     }
-    $('#warning-message-container-hold').classList.add('hidden');
-    $('#hold-container-container').classList.remove('gameover-early-warning-bgflash');
+    $("#warning-message-container-hold").classList.add("hidden")
+    $("#hold-container-container").classList.remove(
+      "gameover-early-warning-bgflash"
+    )
   }
   showBlockOut() {
-    const lineClear = this.parent.stack.wouldCauseLineClear();
-    const finalBlocks = this.getFinalBlockLocations();
-    const nextBlocks = this.getNextPieceBlocks();
+    const lineClear = this.parent.stack.wouldCauseLineClear()
+    const finalBlocks = this.getFinalBlockLocations()
+    const nextBlocks = this.getNextPieceBlocks()
     const arraysEqual = (a1, a2) => {
       /* WARNING: arrays must not contain {objects} or behavior may be undefined */
-      return JSON.stringify(a1) == JSON.stringify(a2);
-    };
+      return JSON.stringify(a1) == JSON.stringify(a2)
+    }
     for (const nextBlock of nextBlocks) {
-      const currentX = nextBlock[0];
-      let garbageAdd = 0;
+      const currentX = nextBlock[0]
+      let garbageAdd = 0
       if (!this.parent.stack.wouldCauseLineClear()) {
-        garbageAdd = Math.max(0, this.parent.stack.waitingGarbage);
+        if (
+          this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit
+        ) {
+          garbageAdd = Math.max(0, settings.settings.brokenLineLimit)
+        } else {
+          garbageAdd = Math.max(0, this.parent.stack.waitingGarbage)
+        }
       }
-      const currentY = nextBlock[1] - lineClear + garbageAdd;
+      const currentY = nextBlock[1] - lineClear + garbageAdd
       if (
-        (currentX < 0 || currentX >= this.parent.settings.width || currentY >= this.parent.settings.height) ||
-        (this.parent.stack.grid[currentX][currentY + this.parent.settings.hiddenHeight])
+        currentX < 0 ||
+        currentX >= this.parent.settings.width ||
+        currentY >= this.parent.settings.height ||
+        this.parent.stack.grid[currentX][
+          currentY + this.parent.settings.hiddenHeight
+        ]
       ) {
-        $('#warning-message').textContent = locale.getString('ui', 'blockOutWarning');
-        $('#warning-message-container').classList.remove('hidden');
-        $('#game-center').classList.add('gameover-early-warning-bgflash');
-        return true;
+        $("#warning-message").textContent = locale.getString(
+          "ui",
+          "blockOutWarning"
+        )
+        $("#warning-message-container").classList.remove("hidden")
+        $("#game-center").classList.add("gameover-early-warning-bgflash")
+        return true
       }
       for (const finalBlock of finalBlocks) {
-        const newNext = [nextBlock[0], nextBlock[1] - lineClear + garbageAdd];
+        const newNext = [nextBlock[0], nextBlock[1] - lineClear + garbageAdd]
         if (arraysEqual(finalBlock, newNext)) {
-          $('#warning-message').textContent = locale.getString('ui', 'blockOutWarning');
-          $('#warning-message-container').classList.remove('hidden');
-          $('#game-center').classList.add('gameover-early-warning-bgflash');
-          return true;
+          $("#warning-message").textContent = locale.getString(
+            "ui",
+            "blockOutWarning"
+          )
+          $("#warning-message-container").classList.remove("hidden")
+          $("#game-center").classList.add("gameover-early-warning-bgflash")
+          return true
         }
       }
     }
-    $('#warning-message-container').classList.add('hidden');
-    $('#game-center').classList.remove('gameover-early-warning-bgflash');
+    $("#warning-message-container").classList.add("hidden")
+    $("#game-center").classList.remove("gameover-early-warning-bgflash")
   }
   getFinalBlockLocations() {
-    const finalBlocks = [];
+    const finalBlocks = []
     if (this.shape == null) {
-      return finalBlocks;
+      return finalBlocks
     }
-    const currentX = this.x;
-    const currentY = this.yFloor + this.getDrop();
+    const currentX = this.x
+    const currentY = this.yFloor + this.getDrop()
     for (let y = 0; y < this.shape.length; y++) {
       for (let x = 0; x < this.shape[y].length; x++) {
-        const isFilled = this.shape[y][x];
+        const isFilled = this.shape[y][x]
         if (isFilled) {
-          const finalX = currentX + x;
-          const finalY = currentY + y;
-          finalBlocks.push([finalX, finalY]);
+          const finalX = currentX + x
+          const finalY = currentY + y
+          finalBlocks.push([finalX, finalY])
         }
       }
     }
-    return finalBlocks;
+    return finalBlocks
   }
   getNextPieceBlocks() {
-    const nextBlocks = [];
-    const nextPiece = this.parent.next.queue[0];
+    const nextBlocks = []
+    const nextPiece = this.parent.next.queue[0]
 
-    let nextPieceShape; let spawnOffsets;
-    
+    let nextPieceShape
+    let spawnOffsets
+
     switch (settings.settings.shapeOverride) {
-      case 'mono':
-        nextPieceShape = MONOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-        spawnOffsets = SPAWN_OFFSETS['monomino'][nextPiece];
-        break;
-      case 'do':
-        nextPieceShape = DOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-        spawnOffsets = SPAWN_OFFSETS['monomino'][nextPiece];
-        break;
-      case 'tro':
-        nextPieceShape = TROMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
-        break;
-      case 'pento':
-        nextPieceShape = PENTOMINO_PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
-        break;
+      case "mono":
+        nextPieceShape =
+          MONOMINO_PIECES[nextPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS["monomino"][nextPiece]
+        break
+      case "do":
+        nextPieceShape =
+          DOMINO_PIECES[nextPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS["monomino"][nextPiece]
+        break
+      case "tro":
+        nextPieceShape =
+          TROMINO_PIECES[nextPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece]
+        break
+      case "pento":
+        nextPieceShape =
+          PENTOMINO_PIECES[nextPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece]
+        break
       default:
-        nextPieceShape = PIECES[nextPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]];
-        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece];
-        break;
+        nextPieceShape =
+          PIECES[nextPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece]
+        break
     }
-    
+
     for (let y = 0; y < nextPieceShape.length; y++) {
       for (let x = 0; x < nextPieceShape[y].length; x++) {
-        const isFilled = nextPieceShape[y][x];
+        const isFilled = nextPieceShape[y][x]
         if (isFilled) {
-          nextBlocks.push([x + spawnOffsets[0] + this.xSpawnOffset, y + spawnOffsets[1]]);
+          nextBlocks.push([
+            x + spawnOffsets[0] + this.xSpawnOffset,
+            y + spawnOffsets[1],
+          ])
         }
       }
     }
-    return nextBlocks;
+    return nextBlocks
   }
   getHoldPieceBlocks() {
-    const holdBlocks = [];
-    const holdPiece = this.parent.hold.getPiece();
-    
-    let holdPieceShape; let spawnOffsets;
-    
-    switch(settings.settings.shapeOverride) {
-      case 'mono':
-        holdPieceShape = MONOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-        spawnOffsets = SPAWN_OFFSETS['monomino'][holdPiece];
-        break;
-      case 'do':
-        holdPieceShape = DOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-        spawnOffsets = SPAWN_OFFSETS['monomino'][holdPiece];
-        break;
-      case 'tro':
-        holdPieceShape = TROMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
-        break;
-      case 'pento':
-        holdPieceShape = PENTOMINO_PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
-        break;
+    const holdBlocks = []
+    const holdPiece = this.parent.hold.getPiece()
+
+    let holdPieceShape
+    let spawnOffsets
+
+    switch (settings.settings.shapeOverride) {
+      case "mono":
+        holdPieceShape =
+          MONOMINO_PIECES[holdPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS["monomino"][holdPiece]
+        break
+      case "do":
+        holdPieceShape =
+          DOMINO_PIECES[holdPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS["monomino"][holdPiece]
+        break
+      case "tro":
+        holdPieceShape =
+          TROMINO_PIECES[holdPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece]
+        break
+      case "pento":
+        holdPieceShape =
+          PENTOMINO_PIECES[holdPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece]
+        break
       default:
-        holdPieceShape = PIECES[holdPiece].shape[INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]];
-        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece];
-        break;
+        holdPieceShape =
+          PIECES[holdPiece].shape[
+            INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
+          ]
+        spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece]
+        break
     }
 
     for (let y = 0; y < holdPieceShape.length; y++) {
       for (let x = 0; x < holdPieceShape[y].length; x++) {
-        const isFilled = holdPieceShape[y][x];
+        const isFilled = holdPieceShape[y][x]
         if (isFilled) {
-          holdBlocks.push([x + spawnOffsets[0] + this.xSpawnOffset, y + spawnOffsets[1]]);
+          holdBlocks.push([
+            x + spawnOffsets[0] + this.xSpawnOffset,
+            y + spawnOffsets[1],
+          ])
         }
       }
     }
-    return holdBlocks;
+    return holdBlocks
   }
   moveValid(passedX, passedY, shape, checkIfFrozen = true) {
     if (this.isFrozen && checkIfFrozen) {
-      return false;
+      return false
     }
     if (this.isDead) {
-      return false;
+      return false
     }
-    passedX += this.x;
-    passedY += this.yFloor;
+    passedX += this.x
+    passedY += this.yFloor
     for (let y = 0; y < shape.length; y++) {
       for (let x = 0; x < shape[y].length; x++) {
-        const currentX = passedX + x;
-        const currentY = passedY + y;
-        if (shape[y][x] && (
-          (currentX < 0 || currentX >= this.parent.settings.width || currentY >= this.parent.settings.height) ||
-          (this.parent.stack.grid[currentX][currentY + this.parent.settings.hiddenHeight])
-        )) {
-          return false;
+        const currentX = passedX + x
+        const currentY = passedY + y
+        if (
+          shape[y][x] &&
+          (currentX < 0 ||
+            currentX >= this.parent.settings.width ||
+            currentY >= this.parent.settings.height ||
+            this.parent.stack.grid[currentX][
+              currentY + this.parent.settings.hiddenHeight
+            ])
+        ) {
+          return false
         }
       }
     }
-    return true;
+    return true
   }
   get isLanded() {
-    return !this.moveValid(0, 1, this.shape);
+    return !this.moveValid(0, 1, this.shape)
   }
   get isStuck() {
-    return !this.moveValid(0, 0, this.shape, false);
+    return !this.moveValid(0, 0, this.shape, false)
   }
   get canShiftLeft() {
-    return this.moveValid(-1, 0, this.shape);
+    return this.moveValid(-1, 0, this.shape)
   }
   get canShiftRight() {
-    return this.moveValid(1, 0, this.shape);
+    return this.moveValid(1, 0, this.shape)
   }
   get canShiftUp() {
-    return this.moveValid(0, -1, this.shape);
+    return this.moveValid(0, -1, this.shape)
   }
   get canShiftDown() {
-    return this.moveValid(0, 1, this.shape);
+    return this.moveValid(0, 1, this.shape)
   }
-  getDrop(distance = (this.parent.settings.height + this.parent.settings.hiddenHeight) * 2) {
+  getDrop(
+    distance = (this.parent.settings.height +
+      this.parent.settings.hiddenHeight) *
+      2
+  ) {
     if (this.isStuck) {
-      return 0;
+      return 0
     }
-    let currentDistance = 0;
+    let currentDistance = 0
     for (currentDistance = 1; currentDistance <= distance; currentDistance++) {
       if (!this.moveValid(0, currentDistance, this.shape, false)) {
-        return currentDistance - 1;
+        return currentDistance - 1
       }
     }
-    return currentDistance - 1;
+    return currentDistance - 1
   }
   checkFall(distance) {
     if (distance < 1) {
-      return true;
+      return true
     }
     if (this.getDrop(distance) === Math.floor(distance)) {
-      return true;
+      return true
     }
 
-    return false;
+    return false
   }
   get endPoints() {
     if (this.shape == null) {
-      return [0, 0];
+      return [0, 0]
     }
-    let maxX = 0;
-    let maxY = 0;
+    let maxX = 0
+    let maxY = 0
     for (let i = 0; i < this.shape.length; i++) {
       for (let j = 0; j < this.shape[i].length; j++) {
-        const mino = this.shape[i][j];
+        const mino = this.shape[i][j]
         if (mino !== 0) {
-          maxX = Math.max(maxX, j);
-          maxY = Math.max(maxY, i);
+          maxX = Math.max(maxX, j)
+          maxY = Math.max(maxY, i)
         }
       }
     }
-    return [maxX, maxY];
+    return [maxX, maxY]
   }
   get endX() {
-    return this.endPoints[0];
+    return this.endPoints[0]
   }
   get endY() {
-    return this.endPoints[1];
+    return this.endPoints[1]
   }
   get startPoints() {
     if (this.shape == null) {
-      return [0, 0];
+      return [0, 0]
     }
-    let minX = this.shape[0].length;
-    let minY = this.shape.length;
+    let minX = this.shape[0].length
+    let minY = this.shape.length
     for (let i = 0; i < this.shape.length; i++) {
       for (let j = 0; j < this.shape[i].length; j++) {
-        const mino = this.shape[i][j];
+        const mino = this.shape[i][j]
         if (mino !== 0) {
-          minX = Math.min(minX, j);
-          minY = Math.min(minY, i);
+          minX = Math.min(minX, j)
+          minY = Math.min(minY, i)
         }
       }
     }
-    return [minX, minY];
+    return [minX, minY]
   }
   get startX() {
-    return this.startPoints[0];
+    return this.startPoints[0]
   }
   get startY() {
-    return this.startPoints[1];
+    return this.startPoints[1]
   }
   sonicDrop() {
-    this.y += this.getDrop();
-    this.isDirty = true;
+    this.y += this.getDrop()
+    this.isDirty = true
   }
   realSonicDrop() {
     if (!this.isDead && !this.isLanded) {
-      const drop = this.getDrop();
-      this.parent.addScore('sonicDrop', drop);
-      sound.add('land')
-      this.genDropParticles();
+      const drop = this.getDrop()
+      this.parent.addScore("sonicDrop", drop)
+      sound.add("land")
+      this.genDropParticles()
     }
-    this.sonicDrop();
+    this.sonicDrop()
   }
   hardDrop() {
     if (!this.isDead) {
-      const drop = this.getDrop();
-      this.parent.addScore('hardDrop', drop);
-      sound.add('harddrop');
-      this.genDropParticles();
+      const drop = this.getDrop()
+      this.parent.addScore("hardDrop", drop)
+      sound.add("harddrop")
+      this.genDropParticles()
     }
 
-    this.sonicDrop();
-    this.hasHardDropped = true;
-    this.mustLock = true;
+    this.sonicDrop()
+    this.hasHardDropped = true
+    this.mustLock = true
   }
   addManipulation() {
-    if (this.lockdownType !== 'extended') {
-      return;
+    if (this.lockdownType !== "extended") {
+      return
     }
-    this.manipulations++;
+    this.manipulations++
     if (this.manipulations === this.manipulationLimit) {
-      sound.add('lockforce');
-      const cellSize = this.parent.cellSize;
+      sound.add("lockforce")
+      const cellSize = this.parent.cellSize
       this.parent.particle.generate({
         amount: 100,
         x: 0,
-        y: cellSize * (Math.floor(this.lowestVisualY) + 1) + cellSize * this.parent.bufferPeek,
+        y:
+          cellSize * (Math.floor(this.lowestVisualY) + 1) +
+          cellSize * this.parent.bufferPeek,
         xRange: this.parent.stack.width * cellSize,
         yRange: 1,
         xVelocity: 0,
@@ -850,63 +1043,62 @@ export default class Piece extends GameModule {
         red: 255,
         blue: 0,
         green: 0,
-      });
+      })
     }
   }
   shift(direction, amount, condition) {
     if (condition) {
-      this[direction] += amount;
-      this.addManipulation();
-      this.isDirty = true;
-      if (direction === 'x') {
-        sound.add('move');
+      this[direction] += amount
+      this.addManipulation()
+      this.isDirty = true
+      if (direction === "x") {
+        sound.add("move")
       }
       if (this.isLanded) {
-        sound.add('step');
+        sound.add("step")
       }
     } else {
-      if (direction === 'x') {
+      if (direction === "x") {
         if (amount > 0) {
-          this.parent.shiftMatrix('right');
+          this.parent.shiftMatrix("right")
         } else {
-          this.parent.shiftMatrix('left');
+          this.parent.shiftMatrix("left")
         }
       }
     }
   }
   shiftLeft() {
-    this.shift('x', -1, this.canShiftLeft);
+    this.shift("x", -1, this.canShiftLeft)
   }
   shiftRight() {
-    this.shift('x', 1, this.canShiftRight);
+    this.shift("x", 1, this.canShiftRight)
   }
   shiftDown() {
-    this.shift('y', 1, !this.isLanded);
+    this.shift("y", 1, !this.isLanded)
   }
   killLockDelay() {
     if (this.lockDelay >= this.lockDelayLimit) {
-      return;
+      return
     }
-    this.lockDelay = this.lockDelayLimit;
-    this.manipulations = this.manipulationLimit;
-    this.lowestVisualY = this.parent.stack.height - 1;
-    sound.add('lockforce');
+    this.lockDelay = this.lockDelayLimit
+    this.manipulations = this.manipulationLimit
+    this.lowestVisualY = this.parent.stack.height - 1
+    sound.add("lockforce")
   }
   rotate(amount, direction, playSound = true) {
-    const newOrientation = (this.orientation + amount) % 4;
-    const rotatedShape = this.piece[newOrientation];
-    const kickTable = this.kicks[direction][this.orientation];
+    const newOrientation = (this.orientation + amount) % 4
+    const rotatedShape = this.piece[newOrientation]
+    const kickTable = this.kicks[direction][this.orientation]
     if (this.killLockDelayOnRotate) {
-      this.killLockDelay();
+      this.killLockDelay()
     }
-    kickTest:
-    for (let i = 0; i <= kickTable.length; i++) {
+    kickTest: for (let i = 0; i <= kickTable.length; i++) {
       if (i === kickTable.length) {
         // Rotation Failed
-        break;
+        break
       }
 
-      const offset = PIECE_OFFSETS[this.parent.rotationSystem][this.name];
+      const offset = PIECE_OFFSETS[this.parent.rotationSystem][this.name]
 
       // let offset;
 
@@ -922,89 +1114,113 @@ export default class Piece extends GameModule {
       //     break;
       // }
 
-      const kickX = kickTable[i][0] + offset[newOrientation][0] - offset[this.orientation][0];
-      const kickY = kickTable[i][1] + offset[newOrientation][1] - offset[this.orientation][1];
-      const exceptionTable = KICK_TABLES[this.parent.rotationSystem].exception;
-      const unlessTable = KICK_TABLES[this.parent.rotationSystem].unlessToWith;
-      const killTable = KICK_TABLES[this.parent.rotationSystem].killPieceLockDelay;
-      const allowKickOffGroundTable = KICK_TABLES[this.parent.rotationSystem].allowKickOffGround;
+      const kickX =
+        kickTable[i][0] +
+        offset[newOrientation][0] -
+        offset[this.orientation][0]
+      const kickY =
+        kickTable[i][1] +
+        offset[newOrientation][1] -
+        offset[this.orientation][1]
+      const exceptionTable = KICK_TABLES[this.parent.rotationSystem].exception
+      const unlessTable = KICK_TABLES[this.parent.rotationSystem].unlessToWith
+      const killTable =
+        KICK_TABLES[this.parent.rotationSystem].killPieceLockDelay
+      const allowKickOffGroundTable =
+        KICK_TABLES[this.parent.rotationSystem].allowKickOffGround
       if (allowKickOffGroundTable) {
-        const allowArray = allowKickOffGroundTable[this.name];
+        const allowArray = allowKickOffGroundTable[this.name]
         if (allowArray) {
           if (!allowArray[this.orientation] && !this.isLanded && i > 0) {
-            break;
+            break
           }
         }
       }
       if (exceptionTable) {
-        const check = (x, y) => {return this.parent.stack.isFilled(x, y);};
+        const check = (x, y) => {
+          return this.parent.stack.isFilled(x, y)
+        }
         if (exceptionTable[this.name]) {
-          exceptionTest:
-          for (const exception of exceptionTable[this.name][this.orientation]) {
-            if (check(exception[0] + this.x, exception[1] + this.yFloor + this.parent.stack.hiddenHeight)) {
+          exceptionTest: for (const exception of exceptionTable[this.name][
+            this.orientation
+          ]) {
+            if (
+              check(
+                exception[0] + this.x,
+                exception[1] + this.yFloor + this.parent.stack.hiddenHeight
+              )
+            ) {
               if (unlessTable) {
                 if (unlessTable[this.name]) {
-                  const unless = unlessTable[this.name][this.orientation][newOrientation];
+                  const unless =
+                    unlessTable[this.name][this.orientation][newOrientation]
                   if (unless[0].length > 0) {
                     for (let i = 0; i <= unless.length; i++) {
                       if (i >= unless.length) {
-                        break exceptionTest;
+                        break exceptionTest
                       }
-                      const position = unless[i];
-                      if (!check(position[0] + this.x, position[1] + this.yFloor + this.parent.stack.hiddenHeight)) {
-                        break;
+                      const position = unless[i]
+                      if (
+                        !check(
+                          position[0] + this.x,
+                          position[1] +
+                            this.yFloor +
+                            this.parent.stack.hiddenHeight
+                        )
+                      ) {
+                        break
                       }
                     }
                   }
                 }
               }
-              break kickTest;
+              break kickTest
             }
           }
         }
       }
       if (killTable) {
         if (killTable[this.name]) {
-          const killOn = killTable[this.name][this.orientation][newOrientation];
+          const killOn = killTable[this.name][this.orientation][newOrientation]
           if (killOn >= 0 && i >= killOn) {
-            this.killLockDelayOnRotate = true;
+            this.killLockDelayOnRotate = true
           }
         }
       }
       if (this.moveValid(kickX, kickY, rotatedShape)) {
-        this.lastSpinDirection = direction;
-        this.lastKickIndex = i;
-        this.x += kickX;
-        this.y += kickY;
-        this.orientation = newOrientation;
-        this.shape = rotatedShape;
-        this.addManipulation();
-        this.isDirty = true;
+        this.lastSpinDirection = direction
+        this.lastKickIndex = i
+        this.x += kickX
+        this.y += kickY
+        this.orientation = newOrientation
+        this.shape = rotatedShape
+        this.addManipulation()
+        this.isDirty = true
         if (playSound) {
           if (i > 0) {
-            sound.add('wallkick');
+            sound.add("wallkick")
           }
-          sound.add('rotate');
+          sound.add("rotate")
         }
         if (this.isLanded) {
-          sound.add('step');
+          sound.add("step")
         }
         if (this.resetGravityOnKick && i > 0) {
-          this.y = this.yFloor;
+          this.y = this.yFloor
         }
         if (this.resetDelayOnKick && i > 0) {
-          this.lockDelay = 0;
+          this.lockDelay = 0
         }
         if (this.checkSpin().isSpin) {
-          const cellSize = this.parent.cellSize;
+          const cellSize = this.parent.cellSize
           if (this.checkSpin().isMini) {
-            sound.add('prespinmini');
+            sound.add("prespinmini")
             this.parent.particle.generate({
               amount: 55,
-              x: (this.x) * cellSize,
-              y: (this.y) * cellSize,
-              xRange: (this.shape[0].length) * cellSize,
-              yRange: (this.shape[0].length) * cellSize,
+              x: this.x * cellSize,
+              y: this.y * cellSize,
+              xRange: this.shape[0].length * cellSize,
+              yRange: this.shape[0].length * cellSize,
               xVelocity: 0,
               yVelocity: 0,
               xVariance: 10,
@@ -1014,14 +1230,14 @@ export default class Piece extends GameModule {
               gravity: 0,
               maxlife: 60,
               lifeVariance: 40,
-            });
+            })
           } else {
             this.parent.particle.generate({
               amount: 75,
-              x: (this.x) * cellSize,
-              y: (this.y) * cellSize,
-              xRange: (this.shape[0].length) * cellSize,
-              yRange: (this.shape[0].length) * cellSize,
+              x: this.x * cellSize,
+              y: this.y * cellSize,
+              xRange: this.shape[0].length * cellSize,
+              yRange: this.shape[0].length * cellSize,
               xVelocity: 0,
               yVelocity: 0,
               xVariance: 5,
@@ -1031,146 +1247,183 @@ export default class Piece extends GameModule {
               gravity: 0,
               maxlife: 150,
               lifeVariance: 100,
-            });
-            sound.add('prespin');
+            })
+            sound.add("prespin")
           }
         }
-        this.rotatedX = this.x;
-        this.rotatedY = this.yFloor;
-        break;
+        this.rotatedX = this.x
+        this.rotatedY = this.yFloor
+        break
       }
     }
   }
   rotateLeft() {
-    this.rotate(3, 'left');
+    this.rotate(3, "left")
   }
   rotateRight() {
-    this.rotate(1, 'right');
+    this.rotate(1, "right")
   }
   rotate180() {
-    this.rotate(2, 'double');
+    this.rotate(2, "double")
   }
   checkSpin() {
-    const name = this.name;
-    if (this.spinDetectionType === null || this.spinDetectionType === 'null') {
-      return {isSpin: false, isMini: false};
+    const name = this.name
+    if (this.spinDetectionType === null || this.spinDetectionType === "null") {
+      return { isSpin: false, isMini: false }
     }
-    switch(name){
-      case 'Z':
-        if (!settings.settings.spinZ) { return {isSpin: false, isMini: false}; }
-        break;
-      case 'L':
-        if (!settings.settings.spinL) { return {isSpin: false, isMini: false}; }
-        break;
-      case 'O':
-        if (!settings.settings.spinO) { return {isSpin: false, isMini: false}; }
-        break;
-      case 'S':
-        if (!settings.settings.spinS) { return {isSpin: false, isMini: false}; }
-        break;
-      case 'I':
-        if (!settings.settings.spinI) { return {isSpin: false, isMini: false}; }
-        break;
-        case 'J':
-          if (!settings.settings.spinJ) { return {isSpin: false, isMini: false}; }
-          break;
-      case 'T':
-        if (!settings.settings.spinT) { return {isSpin: false, isMini: false}; }
-        break;
+    switch (name) {
+      case "Z":
+        if (!settings.settings.spinZ) {
+          return { isSpin: false, isMini: false }
+        }
+        break
+      case "L":
+        if (!settings.settings.spinL) {
+          return { isSpin: false, isMini: false }
+        }
+        break
+      case "O":
+        if (!settings.settings.spinO) {
+          return { isSpin: false, isMini: false }
+        }
+        break
+      case "S":
+        if (!settings.settings.spinS) {
+          return { isSpin: false, isMini: false }
+        }
+        break
+      case "I":
+        if (!settings.settings.spinI) {
+          return { isSpin: false, isMini: false }
+        }
+        break
+      case "J":
+        if (!settings.settings.spinJ) {
+          return { isSpin: false, isMini: false }
+        }
+        break
+      case "T":
+        if (!settings.settings.spinT) {
+          return { isSpin: false, isMini: false }
+        }
+        break
     }
-    if ((this.spinDetectionType === 'immobile' || this.spinDetectionType === 'EZimmobile') && name != 'O') {
-      if (!this.canShiftLeft && !this.canShiftRight && !this.canShiftUp && !this.canShiftDown) {
-        return {isSpin: true, isMini: false};
+    if (
+      (this.spinDetectionType === "immobile" ||
+        this.spinDetectionType === "EZimmobile") &&
+      name != "O"
+    ) {
+      if (
+        !this.canShiftLeft &&
+        !this.canShiftRight &&
+        !this.canShiftUp &&
+        !this.canShiftDown
+      ) {
+        return { isSpin: true, isMini: false }
       }
-      if (this.spinDetectionType === 'EZimmobile') {
+      if (this.spinDetectionType === "EZimmobile") {
         if (this.lastKickIndex != 0 && !this.canShiftDown) {
-          return {isSpin: true, isMini: true};
+          return { isSpin: true, isMini: true }
         }
       }
-      return {isSpin: false, isMini: false};
+      return { isSpin: false, isMini: false }
     }
-    const check = (x, y) => {return this.parent.stack.isFilled(x, y);};
-    let spinCheckCount = 0;
-    let highPoints = 0;
-    let lowPoints = 0;
-    let iOneSide = 0;
-    let iOtherSide= 0;
-    let isSpin = false;
-    let isMini = false;
-    const spinHigh = SPIN_POINTS[name].high[this.orientation];
-    const spinLow = SPIN_POINTS[name].low[this.orientation];
+    const check = (x, y) => {
+      return this.parent.stack.isFilled(x, y)
+    }
+    let spinCheckCount = 0
+    let highPoints = 0
+    let lowPoints = 0
+    let iOneSide = 0
+    let iOtherSide = 0
+    let isSpin = false
+    let isMini = false
+    const spinHigh = SPIN_POINTS[name].high[this.orientation]
+    const spinLow = SPIN_POINTS[name].low[this.orientation]
     for (const point of spinHigh) {
-      const x = this.x + point[0];
-      const y = this.yFloor + this.parent.stack.hiddenHeight + point[1];
+      const x = this.x + point[0]
+      const y = this.yFloor + this.parent.stack.hiddenHeight + point[1]
       if (check(x, y)) {
-        spinCheckCount++;
-        highPoints++;
-        if (name === 'I'){
-          if (point === spinHigh[0] || point === spinHigh[1]){
-            iOneSide++;
+        spinCheckCount++
+        highPoints++
+        if (name === "I") {
+          if (point === spinHigh[0] || point === spinHigh[1]) {
+            iOneSide++
           }
-          if (point === spinHigh[2] || point === spinHigh[3]){
-            iOtherSide++;
+          if (point === spinHigh[2] || point === spinHigh[3]) {
+            iOtherSide++
           }
         }
       }
     }
     if (spinCheckCount < 2 && this.lastKickIndex < 4) {
-      isMini = true;
+      isMini = true
     }
     for (const point of spinLow) {
-      const x = this.x + point[0];
-      const y = this.yFloor + this.parent.stack.hiddenHeight + point[1];
+      const x = this.x + point[0]
+      const y = this.yFloor + this.parent.stack.hiddenHeight + point[1]
       if (check(x, y)) {
-        spinCheckCount++;
-        lowPoints++;
+        spinCheckCount++
+        lowPoints++
       }
     }
     if (spinCheckCount >= 3) {
-      isSpin = true;
+      isSpin = true
     }
-    if (name === 'I'){
-      isSpin = false;
-      isMini = false;
-      if (lowPoints >= 2 && (iOneSide === 1 || iOtherSide === 1)){
-        isSpin = true;
-        isMini = true;
+    if (name === "I") {
+      isSpin = false
+      isMini = false
+      if (lowPoints >= 2 && (iOneSide === 1 || iOtherSide === 1)) {
+        isSpin = true
+        isMini = true
       }
-      if (lowPoints >= 1 && ((iOneSide > 1 && iOtherSide <= 1) || (iOneSide <= 1 && iOtherSide > 1)) || (iOneSide > 1 && iOtherSide > 1)){
-        isSpin = true;
-        isMini = false;
+      if (
+        (lowPoints >= 1 &&
+          ((iOneSide > 1 && iOtherSide <= 1) ||
+            (iOneSide <= 1 && iOtherSide > 1))) ||
+        (iOneSide > 1 && iOtherSide > 1)
+      ) {
+        isSpin = true
+        isMini = false
       }
       // console.log(`iOneSide: ${iOneSide}, iOtherSide: ${iOtherSide}`)
     }
-    if (name === 'O'){
-      isSpin = false;
-      isMini = false;
-      let singleCellKick = false;
-      if (this.lastKickIndex != 0 && 
-          this.lastKickIndex != 1 &&
-          this.lastKickIndex != 2 && 
-          this.lastKickIndex != 8 && 
-          this.lastKickIndex != 9 && 
-          this.lastKickIndex != 10 &&
-          this.lastKickIndex != 11 &&
-          this.lastKickIndex != 20){
-            singleCellKick = true;
-          }
-      if (!this.canShiftLeft && !this.canShiftRight && !this.canShiftUp && !this.canShiftDown) {
-        isSpin = true;
-        }
-      if (lowPoints <= 3 && highPoints <= 3 && !singleCellKick){
-        isMini = true;
+    if (name === "O") {
+      isSpin = false
+      isMini = false
+      let singleCellKick = false
+      if (
+        this.lastKickIndex != 0 &&
+        this.lastKickIndex != 1 &&
+        this.lastKickIndex != 2 &&
+        this.lastKickIndex != 8 &&
+        this.lastKickIndex != 9 &&
+        this.lastKickIndex != 10 &&
+        this.lastKickIndex != 11 &&
+        this.lastKickIndex != 20
+      ) {
+        singleCellKick = true
       }
-      // if (((lowPoints === 4 && highPoints === 4) || 
-      //      (lowPoints === 4 && highPoints === 3) || 
+      if (
+        !this.canShiftLeft &&
+        !this.canShiftRight &&
+        !this.canShiftUp &&
+        !this.canShiftDown
+      ) {
+        isSpin = true
+      }
+      if (lowPoints <= 3 && highPoints <= 3 && !singleCellKick) {
+        isMini = true
+      }
+      // if (((lowPoints === 4 && highPoints === 4) ||
+      //      (lowPoints === 4 && highPoints === 3) ||
       //      (lowPoints === 3 && highPoints === 4)) || (lowPoints === 3 && highPoints === 3 && singleCellKick)){
       //   isSpin = true;
       //   isMini = false;
       // }
-      return {isSpin: isSpin, isMini: isMini};
+      return { isSpin: isSpin, isMini: isMini }
     }
-    return {isSpin: isSpin, isMini: isMini};
+    return { isSpin: isSpin, isMini: isMini }
   }
   get hasSpun() {
     if (
@@ -1178,9 +1431,9 @@ export default class Piece extends GameModule {
       this.yFloor === this.rotatedY &&
       this.checkSpin().isSpin
     ) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   }
   get hasSpunMini() {
@@ -1189,20 +1442,23 @@ export default class Piece extends GameModule {
       this.yFloor === this.rotatedY &&
       this.checkSpin().isMini
     ) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   }
   get inAre() {
     if (this.startingAre < this.startingAreLimit) {
       // return true;
     }
-    let areMod = 0;
+    let areMod = 0
     if (this.hasLineDelay) {
-      areMod += this.areLineLimit;
-      areMod += this.areLimitLineModifier;
+      areMod += this.areLineLimit
+      areMod += this.areLimitLineModifier
     }
-    return (this.are < this.areLimit + areMod) || this.startingAre < this.startingAreLimit;
+    return (
+      this.are < this.areLimit + areMod ||
+      this.startingAre < this.startingAreLimit
+    )
   }
 }

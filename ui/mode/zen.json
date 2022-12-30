@@ -1,63 +1,75 @@
 {
-    "properties": {
-      "parent": "root",
-      "langOverride": "mode-options",
-      "game": "zen",
-      "pgmusic": "pg-marathon"
+  "properties": {
+    "parent": "root",
+    "langOverride": "mode-options",
+    "game": "zen",
+    "pgmusic": "pg-marathon"
+  },
+  "data": [
+    {
+      "label": "Zen",
+      "description": "",
+      "fixedText": true,
+      "type": "header"
     },
-    "data": [
-      {
-        "label": "Zen",
-        "description": "",
-        "fixedText": true,
-        "type": "header"
-      },
-      {
-        "string": "holdTypeLabel",
-        "stringDesc": "holdTypeDescription",
-        "type": "select",
-        "action": "select",
-        "selectOptions": [
-          {
-              "string": "holdOption",
-              "value": "hold"
-          },
-          {
-            "string": "skipOption",
-            "value": "skip"
-          }
-        ],
-        "setting": "holdType",
-        "gameName": "zen",
-        "settingType": "game"
-      },
-      {
-        "string": "lockdownModeLabel",
-        "stringDesc": "lockdownModeDescription",
-        "type": "select",
-        "action": "select",
-        "selectOptions": [
-          {
-            "label": "Zen",
-            "fixedText": true,
-            "value": "zen"
-          },
-          {
-            "string": "infinityLdOption",
-            "value": "infinity"
-          },
-          {
-            "string": "extendedLdOption",
-            "value": "extended"
-          },
-          {
-            "string": "classicLdOption",
-            "value": "classic"
-          }
-        ],
-        "setting": "lockdownMode",
-        "gameName": "zen",
-        "settingType": "game"
-      }
-    ]
-  }
+    {
+      "string": "holdTypeLabel",
+      "stringDesc": "holdTypeDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "string": "holdOption",
+          "value": "hold"
+        },
+        {
+          "string": "skipOption",
+          "value": "skip"
+        }
+      ],
+      "setting": "holdType",
+      "gameName": "zen",
+      "settingType": "game"
+    },
+    {
+      "string": "lockdownModeLabel",
+      "stringDesc": "lockdownModeDescription",
+      "type": "select",
+      "action": "select",
+      "selectOptions": [
+        {
+          "label": "Zen",
+          "fixedText": true,
+          "value": "zen"
+        },
+        {
+          "string": "infinityLdOption",
+          "value": "infinity"
+        },
+        {
+          "string": "extendedLdOption",
+          "value": "extended"
+        },
+        {
+          "string": "classicLdOption",
+          "value": "classic"
+        }
+      ],
+      "setting": "lockdownMode",
+      "gameName": "zen",
+      "settingType": "game"
+    },
+    {
+      "label": "Garbage Cap",
+      "description": "Limit how many broken lines (lines of garbage) may enter the Matrix at a time",
+      "fixedText": true,
+      "type": "slider",
+      "action": "slider",
+      "max": 40,
+      "min": 1,
+      "discrete": 1,
+      "setting": "brokenLineLimit",
+      "settingType": "setting"
+    }
+  ]
+}

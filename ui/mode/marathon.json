@@ -31,16 +31,12 @@
       "selectOptions": [
         {
           "string": "linesUnit",
-          "replace": [
-            "150"
-          ],
+          "replace": ["150"],
           "value": 150
         },
         {
           "string": "linesUnit",
-          "replace": [
-            "200"
-          ],
+          "replace": ["200"],
           "value": 200
         },
         {

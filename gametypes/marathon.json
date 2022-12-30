@@ -10,9 +10,7 @@
     "skin": "srsx",
     "soundbank": "standard",
     "music": ["marathon", "marathon-2"],
-    "musicLinePoints": [
-      100
-    ],
+    "musicLinePoints": [100],
     "hasDangerBgm": true,
     "scoreTable": "guideline",
     "background": "marathon.jpg"
@@ -23,11 +21,5 @@
     "areLimitLineModifier": 166.666666667,
     "spinDetectionType": "3corner"
   },
-  "stats": [
-    "score",
-    "level",
-    "fallspeed",
-    "line",
-    "piece"
-  ]
+  "stats": ["score", "level", "fallspeed", "line", "piece"]
 }

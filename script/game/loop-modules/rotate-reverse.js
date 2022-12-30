@@ -1,11 +1,11 @@
-import input from '../../input.js';
+import input from "../../input.js"
 
 export default function rotateReverse(arg) {
-  const piece = arg.piece;
-  if (input.getGamePress('rotateLeft')) {
-    piece.rotateRight();
+  const piece = arg.piece
+  if (input.getGamePress("rotateLeft")) {
+    piece.rotateRight()
   }
-  if (input.getGamePress('rotateRight')) {
-    piece.rotateLeft();
+  if (input.getGamePress("rotateRight")) {
+    piece.rotateLeft()
   }
 }

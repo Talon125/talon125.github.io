@@ -1,11 +1,4 @@
 {
-  "files": [
-    "erase",
-    "gameover",
-    "harddrop",
-    "lock",
-    "pause",
-    "rotate"
-  ],
+  "files": ["erase", "gameover", "harddrop", "lock", "pause", "rotate"],
   "ren": []
 }

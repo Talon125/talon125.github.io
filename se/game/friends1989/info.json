@@ -8,10 +8,10 @@
     "levelup",
     "lock",
     "move",
-	"ready",
+    "ready",
     "rotate",
-	"start",
-	"tspin"
+    "start",
+    "tspin"
   ],
   "ren": []
 }

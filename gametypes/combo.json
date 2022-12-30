@@ -22,8 +22,5 @@
     "spinDetectionType": "3corner",
     "xSpawnOffset": -3
   },
-  "stats": [
-    "score",
-    "maxcombo"
-  ]
+  "stats": ["score", "maxcombo"]
 }

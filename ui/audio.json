@@ -89,27 +89,27 @@
           "fixedText": true,
           "value": "battle"
         },
-	    	{
+        {
           "label": "FireTV + Battle Fusion",
           "fixedText": true,
           "value": "battleplus"
         },
-	    	{
+        {
           "label": "Battle Drop",
           "fixedText": true,
           "value": "battledrop"
         },
-	    	{
+        {
           "label": ".com",
           "fixedText": true,
           "value": "com"
         },
-	    	{
+        {
           "label": "Friends Default",
           "fixedText": true,
           "value": "friendsdefault"
         },
-	    	{
+        {
           "label": "Friends 1989",
           "fixedText": true,
           "value": "friends1989"
@@ -153,48 +153,48 @@
           "label": "N-Blox",
           "fixedText": true,
           "value": "nblox"
-          },
-	    	{
+        },
+        {
           "label": "LJ65",
           "fixedText": true,
           "value": "lj65"
         },
-	    	{
+        {
           "label": "Uehara",
           "fixedText": true,
           "value": "uehara"
         },
-	    	{
+        {
           "label": "Bejeweled",
           "fixedText": true,
           "value": "bej"
         },
-	    	{
+        {
           "label": "SNES T+Dr. M.",
           "fixedText": true,
           "value": "snesu"
         },
-	    	{
+        {
           "label": "Super 2",
           "fixedText": true,
           "value": "super2"
         },
-    		{
+        {
           "label": "Tengen",
           "fixedText": true,
           "value": "tengen"
         },
-    		{
+        {
           "label": "Sega (1988)",
           "fixedText": true,
           "value": "sega88"
         },
-	    	{
+        {
           "label": "Flash Point",
           "fixedText": true,
           "value": "flashpoint"
         },
-	    	{
+        {
           "label": "New Century",
           "fixedText": true,
           "value": "newcentury"
@@ -219,7 +219,7 @@
           "fixedText": true,
           "value": "tgm1"
         },
-		    {
+        {
           "label": "TGM 2/3/Ace",
           "fixedText": true,
           "value": "tgm3"

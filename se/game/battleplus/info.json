@@ -5,10 +5,10 @@
     "erase3",
     "erase4",
     "excellent",
-	"harddrop",
-	"hold",
-	"hurryup",
-	"ko",
+    "harddrop",
+    "hold",
+    "hurryup",
+    "ko",
     "levelup",
     "locknohd",
     "move",
@@ -18,13 +18,5 @@
     "step",
     "tspinbonus"
   ],
-  "ren": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7
-  ]
+  "ren": [1, 2, 3, 4, 5, 6, 7]
 }

@@ -9,10 +9,7 @@
     "rotationSystem": "tetrax",
     "skin": "standard",
     "soundbank": "standard",
-    "music": [
-      "../master/master",
-      "../master/master-last"
-    ],
+    "music": ["../master/master", "../master/master-last"],
     "hasDangerBgm": true,
     "scoreTable": "tetrax",
     "background": "marathon.jpg",
@@ -24,10 +21,5 @@
     "areLimitLineModifier": 125,
     "spinDetectionType": "immobile"
   },
-  "stats": [
-    "score",
-    "level",
-    "line",
-    "piece"
-  ]
+  "stats": ["score", "level", "line", "piece"]
 }
