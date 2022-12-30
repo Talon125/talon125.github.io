@@ -570,25 +570,21 @@ export default class Piece extends GameModule {
     }
   }
   showTopOut() {
-    if (this.parent.stack.wouldCauseLineClear()) {
-      return
-    }
-    const finalBlocks = this.getFinalBlockLocations()
-    let finalBlocksY = []
-    for (const finalBlock of finalBlocks) {
-      finalBlocksY.push(finalBlock[1])
-    }
-    let findDuplicates = (arr) =>
-      arr.filter((item, index) => arr.indexOf(item) != index)
-    const height = finalBlocksY.length - findDuplicates(finalBlocksY).length
-    let actualwaitingGarbage
-    if (this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit) {
-      actualwaitingGarbage = Math.max(0, settings.settings.brokenLineLimit)
-    } else {
-      actualwaitingGarbage = Math.max(0, this.parent.stack.waitingGarbage)
-    }
+    if (this.parent.stack.wouldCauseLineClear()) return
+    const finalBlockYlocations = this.getFinalBlockLocations().map((b) => b[1])
+    const finalBlockHighest =
+      this.parent.stack.height - Math.min(...finalBlockYlocations)
+    const stackActualHighest = Math.max(
+      this.parent.stack.highest,
+      finalBlockHighest
+    )
+    const actualwaitingGarbage =
+      this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit
+        ? settings.settings.brokenLineLimit
+        : Math.max(0, this.parent.stack.waitingGarbage)
+
     if (
-      this.parent.stack.highest + height + actualwaitingGarbage >
+      stackActualHighest + actualwaitingGarbage >
       this.parent.stack.height + this.parent.stack.hiddenHeight
     ) {
       $("#warning-message").textContent = locale.getString(
