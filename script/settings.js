@@ -19,6 +19,7 @@ class Settings {
       stillShowFullActionTextDespiteZeroLineClearAre: false,
       shapeOverride: "tetro",
       useLockOut: true,
+      brokenLineLimit: 40,
       // Graphics
       theme: "default",
       size: 100,

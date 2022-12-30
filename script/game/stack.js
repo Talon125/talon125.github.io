@@ -417,8 +417,14 @@ export default class Stack extends GameModule {
       this.waitingGarbage - garbageToClear
     )
     if (this.waitingGarbage > 0 && !this.lineClear) {
-      this.spawnBrokenLine(this.waitingGarbage)
-      this.waitingGarbage = 0
+      const brokenLineLimit = settings.settings.brokenLineLimit
+      if (this.waitingGarbage > brokenLineLimit) {
+        this.spawnBrokenLine(brokenLineLimit)
+        this.waitingGarbage -= brokenLineLimit
+      } else {
+        this.spawnBrokenLine(this.waitingGarbage)
+        this.waitingGarbage = 0
+      }
     }
     this.alarmCheck()
     /* if (isMini && this.lineClear >= 2) { // If you uncomment this, the game will softlock on TSDM

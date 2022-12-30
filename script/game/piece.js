@@ -409,6 +409,12 @@ export default class Piece extends GameModule {
     } else {
       $("#garbage-counter-container").classList.add("hidden")
     }
+    let actualwaitingGarbage
+    if (this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit) {
+      actualwaitingGarbage = Math.max(0, settings.settings.brokenLineLimit)
+    } else {
+      actualwaitingGarbage = Math.max(0, this.parent.stack.waitingGarbage)
+    }
     if (
       this.parent.stack.waitingGarbage > 0 &&
       !this.isDead &&
@@ -433,7 +439,7 @@ export default class Piece extends GameModule {
         const y =
           this.parent.stack.height -
           Math.max(highest, ghostHeightValues[x]) -
-          this.parent.stack.waitingGarbage +
+          actualwaitingGarbage +
           this.parent.bufferPeek
         ctx.lineTo(x * cellSize, y * cellSize)
         ctx.lineTo((x + 1) * cellSize, y * cellSize)
@@ -450,11 +456,11 @@ export default class Piece extends GameModule {
     ctx.fillRect(
       (this.parent.settings.width - 0.1) * cellSize,
       (this.parent.settings.height -
-        this.parent.stack.waitingGarbage +
+        actualwaitingGarbage +
         this.parent.bufferPeek) *
         cellSize,
       cellSize / 10,
-      this.parent.stack.waitingGarbage * cellSize
+      actualwaitingGarbage * cellSize
     )
     // Do this later
     /* const nextBlocks = (this.parent.hold.ihs) ? this.getHoldPieceBlocks() : this.getNextPieceBlocks();
@@ -575,10 +581,14 @@ export default class Piece extends GameModule {
     let findDuplicates = (arr) =>
       arr.filter((item, index) => arr.indexOf(item) != index)
     const height = finalBlocksY.length - findDuplicates(finalBlocksY).length
+    let actualwaitingGarbage
+    if (this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit) {
+      actualwaitingGarbage = Math.max(0, settings.settings.brokenLineLimit)
+    } else {
+      actualwaitingGarbage = Math.max(0, this.parent.stack.waitingGarbage)
+    }
     if (
-      this.parent.stack.highest +
-        height +
-        Math.max(0, this.parent.stack.waitingGarbage) >
+      this.parent.stack.highest + height + actualwaitingGarbage >
       this.parent.stack.height + this.parent.stack.hiddenHeight
     ) {
       $("#warning-message").textContent = locale.getString(
@@ -686,7 +696,13 @@ export default class Piece extends GameModule {
       const currentX = nextBlock[0]
       let garbageAdd = 0
       if (!this.parent.stack.wouldCauseLineClear()) {
-        garbageAdd = Math.max(0, this.parent.stack.waitingGarbage)
+        if (
+          this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit
+        ) {
+          garbageAdd = Math.max(0, settings.settings.brokenLineLimit)
+        } else {
+          garbageAdd = Math.max(0, this.parent.stack.waitingGarbage)
+        }
       }
       const currentY = nextBlock[1] - lineClear + garbageAdd
       if (

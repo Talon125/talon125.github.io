@@ -80,6 +80,8 @@ https://talon125.github.io/changelog.html
   - The collapse sound no longer plays if your stack doesn't fall
   - Survival mode additions:
     - You may now choose a Matrix width between 4 and 10
+  - Survival and Zen modes:
+    - You may now set a garbage cap
 - Known Bugs
   <!-- *   Some S-Spin Minis are not detected for some reason. This exact bug is also in Tetr.JS Enhanced (another game from Dr Ocelot) -->
   <!-- *   When the board flips upside-down in Night Of Nights X, the animation is too slow -->

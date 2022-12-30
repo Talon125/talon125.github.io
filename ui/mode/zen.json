@@ -58,6 +58,18 @@
       "setting": "lockdownMode",
       "gameName": "zen",
       "settingType": "game"
+    },
+    {
+      "label": "Garbage Cap",
+      "description": "Limit how many broken lines (lines of garbage) may enter the Matrix at a time",
+      "fixedText": true,
+      "type": "slider",
+      "action": "slider",
+      "max": 40,
+      "min": 1,
+      "discrete": 1,
+      "setting": "brokenLineLimit",
+      "settingType": "setting"
     }
   ]
 }
