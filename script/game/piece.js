@@ -570,7 +570,7 @@ export default class Piece extends GameModule {
     }
   }
   showTopOut() {
-    if (this.parent.stack.wouldCauseLineClear()) return
+    if (this.parent.stack.wouldCauseLineClear()) return false
     const finalBlockYlocations = this.getFinalBlockLocations().map((b) => b[1])
     const finalBlockHighest =
       this.parent.stack.height - Math.min(...finalBlockYlocations)
@@ -580,9 +580,8 @@ export default class Piece extends GameModule {
     )
     const actualwaitingGarbage =
       this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit
-        ? settings.settings.brokenLineLimit
+        ? Number(settings.settings.brokenLineLimit)
         : Math.max(0, this.parent.stack.waitingGarbage)
-
     if (
       stackActualHighest + actualwaitingGarbage >
       this.parent.stack.height + this.parent.stack.hiddenHeight
@@ -599,9 +598,7 @@ export default class Piece extends GameModule {
     $("#game-center").classList.remove("gameover-early-warning-bgflash")
   }
   showLockOut() {
-    if (!settings.settings.useLockOut) {
-      return false
-    }
+    if (!settings.settings.useLockOut) return false
     const finalBlocks = this.getFinalBlockLocations()
     const toCheck = finalBlocks.length
     let failed = 0
@@ -623,9 +620,7 @@ export default class Piece extends GameModule {
     $("#game-center").classList.remove("gameover-early-warning-bgflash")
   }
   showClutch() {
-    if (!settings.settings.useLockOut) {
-      return false
-    }
+    if (!settings.settings.useLockOut) return false
     if (!this.showBlockOut()) {
       $("#warning-message-container").classList.add("hidden")
       $("#game-center").classList.remove("gameover-early-warning-bgflash")
