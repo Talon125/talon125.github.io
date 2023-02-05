@@ -4,8 +4,8 @@ Combining the original Tetra Legends with Tetra Legends Plus, and adding some ex
 
 Original repositories:
 
-https://github.com/zacharylohrman/tetralegends/
 <!-- https://github.com/doktorocelot/tetralegends -->
+https://github.com/zacharylohrman/tetralegends/  
 https://github.com/Rexxt/tetralegendsplus
 
 Thank you:
@@ -16,6 +16,9 @@ Thank you:
 - [Rexxt](https://github.com/Rexxt) (Mizu)
 
 Play at: https://talon125.github.io/
+
+My website:  
+https://oktalon-szoradi.github.io/
 
 <!-- I'm still deciding whether I'll keep this repository public or make it private. -->
 
