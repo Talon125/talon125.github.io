@@ -64,9 +64,7 @@ class Menu {
         this.skipSecretA = true
       }
       if (
-        (gameHandler.game.isDead ||
-          gameHandler.game.isOver ||
-          gameHandler.game.isDead == null) &&
+        (gameHandler.game.isDead || gameHandler.game.isOver || gameHandler.game.isDead == null) &&
         !this.skipMusicChange &&
         this.current.properties.game !== "beat"
       ) {
@@ -130,12 +128,7 @@ class Menu {
           this.isLocked = false
         }
         if (this.useLastSelected) {
-          this.select(
-            this.lastSelection[this.lastSelection.length - 1],
-            false,
-            false,
-            true
-          )
+          this.select(this.lastSelection[this.lastSelection.length - 1], false, false, true)
           this.lastSelection.pop()
           this.useLastSelected = false
         }
@@ -299,10 +292,7 @@ class Menu {
 
       if (currentData.type === "control") {
         const label = document.createElement("div")
-        label.textContent = locale.getString(
-          this.current.lang,
-          currentData.string
-        )
+        label.textContent = locale.getString(this.current.lang, currentData.string)
         label.classList.add("label")
         element.appendChild(label)
         element.appendChild(sub)
@@ -310,10 +300,7 @@ class Menu {
         element.onclick = () => {}
         const label = document.createElement("div")
         if (!currentData.fixedText) {
-          label.textContent = locale.getString(
-            this.current.lang,
-            currentData.string
-          )
+          label.textContent = locale.getString(this.current.lang, currentData.string)
         } else {
           label.textContent = currentData.label
         }
@@ -361,10 +348,7 @@ class Menu {
       } else if (currentData.type === "toggle") {
         const label = document.createElement("div")
         if (!currentData.fixedText) {
-          label.textContent = locale.getString(
-            this.current.lang,
-            currentData.string
-          )
+          label.textContent = locale.getString(this.current.lang, currentData.string)
         } else {
           label.textContent = currentData.label
         }
@@ -388,10 +372,7 @@ class Menu {
           passedElement.textContent = text
         }
         if (!currentData.fixedText) {
-          label.textContent = locale.getString(
-            this.current.lang,
-            currentData.string
-          )
+          label.textContent = locale.getString(this.current.lang, currentData.string)
         } else {
           label.textContent = currentData.label
           $("#description").innerHTML = currentData.description
@@ -417,9 +398,7 @@ class Menu {
             }
           }
           const newValue =
-            sel.selectOptions[
-              negativeMod(index + modValue, sel.selectOptions.length)
-            ].value
+            sel.selectOptions[negativeMod(index + modValue, sel.selectOptions.length)].value
           settings.changeSetting(
             sel.setting,
             newValue,
@@ -571,9 +550,7 @@ class Menu {
   drawSettings() {
     const drawElement = (element, key, gameName) => {
       if (element != null) {
-        const settingValue = gameName
-          ? settings.game[gameName][key]
-          : settings.settings[key]
+        const settingValue = gameName ? settings.game[gameName][key] : settings.settings[key]
         const valueSelector = `#${gameName ? "game" : "setting"}-${key}-value`
         switch (element.getAttribute("settingtype")) {
           case "slider":
@@ -583,16 +560,10 @@ class Menu {
           case "toggle":
             if (settingValue === true) {
               element.classList.add("enabled")
-              $(valueSelector).textContent = locale.getString(
-                "menu_general",
-                "enabled"
-              )
+              $(valueSelector).textContent = locale.getString("menu_general", "enabled")
             } else {
               element.classList.remove("enabled")
-              $(valueSelector).textContent = locale.getString(
-                "menu_general",
-                "disabled"
-              )
+              $(valueSelector).textContent = locale.getString("menu_general", "disabled")
             }
             break
           case "select":
@@ -614,14 +585,8 @@ class Menu {
             if (valueData.fixedText) {
               label = valueData.label
             } else {
-              const lang = valueData.langOverride
-                ? valueData.langOverride
-                : this.current.lang
-              label = locale.getString(
-                lang,
-                valueData.string,
-                valueData.replace
-              )
+              const lang = valueData.langOverride ? valueData.langOverride : this.current.lang
+              label = locale.getString(lang, valueData.string, valueData.replace)
             }
             element.textContent = label
 
@@ -672,19 +637,14 @@ class Menu {
         element.setAttribute("parent", key)
         element.setAttribute("control", item)
         element.onclick = () => {
-          settings.removeControl(
-            element.getAttribute("parent"),
-            element.getAttribute("control")
-          )
+          settings.removeControl(element.getAttribute("parent"), element.getAttribute("control"))
           this.drawControls()
         }
         element.onmouseenter = () => {
           if (input.mouseLimit < 1) {
             return
           }
-          if (
-            !element.parentElement.parentElement.classList.contains("selected")
-          ) {
+          if (!element.parentElement.parentElement.classList.contains("selected")) {
             return
           }
           if (!element.classList.contains("selected")) {
@@ -706,10 +666,7 @@ class Menu {
       element.onclick = () => {
         this.waitingKey = element.getAttribute("parent")
         $("#key-popup").classList.remove("hidden")
-        $("#key-popup .header").textContent = locale.getString(
-          "menu_controls",
-          "configPopupHeader"
-        )
+        $("#key-popup .header").textContent = locale.getString("menu_controls", "configPopupHeader")
         $("#key-popup .body").textContent = locale.getString(
           "menu_controls",
           "configPopupDescription"
@@ -723,9 +680,7 @@ class Menu {
         if (!element.classList.contains("selected")) {
           sound.playMenuSe("move")
         }
-        if (
-          !element.parentElement.parentElement.classList.contains("selected")
-        ) {
+        if (!element.parentElement.parentElement.classList.contains("selected")) {
           return
         }
         this.selectedControl.classList.remove("selected")
@@ -735,12 +690,7 @@ class Menu {
       currentControlElement.appendChild(element)
     }
   }
-  select(
-    number,
-    mouseOver = false,
-    playSound = true,
-    noScrollAnimation = false
-  ) {
+  select(number, mouseOver = false, playSound = true, noScrollAnimation = false) {
     if (number !== this.selected && playSound) {
       sound.playMenuSe("move")
     }
@@ -786,8 +736,7 @@ class Menu {
     let modifier = 0
     if (
       this.selectedData.width === "half" &&
-      this.current.data[negativeMod(this.selected - 1, this.length)].width ===
-        "half"
+      this.current.data[negativeMod(this.selected - 1, this.length)].width === "half"
     ) {
       modifier = 1
     }
@@ -800,8 +749,7 @@ class Menu {
     let modifier = 0
     if (
       this.selectedData.width === "half" &&
-      this.current.data[negativeMod(this.selected + 1, this.length)].width ===
-        "half"
+      this.current.data[negativeMod(this.selected + 1, this.length)].width === "half"
     ) {
       modifier = 1
     }
@@ -816,9 +764,7 @@ class Menu {
       const next = this.selectedControl.nextSibling
       this.selectedControl.classList.remove("selected")
       if (next == null) {
-        $("#menu > .control.selected > .control-bay").firstChild.classList.add(
-          "selected"
-        )
+        $("#menu > .control.selected > .control-bay").firstChild.classList.add("selected")
         return
       }
       next.classList.add("selected")
@@ -851,9 +797,7 @@ class Menu {
       this.selectedControl.classList.remove("selected")
       sound.playMenuSe("move")
       if (prev == null) {
-        $("#menu > .control.selected > .control-bay").lastChild.classList.add(
-          "selected"
-        )
+        $("#menu > .control.selected > .control-bay").lastChild.classList.add("selected")
         return
       }
       prev.classList.add("selected")
@@ -949,15 +893,8 @@ class Menu {
         break
       case "settingChange":
         $(`#option-${this.selected}`).classList.add("chosen")
-        const game =
-          this.selectedData.settingType === "game"
-            ? this.selectedData.gameName
-            : false
-        settings.changeSetting(
-          this.selectedData.setting,
-          this.selectedData.value,
-          game
-        )
+        const game = this.selectedData.settingType === "game" ? this.selectedData.gameName : false
+        settings.changeSetting(this.selectedData.setting, this.selectedData.value, game)
         sound.playMenuSe("optionselect")
         this.back(false)
         break
@@ -1049,7 +986,11 @@ class Menu {
         })
         break
       case "link":
-        window.open(this.selectedData.url, "_blank")
+        if (this.selectedData.openHere) {
+          window.open(this.selectedData.url, "_self")
+        } else {
+          window.open(this.selectedData.url, "_blank")
+        }
         break
       case "settingsimport":
         sound.playMenuSe("optionselect")
