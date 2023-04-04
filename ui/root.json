@@ -99,7 +99,8 @@
       "label": "Highscores",
       "description": "Look at your highscores for each mode here",
       "action": "submenu",
-      "submenu": "highscores"
+      "submenu": "highscores",
+      "disabled": true
     },
     {
       "string": "miscOverline",
