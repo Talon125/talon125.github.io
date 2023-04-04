@@ -119,14 +119,16 @@
       "label": "Soundtrack",
       "description": "Listen to the original soundtrack (coming soon!)",
       "action": "link",
-      "url": "https://soundcloud.com/tetra-developer-studio/sets/tetra-legends-soundtrack"
+      "url": "https://www.youtube.com/playlist?list=OLAK5uy_ka56F4BS_XXfxY3YZGN5mfBGSoSIrPvj0",
+      "oldUrl": "https://soundcloud.com/tetra-developer-studio/sets/tetra-legends-soundtrack"
     },
     {
       "fixedText": true,
       "label": "Changelog",
       "description": "See the changelog for this game",
       "action": "link",
-      "url": "./changelog.html"
+      "url": "./changelog.html",
+      "openHere": true
     },
     {
       "fixedText": true,
@@ -138,7 +140,9 @@
     {
       "fixedText": true,
       "label": "Edited by: Talon",
-      "description": "Find a problem? Have a suggestion? Just wanna talk to me? Message me on Discord: Talon#7854"
+      "description": "Find a problem? Have a suggestion? Just wanna talk to me? Message me on Discord: Talon#7854",
+      "action": "link",
+      "url": "https://oktalon-szoradi.github.io/"
     }
   ]
 }
