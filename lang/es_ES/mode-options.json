@@ -102,6 +102,10 @@
   "lockdownModeDescription": {
     "message": "Selecciona un modo que controla como la pieza será bloqueada"
   },
+  "zenLdOption": {
+    "message": "Zen",
+    "description": "Like infinite/forgiving, but the lockdown bar only depletes when softdropping"
+  },
   "infinityLdOption": {
     "message": "Compasivo",
     "description": "Name for the 'infinity' lockdown type; any move/shift or rotation will reset the timer for an unlimited number of times"

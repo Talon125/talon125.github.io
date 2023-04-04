@@ -7,9 +7,8 @@
   },
   "data": [
     {
-      "label": "Zen",
-      "description": "",
-      "fixedText": true,
+      "string": "zenLabel",
+      "langOverride": "menu_root",
       "type": "header"
     },
     {
@@ -38,8 +37,7 @@
       "action": "select",
       "selectOptions": [
         {
-          "label": "Zen",
-          "fixedText": true,
+          "string": "zenLdOption",
           "value": "zen"
         },
         {

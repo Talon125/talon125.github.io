@@ -102,6 +102,10 @@
   "lockdownModeDescription": {
     "message": "블록이 필드에 어떻게 고정될 지 결정합니다."
   },
+  "zenLdOption": {
+    "message": "Zen",
+    "description": "Like infinite/forgiving, but the lockdown bar only depletes when softdropping"
+  },
   "infinityLdOption": {
     "message": "무한",
     "description": "Name for the 'infinity' lockdown type; any move/shift or rotation will reset the timer for an unlimited number of times"

@@ -102,6 +102,10 @@
   "lockdownModeDescription": {
     "message": "ロックダウンの方式を選択してください"
   },
+  "zenLdOption": {
+    "message": "Zen",
+    "description": "Like infinite/forgiving, but the lockdown bar only depletes when softdropping"
+  },
   "infinityLdOption": {
     "message": "インフィニティ",
     "description": "Name for the 'infinity' lockdown type; any move/shift or rotation will reset the timer for an unlimited number of times"

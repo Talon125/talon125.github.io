@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "Uitdagende variant waar hardcore spelers dol op zijn"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "Instellingen"
   },

@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "Variante difficile du puzzle aimée par les joueurs hardcore"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "Paramètres"
   },

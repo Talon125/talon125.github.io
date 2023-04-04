@@ -47,9 +47,8 @@
       "submenu": "arcade"
     },
     {
-      "fixedText": true,
-      "label": "Zen",
-      "description": "Relax, there are no restrictions!",
+      "string": "zenLabel",
+      "stringDesc": "zenDescription",
       "action": "submenu",
       "submenu": "mode/zen"
     },

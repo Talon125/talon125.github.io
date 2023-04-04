@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "Variante difícil del juego amada por jugadores avanzados"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "Configuraciones"
   },

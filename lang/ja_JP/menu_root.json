@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "マニア向けの難しいモード"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "設定"
   },

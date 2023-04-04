@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "진정한 고수들을 위한 고난이도 모드들"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "설정"
   },

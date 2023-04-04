@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "Phiên bản khó hơn, thích hợp cho những người muốn thách thức bản thân"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "Cài đặt"
   },

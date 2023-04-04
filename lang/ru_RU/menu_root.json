@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "Сложный вариант игры, нравящийся хардкорным игрокам"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "Настройки"
   },
