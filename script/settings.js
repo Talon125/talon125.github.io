@@ -104,7 +104,7 @@ class Settings {
         this.defaultSettings.voicebank = "talonen"
         break
       case "de_DE":
-        this.defaultSettings.voiceVolume = "talonde"
+        this.defaultSettings.voicebank = "talonde"
         break
       case "ja_JP":
         this.defaultSettings.voicebank = "sorajp"
