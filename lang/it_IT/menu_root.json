@@ -92,6 +92,12 @@
   "changelogDescription": {
     "message": "See the changelog for this game"
   },
+  "githubLabel": {
+    "message": "GitHub Repository"
+  },
+  "githubDescription": {
+    "message": "Go to the GitHub Repository of Tetra Legends Ultimate"
+  },
   "soundtrackLabel": {
     "message": "Colonna sonora"
   },

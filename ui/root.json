@@ -127,9 +127,8 @@
       "openHere": true
     },
     {
-      "fixedText": true,
-      "label": "GitHub Repository",
-      "description": "Go to the GitHub Repository of Tetra Legends Ultimate",
+      "string": "githubLabel",
+      "stringDesc": "githubDescription",
       "action": "link",
       "url": "https://github.com/Talon125/talon125.github.io"
     },
