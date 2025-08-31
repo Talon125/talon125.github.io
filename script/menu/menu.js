@@ -909,7 +909,7 @@ class Menu {
       case "daspreset":
         $(`#option-${this.selected}`).classList.add("chosen")
         sound.playMenuSe("optionselect")
-        if (this.selectedData.label === "Default 2") {
+        if (this.selectedData.isTLUDefault) {
           settings.changeSetting("DAS", 150)
           settings.changeSetting("ARR", 1000 / 60)
         } else {

@@ -5,6 +5,12 @@
   "defaultDescription": {
     "message": "게임을 최초 실행할 때의 기본값"
   },
+  "default2Label": {
+    "message": "Default 2"
+  },
+  "default2Description": {
+    "message": "The default chosen for Tetra Legends Ultimate"
+  },
   "guidelineLabel": {
     "message": "가이드라인"
   },
