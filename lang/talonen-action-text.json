@@ -72,7 +72,7 @@
     "description": "Displays when a mini spin clears 4 lines. %1 is the name of the piece ('T', 'S')"
   },
   "spinpentamini": {
-    "message": "%1-Spin Mini  Penta",
+    "message": "%1-Spin Mini Penta",
     "description": "Displays when a mini spin clears 5 lines. %1 is the name of the piece ('T', 'S')"
   },
   "spintetraplusmini": {
