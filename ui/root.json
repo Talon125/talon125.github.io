@@ -93,9 +93,8 @@
       "submenu": "settings"
     },
     {
-      "fixedText": true,
-      "label": "Highscores",
-      "description": "Look at your highscores for each mode here",
+      "string": "highscoresLabel",
+      "stringDesc": "highscoresDescription",
       "action": "submenu",
       "submenu": "highscores",
       "disabled": true

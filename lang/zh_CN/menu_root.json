@@ -76,6 +76,12 @@
   "settingsDescription": {
     "message": "Import and export your settings here"
   },
+  "highscoresLabel": {
+    "message": "Highscores"
+  },
+  "highscoresDescription": {
+    "message": "Look at your highscores for each mode here"
+  },
   "miscOverline": {
     "message": "其他",
     "description": "Miscellaneous, other"
