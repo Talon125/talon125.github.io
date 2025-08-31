@@ -120,9 +120,8 @@
       "oldUrl": "https://soundcloud.com/tetra-developer-studio/sets/tetra-legends-soundtrack"
     },
     {
-      "fixedText": true,
-      "label": "Changelog",
-      "description": "See the changelog for this game",
+      "string": "changelogLabel",
+      "stringDesc": "changelogDescription",
       "action": "link",
       "url": "./changelog.html",
       "openHere": true

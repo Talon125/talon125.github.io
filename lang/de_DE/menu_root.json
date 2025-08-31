@@ -86,6 +86,12 @@
     "message": "Sonstiges",
     "description": "Miscellaneous, other"
   },
+  "changelogLabel": {
+    "message": "Änderungsprotokoll"
+  },
+  "changelogDescription": {
+    "message": "Lese die Änderungsprotokoll dieses Spiels"
+  },
   "soundtrackLabel": {
     "message": "Soundtrack"
   },

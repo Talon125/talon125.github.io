@@ -86,6 +86,12 @@
     "message": "其他",
     "description": "Miscellaneous, other"
   },
+  "changelogLabel": {
+    "message": "Changelog"
+  },
+  "changelogDescription": {
+    "message": "See the changelog for this game"
+  },
   "soundtrackLabel": {
     "message": "原声带"
   },

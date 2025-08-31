@@ -86,6 +86,12 @@
     "message": "Khác",
     "description": "Miscellaneous, other"
   },
+  "changelogLabel": {
+    "message": "Changelog"
+  },
+  "changelogDescription": {
+    "message": "See the changelog for this game"
+  },
   "soundtrackLabel": {
     "message": "Nhạc nền"
   },

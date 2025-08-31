@@ -86,6 +86,12 @@
     "message": "Прочее",
     "description": "Miscellaneous, other"
   },
+  "changelogLabel": {
+    "message": "Changelog"
+  },
+  "changelogDescription": {
+    "message": "See the changelog for this game"
+  },
   "soundtrackLabel": {
     "message": "Саундтрек"
   },
