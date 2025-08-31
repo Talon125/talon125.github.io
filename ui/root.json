@@ -87,9 +87,8 @@
       "type": "overline"
     },
     {
-      "fixedText": true,
-      "label": "Settings",
-      "description": "Import and export your settings here",
+      "string": "settingsLabel",
+      "stringDesc": "settingsDescription",
       "action": "submenu",
       "submenu": "settings"
     },

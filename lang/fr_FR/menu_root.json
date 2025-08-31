@@ -70,6 +70,12 @@
   "dataManagementOverline": {
     "message": "Data Management"
   },
+  "settingsLabel": {
+    "message": "Settings"
+  },
+  "settingsDescription": {
+    "message": "Import and export your settings here"
+  },
   "miscOverline": {
     "message": "Divers",
     "description": "Miscellaneous, other"
