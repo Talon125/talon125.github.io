@@ -67,6 +67,9 @@
   "videoDescription": {
     "message": "Thay đổi chất lượng hình ảnh"
   },
+  "dataManagementLabel": {
+    "message": "Data Management"
+  },
   "miscOverline": {
     "message": "Khác",
     "description": "Miscellaneous, other"

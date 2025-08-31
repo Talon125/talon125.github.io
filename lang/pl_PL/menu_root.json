@@ -67,6 +67,9 @@
   "videoDescription": {
     "message": "Zmień ustawienia obrazu"
   },
+  "dataManagementLabel": {
+    "message": "Data Management"
+  },
   "miscOverline": {
     "message": "Inne",
     "description": "Miscellaneous, other"

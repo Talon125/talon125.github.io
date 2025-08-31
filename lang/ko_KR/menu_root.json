@@ -67,6 +67,9 @@
   "videoDescription": {
     "message": "게임 내 시각 효과를 설정합니다."
   },
+  "dataManagementLabel": {
+    "message": "Data Management"
+  },
   "miscOverline": {
     "message": "기타",
     "description": "Miscellaneous, other"

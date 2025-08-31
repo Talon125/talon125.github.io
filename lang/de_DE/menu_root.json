@@ -67,6 +67,9 @@
   "videoDescription": {
     "message": "Ändere das Aussehen des Spiels"
   },
+  "dataManagementLabel": {
+    "message": "Datenverwaltung"
+  },
   "miscOverline": {
     "message": "Sonstiges",
     "description": "Miscellaneous, other"

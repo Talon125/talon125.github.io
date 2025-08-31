@@ -83,8 +83,7 @@
       "submenu": "video"
     },
     {
-      "fixedText": true,
-      "label": "Data Management",
+      "string": "dataManagementLabel",
       "type": "overline"
     },
     {
