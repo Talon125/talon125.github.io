@@ -67,7 +67,7 @@
   "videoDescription": {
     "message": "ゲームの外観を変更します。"
   },
-  "dataManagementLabel": {
+  "dataManagementOverline": {
     "message": "Data Management"
   },
   "miscOverline": {

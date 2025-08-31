@@ -83,7 +83,7 @@
       "submenu": "video"
     },
     {
-      "string": "dataManagementLabel",
+      "string": "dataManagementOverline",
       "type": "overline"
     },
     {

@@ -67,7 +67,7 @@
   "videoDescription": {
     "message": "Настройки внешнего вида игры"
   },
-  "dataManagementLabel": {
+  "dataManagementOverline": {
     "message": "Data Management"
   },
   "miscOverline": {
