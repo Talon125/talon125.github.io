@@ -1,4 +1,16 @@
 {
+  "noviceLabel": {
+    "message": "Neuling"
+  },
+  "noviceDescription": {
+    "message": "Ein langsames Spiel für Anfangende"
+  },
+  "suddenLabel": {
+    "message": "Plötz"
+  },
+  "suddenDescription": {
+    "message": "Die Teile erscheinen direkt am Boden und es wird nur schneller!"
+  },
   "gradesLabel": {
     "message": "Noten",
     "description": "Used as a category name for TGM-inspired modes"

@@ -28,6 +28,7 @@ class Locale {
       "menu_root",
       "menu_guideline",
       "menu_tetrax",
+      "menu_arcade",
       "menu_retro",
       "menu_controls",
       "menu_tuning",
