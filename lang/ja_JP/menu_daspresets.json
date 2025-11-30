@@ -5,6 +5,12 @@
   "defaultDescription": {
     "message": "ゲームのデフォルト設定"
   },
+  "default2Label": {
+    "message": "Default 2"
+  },
+  "default2Description": {
+    "message": "The default chosen for Tetra Legends Ultimate"
+  },
   "guidelineLabel": {
     "message": "ガイドライン"
   },

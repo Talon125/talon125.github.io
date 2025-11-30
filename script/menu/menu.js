@@ -445,7 +445,7 @@ class Menu {
               menuButton.default = true
             }
             menuButton.isShort = true
-            if (!currentData.fixedText) {
+            if (!currentData.fixedText && !selectData.description && !selectData.stringDesc) {
               menuButton.omitDescription = true
             }
             menuButton.action = "settingChange"
@@ -909,7 +909,7 @@ class Menu {
       case "daspreset":
         $(`#option-${this.selected}`).classList.add("chosen")
         sound.playMenuSe("optionselect")
-        if (this.selectedData.label === "Default 2") {
+        if (this.selectedData.isTLUDefault) {
           settings.changeSetting("DAS", 150)
           settings.changeSetting("ARR", 1000 / 60)
         } else {

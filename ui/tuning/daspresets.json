@@ -14,9 +14,9 @@
       "rate": 30
     },
     {
-      "label": "Default 2",
-      "description": "The default chosen for Tetra Legends Ultimate",
-      "fixedText": true,
+      "string": "default2Label",
+      "stringDesc": "default2Description",
+      "isTLUDefault": true,
       "action": "daspreset",
       "isShort": true
     },

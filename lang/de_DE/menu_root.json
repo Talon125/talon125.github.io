@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "Schwierige Variante des Puzzles, der von Hardcore-Spieler*innen geliebt ist"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Entspannen Sie sich, es gibt keine Einschränkungen!"
+  },
   "settingsOverline": {
     "message": "Einstellungen"
   },
@@ -61,9 +67,36 @@
   "videoDescription": {
     "message": "Ändere das Aussehen des Spiels"
   },
+  "dataManagementOverline": {
+    "message": "Datenverwaltung"
+  },
+  "settingsLabel": {
+    "message": "Einstellungen"
+  },
+  "settingsDescription": {
+    "message": "Importiere und exportiere Ihre Einstellungen hier"
+  },
+  "highscoresLabel": {
+    "message": "Highscores"
+  },
+  "highscoresDescription": {
+    "message": "Schaue Ihre Highscores für jeder Modus hier an"
+  },
   "miscOverline": {
     "message": "Sonstiges",
     "description": "Miscellaneous, other"
+  },
+  "changelogLabel": {
+    "message": "Änderungsprotokoll"
+  },
+  "changelogDescription": {
+    "message": "Lese die Änderungsprotokoll dieses Spiels"
+  },
+  "githubLabel": {
+    "message": "GitHub Repository"
+  },
+  "githubDescription": {
+    "message": "Besuche die GitHub-Repository von Tetra Legends Ultimate"
   },
   "soundtrackLabel": {
     "message": "Soundtrack"

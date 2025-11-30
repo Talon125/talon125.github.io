@@ -5,6 +5,12 @@
   "defaultDescription": {
     "message": "Cài đặt theo bộ nhạy mặc định của game"
   },
+  "default2Label": {
+    "message": "Default 2"
+  },
+  "default2Description": {
+    "message": "The default chosen for Tetra Legends Ultimate"
+  },
   "guidelineLabel": {
     "message": "Hiện đại"
   },

@@ -1,12 +1,13 @@
 {
   "properties": {
-    "parent": "tuning"
+    "parent": "tuning",
+    "langOverride": "menu_tuning_spins"
   },
   "data": [
     {
-      "label": "Spin Detection Override",
-      "description": "Select which spin detection to use in place of the default for the mode",
-      "fixedText": true,
+      "string": "spinDetectionLabel",
+      "stringDesc": "spinDetectionOverrideDescription",
+      "langOverride": "menu_tuning",
       "default": true,
       "type": "select",
       "action": "select",
@@ -18,27 +19,27 @@
           "omitDescription": true
         },
         {
-          "label": "4-Point",
-          "description": "Each piece gets 4 points around it. At least 3 must be filled for a spin. 2 specific points must be filled for a full spin; otherwise, the spin is mini, but only if the first 4 rotations in the offset table are used.",
-          "fixedText": true,
+          "string": "4pointLabel",
+          "stringDesc": "4pointDescription",
+          "langOverride": "menu_tuning_spins",
           "value": "3corner"
         },
         {
-          "label": "Immobile",
-          "description": "If a piece gets rotated into a position where it cannot move up, down, left, or right, then it is a spin. There are no mini spins.",
-          "fixedText": true,
+          "string": "immobileLabel",
+          "stringDesc": "immobileDescription",
+          "langOverride": "menu_tuning_spins",
           "value": "immobile"
         },
         {
-          "label": "EZ-Immobile",
-          "description": "Same as immobile, but if upon rotating a piece it kicks (rotates, but not on its center-axis) and it does not satisfy the requirements for an immobile spin, then it is a mini spin.",
-          "fixedText": true,
+          "string": "ezImmobileLabel",
+          "stringDesc": "ezImmobileDescription",
+          "langOverride": "menu_tuning_spins",
           "value": "EZimmobile"
         },
         {
-          "label": "None",
-          "description": "Do not detect spins",
-          "fixedText": true,
+          "string": "noneLabel",
+          "stringDesc": "noneDescription",
+          "langOverride": "menu_tuning_spins",
           "value": "null"
         }
       ],
@@ -46,70 +47,62 @@
       "settingType": "setting"
     },
     {
-      "label": "Piece Spin Presets",
-      "description": "Select from a variety of presets that determine which spins are detected/rewarded for which pieces",
-      "fixedText": true,
+      "string": "piecePresetsLabel",
+      "stringDesc": "piecePresetsDescription",
       "action": "submenu",
       "submenu": "tuning/spinpresets"
     },
     {
-      "label": "Z-Spins",
-      "description": "Toggle whether Z-Spins are detected/rewarded",
-      "fixedText": true,
+      "string": "zSpinsLabel",
+      "stringDesc": "zSpinsDescription",
       "type": "toggle",
       "action": "toggle",
       "setting": "spinZ",
       "settingType": "setting"
     },
     {
-      "label": "L-Spins",
-      "description": "Toggle whether L-Spins are detected/rewarded",
-      "fixedText": true,
+      "string": "lSpinsLabel",
+      "stringDesc": "lSpinsDescription",
       "type": "toggle",
       "action": "toggle",
       "setting": "spinL",
       "settingType": "setting"
     },
     {
-      "label": "O-Spins",
-      "description": "Toggle whether O-Spins are detected/rewarded",
-      "fixedText": true,
+      "string": "oSpinsLabel",
+      "stringDesc": "oSpinsDescription",
       "type": "toggle",
       "action": "toggle",
       "setting": "spinO",
       "settingType": "setting"
     },
     {
-      "label": "S-Spins",
-      "description": "Toggle whether S-Spins are detected/rewarded",
-      "fixedText": true,
+      "string": "sSpinsLabel",
+      "stringDesc": "sSpinsDescription",
       "type": "toggle",
       "action": "toggle",
       "setting": "spinS",
       "settingType": "setting"
     },
     {
-      "label": "I-Spins",
-      "description": "Toggle whether I-Spins are detected/rewarded",
-      "fixedText": true,
+      "string": "iSpinsLabel",
+      "stringDesc": "iSpinsDescription",
       "type": "toggle",
       "action": "toggle",
       "setting": "spinI",
       "settingType": "setting"
     },
     {
-      "label": "J-Spins",
-      "description": "Toggle whether J-Spins are detected/rewarded",
-      "fixedText": true,
+      "string": "jSpinsLabel",
+      "stringDesc": "jSpinsDescription",
       "type": "toggle",
       "action": "toggle",
       "setting": "spinJ",
       "settingType": "setting"
     },
     {
-      "label": "T-Spins",
-      "description": "Toggle whether T-Spins are detected/rewarded",
-      "fixedText": true,
+      "string": "tSpinsLabel",
+      "stringDesc": "tSpinsDescription",
       "type": "toggle",
       "action": "toggle",
       "setting": "spinT",

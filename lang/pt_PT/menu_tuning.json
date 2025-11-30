@@ -20,6 +20,24 @@
   "arrDescription": {
     "message": "A quantidade de tempo em milissegundos entre cada mudança automática (ARR)"
   },
+  "areLabel": {
+    "message": "Entry Delay"
+  },
+  "areDescription": {
+    "message": "Also known as ARE, produce a delay every time a new piece spawns (may be enforced in some modes)"
+  },
+  "lineClearAreLabel": {
+    "message": "Line Clear Delay"
+  },
+  "lineClearAreDescription": {
+    "message": "Also known as Line Clear ARE, produce a delay every time a line is cleared (may be enforced in some modes)"
+  },
+  "lockOutLabel": {
+    "message": "Lock Out"
+  },
+  "lockOutDescription": {
+    "message": "End the game when a piece is placed completely above the Skyline"
+  },
   "dasPreloadLabel": {
     "message": "Pré-carga de mudança automática",
     "description": "This setting make it so that when you press a movement key while in Entry Delay (ARE), the DAS will fully charge and the ARR will start immediately when the next piece spawns"
@@ -52,6 +70,51 @@
   "holdInitOption": {
     "message": "Segurar",
     "description": "As in, you have to have the button held at the end of ARE to use IRS/IHS"
+  },
+  "spinDetectionLabel": {
+    "message": "Spin Detection Override"
+  },
+  "spinDetectionDescription": {
+    "message": "Specify which spins are detected and how"
+  },
+  "spinDetectionOverrideDescription": {
+    "message": "Select which spin detection to use in place of the default for the mode"
+  },
+  "pieceShapeLabel": {
+    "message": "Piece Shape Override"
+  },
+  "pieceShapeDescription": {
+    "message": "Select which type of shapes the pieces will be"
+  },
+  "tetrominoLabel": {
+    "message": "Tetromino"
+  },
+  "tetrominoDescription": {
+    "message": "Tetrominoes are made up of 4 smaller blocks. This is the default"
+  },
+  "pentominoLabel": {
+    "message": "Pentomino"
+  },
+  "pentominoDescription": {
+    "message": "Pentominoes are made up of 5 smaller blocks. This makes the game significantly more difficult<br>Note: piece set is the same as in PPT"
+  },
+  "monominoLabel": {
+    "message": "Monomino"
+  },
+  "monominoDescription": {
+    "message": "Monominoes are 1 single block"
+  },
+  "dominoLabel": {
+    "message": "Domino"
+  },
+  "dominoDescription": {
+    "message": "Dominoes are 2 smaller blocks"
+  },
+  "trominoLabel": {
+    "message": "Tromino"
+  },
+  "trominoDescription": {
+    "message": "Trominoes are made up of 3 smaller blocks. This makes the game significantly easier"
   },
   "rotSysLabel": {
     "message": "Substituição do sistema de rotação",

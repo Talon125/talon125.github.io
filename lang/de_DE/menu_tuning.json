@@ -20,6 +20,24 @@
   "arrDescription": {
     "message": "Die Zeitspanne in Millisekunden zwischen jeder automatischen Verschiebung (ARR)"
   },
+  "areLabel": {
+    "message": "Eintrittsverzögerung"
+  },
+  "areDescription": {
+    "message": "Auch als ARE bekannt, mache eine Verzögerung jedes Mal wann ein neuer Teil erscheint (kann in einigen Modi erzwungen sein)"
+  },
+  "lineClearAreLabel": {
+    "message": "Linienlöschungsverzögerung"
+  },
+  "lineClearAreDescription": {
+    "message": "Auch als Line Clear ARE bekannt, mache eine Verzögerung jedes Mal wann eine Linie gelöscht wird (kann in einigen Modi erzwungen sein)"
+  },
+  "lockOutLabel": {
+    "message": "Aussperrung"
+  },
+  "lockOutDescription": {
+    "message": "Beende das Spiel wenn ein Teil komplett oberhalb des Skylines platziert wird"
+  },
   "dasPreloadLabel": {
     "message": "AutoShift-Preload",
     "description": "This setting make it so that when you press a movement key while in Entry Delay (ARE), the DAS will fully charge and the ARR will start immediately when the next piece spawns"
@@ -52,6 +70,51 @@
   "holdInitOption": {
     "message": "Halten",
     "description": "As in, you have to have the button held at the end of ARE to use IRS/IHS"
+  },
+  "spinDetectionLabel": {
+    "message": "Drehungerkennung Überschreibung"
+  },
+  "spinDetectionDescription": {
+    "message": "Stelle ein welche Drehungen erkannt werden und wie"
+  },
+  "spinDetectionOverrideDescription": {
+    "message": "Wähle eine Drehungerkennung aus, das anstatt des Standards für den Modus zu verwenden ist"
+  },
+  "pieceShapeLabel": {
+    "message": "Teilform Überschreibung"
+  },
+  "pieceShapeDescription": {
+    "message": "Stelle ein welche Form die Teile haben werden"
+  },
+  "tetrominoLabel": {
+    "message": "Tetromino"
+  },
+  "tetrominoDescription": {
+    "message": "Tetrominos bestehen aus 4 kleinere Quadrate. Dies ist die Standardeinstellung"
+  },
+  "pentominoLabel": {
+    "message": "Pentomino"
+  },
+  "pentominoDescription": {
+    "message": "Pentominos bestehen aus 5 kleinere Quadrate. Dies macht das Spiel bedeutsam schwerer<br>Bemerkung: Teileset wie in PPT"
+  },
+  "monominoLabel": {
+    "message": "Monomino"
+  },
+  "monominoDescription": {
+    "message": "Monominos sind ein einzelnes Quadrat"
+  },
+  "dominoLabel": {
+    "message": "Domino"
+  },
+  "dominoDescription": {
+    "message": "Dominos bestehen aus 2 kleinere Quadrate"
+  },
+  "trominoLabel": {
+    "message": "Tromino"
+  },
+  "trominoDescription": {
+    "message": "Trominos bestehen aus 3 kleinere Quadrate. Dies macht das Spiel bedeutsam leichter"
   },
   "rotSysLabel": {
     "message": "Drehungssystem Überschreibung",

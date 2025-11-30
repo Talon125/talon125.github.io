@@ -47,9 +47,8 @@
       "submenu": "arcade"
     },
     {
-      "fixedText": true,
-      "label": "Zen",
-      "description": "Relax, there are no restrictions!",
+      "string": "zenLabel",
+      "stringDesc": "zenDescription",
       "action": "submenu",
       "submenu": "mode/zen"
     },
@@ -84,23 +83,14 @@
       "submenu": "video"
     },
     {
-      "fixedText": true,
-      "label": "Data Management",
+      "string": "dataManagementOverline",
       "type": "overline"
     },
     {
-      "fixedText": true,
-      "label": "Settings",
-      "description": "Import and export your settings here",
+      "string": "settingsLabel",
+      "stringDesc": "settingsDescription",
       "action": "submenu",
       "submenu": "settings"
-    },
-    {
-      "fixedText": true,
-      "label": "Highscores",
-      "description": "Look at your highscores for each mode here",
-      "action": "submenu",
-      "submenu": "highscores"
     },
     {
       "string": "miscOverline",
@@ -123,17 +113,15 @@
       "oldUrl": "https://soundcloud.com/tetra-developer-studio/sets/tetra-legends-soundtrack"
     },
     {
-      "fixedText": true,
-      "label": "Changelog",
-      "description": "See the changelog for this game",
+      "string": "changelogLabel",
+      "stringDesc": "changelogDescription",
       "action": "link",
       "url": "./changelog.html",
       "openHere": true
     },
     {
-      "fixedText": true,
-      "label": "GitHub Repository",
-      "description": "Go to the GitHub Repository of Tetra Legends Ultimate",
+      "string": "githubLabel",
+      "stringDesc": "githubDescription",
       "action": "link",
       "url": "https://github.com/Talon125/talon125.github.io"
     },

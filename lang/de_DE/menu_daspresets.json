@@ -5,6 +5,12 @@
   "defaultDescription": {
     "message": "Die Standardeinstellungen, die im Spiel vorhanden sind"
   },
+  "default2Label": {
+    "message": "Standard 2"
+  },
+  "default2Description": {
+    "message": "Die Standardeinstellungen, die für Tetra Legends Ultimate entschieden wurden"
+  },
   "guidelineLabel": {
     "message": "Leitfaden"
   },

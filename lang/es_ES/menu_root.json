@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "Variante difícil del juego amada por jugadores avanzados"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "Configuraciones"
   },
@@ -61,9 +67,36 @@
   "videoDescription": {
     "message": "Cambia cómo el juego se ve"
   },
+  "dataManagementOverline": {
+    "message": "Data Management"
+  },
+  "settingsLabel": {
+    "message": "Settings"
+  },
+  "settingsDescription": {
+    "message": "Import and export your settings here"
+  },
+  "highscoresLabel": {
+    "message": "Highscores"
+  },
+  "highscoresDescription": {
+    "message": "Look at your highscores for each mode here"
+  },
   "miscOverline": {
     "message": "Otros",
     "description": "Miscellaneous, other"
+  },
+  "changelogLabel": {
+    "message": "Changelog"
+  },
+  "changelogDescription": {
+    "message": "See the changelog for this game"
+  },
+  "githubLabel": {
+    "message": "GitHub Repository"
+  },
+  "githubDescription": {
+    "message": "Go to the GitHub Repository of Tetra Legends Ultimate"
   },
   "soundtrackLabel": {
     "message": "Música"

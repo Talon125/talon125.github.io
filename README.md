@@ -2,15 +2,14 @@
 
 Combining the original Tetra Legends with Tetra Legends Plus, and adding some extra things I thought up of!
 
-Original repositories:
+Original repositories and game links:
 
-<!-- https://github.com/doktorocelot/tetralegends -->
-https://github.com/zacharylohrman/tetralegends/  
-https://github.com/Rexxt/tetralegendsplus
+https://github.com/doktorocelot/tetralegends at https://tetralegends.app/
+https://github.com/Rexxt/tetralegendsplus at https://tetralegendsplus.netlify.app/ (no longer available)
 
 Thank you:
 
-- [zacharylohrman](https://github.com/zacharylohrman) [(Dr Ocelot)](https://github.com/doktorocelot)
+- [Dr Ocelot](https://github.com/doktorocelot)
 - [MillaBasset](https://github.com/MillaBasset)
 - [MattMayuga](https://github.com/MattMayuga)
 - [Rexxt](https://github.com/Rexxt) (Mizu)

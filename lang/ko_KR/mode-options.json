@@ -102,6 +102,10 @@
   "lockdownModeDescription": {
     "message": "블록이 필드에 어떻게 고정될 지 결정합니다."
   },
+  "zenLdOption": {
+    "message": "Zen",
+    "description": "Like infinite/forgiving, but the lockdown bar only depletes when softdropping"
+  },
   "infinityLdOption": {
     "message": "무한",
     "description": "Name for the 'infinity' lockdown type; any move/shift or rotation will reset the timer for an unlimited number of times"
@@ -143,6 +147,18 @@
   "skipOption": {
     "message": "건너뛰기",
     "description": "This is used in the context of selecting what pressing hold will do; you may want this to match what you translated in ui.json unless there's a good reason not to"
+  },
+  "garbageCapLabel": {
+    "message": "Garbage Cap"
+  },
+  "garbageCapDescription": {
+    "message": "Limit how many broken lines (lines of garbage) may enter the Matrix at a time"
+  },
+  "songLabel": {
+    "message": "Song"
+  },
+  "songDescription": {
+    "message": "Choose which song plays during the game"
   },
   "mechanicsLabel": {
     "message": "게임 조작 체계",

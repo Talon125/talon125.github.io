@@ -1,0 +1,26 @@
+{
+  "importLabel": {
+    "message": "Importieren"
+  },
+  "importDescription": {
+    "message": "Importiere Einstellungen aus einer JSON-Datei"
+  },
+  "exportLabel": {
+    "message": "Exportieren"
+  },
+  "exportDescription": {
+    "message": "Exportiere die aktuelle Einstellungen zu einer JSON-Datei"
+  },
+  "resetLabel": {
+    "message": "Zurücksetzen"
+  },
+  "resetDescription": {
+    "message": "Setze alle Einstellungen zu ihren Standardwerte zurück. Die aktuelle Konfiguration geht dabei verloren!"
+  },
+  "infoLabel": {
+    "message": "Info"
+  },
+  "infoDescription": {
+    "message": "Verwaltete Daten: Tuning, Audio, und Video. Controls sind nicht betroffen. Vorsicht vor Importieren von falschen JSON-Dateien."
+  }
+}

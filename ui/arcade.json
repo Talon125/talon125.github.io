@@ -10,17 +10,14 @@
       "type": "header"
     },
     {
-      "label": "NOVICE",
-      "description": "A slow game for beginners.",
-      "fixedText": true,
-      "default": true,
+      "string": "noviceLabel",
+      "stringDesc": "noviceDescription",
       "action": "submenu",
       "submenu": "mode/novice"
     },
     {
-      "label": "SUDDEN",
-      "description": "The pieces spawn on the ground and only get faster!",
-      "fixedText": true,
+      "string": "suddenLabel",
+      "stringDesc": "suddenDescription",
       "action": "submenu",
       "submenu": "mode/sudden"
     }

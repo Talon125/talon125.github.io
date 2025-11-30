@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "진정한 고수들을 위한 고난이도 모드들"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "설정"
   },
@@ -61,9 +67,36 @@
   "videoDescription": {
     "message": "게임 내 시각 효과를 설정합니다."
   },
+  "dataManagementOverline": {
+    "message": "Data Management"
+  },
+  "settingsLabel": {
+    "message": "Settings"
+  },
+  "settingsDescription": {
+    "message": "Import and export your settings here"
+  },
+  "highscoresLabel": {
+    "message": "Highscores"
+  },
+  "highscoresDescription": {
+    "message": "Look at your highscores for each mode here"
+  },
   "miscOverline": {
     "message": "기타",
     "description": "Miscellaneous, other"
+  },
+  "changelogLabel": {
+    "message": "Changelog"
+  },
+  "changelogDescription": {
+    "message": "See the changelog for this game"
+  },
+  "githubLabel": {
+    "message": "GitHub Repository"
+  },
+  "githubDescription": {
+    "message": "Go to the GitHub Repository of Tetra Legends Ultimate"
   },
   "soundtrackLabel": {
     "message": "사운드트랙"

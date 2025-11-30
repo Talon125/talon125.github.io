@@ -34,6 +34,12 @@
   "arcadeDescription": {
     "message": "面向硬核玩家的困难变种"
   },
+  "zenLabel": {
+    "message": "Zen"
+  },
+  "zenDescription": {
+    "message": "Relax, there are no restrictions!"
+  },
   "settingsOverline": {
     "message": "设置"
   },
@@ -61,9 +67,36 @@
   "videoDescription": {
     "message": "更改皮肤和其他视觉效果"
   },
+  "dataManagementOverline": {
+    "message": "Data Management"
+  },
+  "settingsLabel": {
+    "message": "Settings"
+  },
+  "settingsDescription": {
+    "message": "Import and export your settings here"
+  },
+  "highscoresLabel": {
+    "message": "Highscores"
+  },
+  "highscoresDescription": {
+    "message": "Look at your highscores for each mode here"
+  },
   "miscOverline": {
     "message": "其他",
     "description": "Miscellaneous, other"
+  },
+  "changelogLabel": {
+    "message": "Changelog"
+  },
+  "changelogDescription": {
+    "message": "See the changelog for this game"
+  },
+  "githubLabel": {
+    "message": "GitHub Repository"
+  },
+  "githubDescription": {
+    "message": "Go to the GitHub Repository of Tetra Legends Ultimate"
   },
   "soundtrackLabel": {
     "message": "原声带"

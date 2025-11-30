@@ -4,37 +4,33 @@
   },
   "data": [
     {
-      "fixedText": true,
-      "label": "Settings",
+      "string": "settingsLabel",
+      "langOverride": "menu_root",
       "type": "header"
     },
     {
-      "label": "Import",
-      "description": "Import settings from a JSON file",
+      "string": "importLabel",
+      "stringDesc": "importDescription",
       "action": "settingsimport",
-      "isShort": true,
-      "fixedText": true
+      "isShort": true
     },
     {
-      "label": "Export",
-      "description": "Export your current settings to a JSON file",
+      "string": "exportLabel",
+      "stringDesc": "exportDescription",
       "action": "settingsexport",
-      "isShort": true,
-      "fixedText": true
+      "isShort": true
     },
     {
-      "label": "Reset",
-      "description": "Reset all settings to their default values. You will lose your current configuration!",
+      "string": "resetLabel",
+      "stringDesc": "resetDescription",
       "action": "settingsreset",
-      "isShort": true,
-      "fixedText": true
+      "isShort": true
     },
     {
-      "label": "Info",
-      "description": "Data managed: Tuning, Audio, and Video. Controls are not affected. Beware of importing incorrect JSON files.",
+      "string": "infoLabel",
+      "stringDesc": "infoDescription",
       "default": true,
-      "width": "third",
-      "fixedText": true
+      "width": "third"
     }
   ]
 }

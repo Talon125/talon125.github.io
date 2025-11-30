@@ -39,6 +39,12 @@
     "message": "Sem tempo a perder! Limpe o máximo de linhas consecutivas que puder antes do tempo acabar!",
     "description": "Feel free to take any liberties as long you can accurately describe the mode in a way that's localized to the language."
   },
+  "beatLabel": {
+    "message": "Beat Mode"
+  },
+  "beatDescription": {
+    "message": "PPS is forced to the beat of the music! Good luck!"
+  },
   "survivalLabel": {
     "message": "Sobrevivência",
     "description": "A guideline mode where lines are constantly sent to the player's game and they have to survive the ever rising garbage"

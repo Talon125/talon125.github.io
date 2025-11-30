@@ -7,15 +7,13 @@
   },
   "data": [
     {
-      "label": "Beat Mode",
-      "description": "",
-      "fixedText": true,
+      "string": "beatLabel",
+      "langOverride": "menu_guideline",
       "type": "header"
     },
     {
-      "label": "Song",
-      "description": "Choose which song plays during the game",
-      "fixedText": true,
+      "string": "songLabel",
+      "stringDesc": "songDescription",
       "type": "select",
       "action": "select",
       "selectOptions": [
@@ -32,8 +30,8 @@
           "value": "beat"
         },
         {
-          "label": "Running In The 90's",
-          "description": "Initial D<br>158.5 BPM",
+          "label": "Running In The 90s",
+          "description": "Max Coveri<br>158.5 BPM",
           "fixedText": true,
           "value": "ritn"
         }

@@ -1,4 +1,16 @@
 {
+  "noviceLabel": {
+    "message": "NOVICE"
+  },
+  "noviceDescription": {
+    "message": "A slow game for beginners."
+  },
+  "suddenLabel": {
+    "message": "SUDDEN"
+  },
+  "suddenDescription": {
+    "message": "The pieces spawn on the ground and only get faster!"
+  },
   "gradesLabel": {
     "message": "Ocena",
     "description": "Used as a category name for TGM-inspired modes"
