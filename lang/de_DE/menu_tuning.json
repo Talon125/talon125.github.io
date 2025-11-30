@@ -71,6 +71,48 @@
     "message": "Halten",
     "description": "As in, you have to have the button held at the end of ARE to use IRS/IHS"
   },
+  "spinDetectionLabel": {
+    "message": "Drehungerkennungsüberschreibung"
+  },
+  "spinDetectionDescription": {
+    "message": "Stelle ein welche Drehungen erkannt werden und wie"
+  },
+  "pieceShapeLabel": {
+    "message": "Teilformsüberschreibung"
+  },
+  "pieceShapeDescription": {
+    "message": "Stelle ein welche Form die Teile haben werden"
+  },
+  "tetrominoLabel": {
+    "message": "Tetromino"
+  },
+  "tetrominoDescription": {
+    "message": "Tetrominos bestehen aus 4 kleinere Quadrate. Dies ist die Standardeinstellung"
+  },
+  "pentominoLabel": {
+    "message": "Pentomino"
+  },
+  "pentominoDescription": {
+    "message": "Pentominos bestehen aus 5 kleinere Quadrate. Dies macht das Spiel bedeutsam schwerer<br>Bemerkung: Teileset wie in PPT"
+  },
+  "monominoLabel": {
+    "message": "Monomino"
+  },
+  "monominoDescription": {
+    "message": "Monominos sind ein einzelnes Quadrat"
+  },
+  "dominoLabel": {
+    "message": "Domino"
+  },
+  "dominoDescription": {
+    "message": "Dominos bestehen aus 2 kleinere Quadrate"
+  },
+  "trominoLabel": {
+    "message": "Tromino"
+  },
+  "trominoDescription": {
+    "message": "Trominoes bestehen aus 3 kleinere Quadrate. Dies macht das Spiel bedeutsam leichter"
+  },
   "rotSysLabel": {
     "message": "Drehungssystem Überschreibung",
     "description": "Allows the user to override the rotation system in any mode"

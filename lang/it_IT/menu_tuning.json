@@ -71,6 +71,48 @@
     "message": "Hold",
     "description": "As in, you have to have the button held at the end of ARE to use IRS/IHS"
   },
+  "spinDetectionLabel": {
+    "message": "Spin Detection Override"
+  },
+  "spinDetectionDescription": {
+    "message": "Specify which spins are detected and how"
+  },
+  "pieceShapeLabel": {
+    "message": "Piece Shape Override"
+  },
+  "pieceShapeDescription": {
+    "message": "Select which type of shapes the pieces will be"
+  },
+  "tetrominoLabel": {
+    "message": "Tetromino"
+  },
+  "tetrominoDescription": {
+    "message": "Tetrominoes are made up of 4 smaller blocks. This is the default"
+  },
+  "pentominoLabel": {
+    "message": "Pentomino"
+  },
+  "pentominoDescription": {
+    "message": "Pentominoes are made up of 5 smaller blocks. This makes the game significantly more difficult<br>Note: piece set is the same as in PPT"
+  },
+  "monominoLabel": {
+    "message": "Monomino"
+  },
+  "monominoDescription": {
+    "message": "Monominoes are 1 single block"
+  },
+  "dominoLabel": {
+    "message": "Domino"
+  },
+  "dominoDescription": {
+    "message": "Dominoes are 2 smaller blocks"
+  },
+  "trominoLabel": {
+    "message": "Tromino"
+  },
+  "trominoDescription": {
+    "message": "Trominoes are made up of 3 smaller blocks. This makes the game significantly easier"
+  },
   "rotSysLabel": {
     "message": "Modifica il sistema di rotazione",
     "description": "Allows the user to override the rotation system in any mode"
