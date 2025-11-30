@@ -20,6 +20,24 @@
   "arrDescription": {
     "message": "Die Zeitspanne in Millisekunden zwischen jeder automatischen Verschiebung (ARR)"
   },
+  "areLabel": {
+    "message": "Eintrittsverzögerung"
+  },
+  "areDescription": {
+    "message": "Auch als ARE bekannt, mache eine Verzögerung jedes Mal wann ein neuer Teil erscheint (kann in einigen Modi erzwungen sein)"
+  },
+  "lineClearAreLabel": {
+    "message": "Linienlöschungsverzögerung"
+  },
+  "lineClearAreDescription": {
+    "message": "Auch als Line Clear ARE bekannt, mache eine Verzögerung jedes Mal wann eine Linie gelöscht wird (kann in einigen Modi erzwungen sein)"
+  },
+  "lockOutLabel": {
+    "message": "Aussperrung"
+  },
+  "lockOutDescription": {
+    "message": "Beende das Spiel wenn ein Teil komplett oberhalb des Skylines platziert wird"
+  },
   "dasPreloadLabel": {
     "message": "AutoShift-Preload",
     "description": "This setting make it so that when you press a movement key while in Entry Delay (ARE), the DAS will fully charge and the ARR will start immediately when the next piece spawns"

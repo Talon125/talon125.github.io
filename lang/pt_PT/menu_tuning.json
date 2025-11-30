@@ -20,6 +20,24 @@
   "arrDescription": {
     "message": "A quantidade de tempo em milissegundos entre cada mudança automática (ARR)"
   },
+  "areLabel": {
+    "message": "Entry Delay"
+  },
+  "areDescription": {
+    "message": "Also known as ARE, produce a delay every time a new piece spawns (may be enforced in some modes)"
+  },
+  "lineClearAreLabel": {
+    "message": "Line Clear Delay"
+  },
+  "lineClearAreDescription": {
+    "message": "Also known as Line Clear ARE, produce a delay every time a line is cleared (may be enforced in some modes)"
+  },
+  "lockOutLabel": {
+    "message": "Lock Out"
+  },
+  "lockOutDescription": {
+    "message": "End the game when a piece is placed completely above the Skyline"
+  },
   "dasPreloadLabel": {
     "message": "Pré-carga de mudança automática",
     "description": "This setting make it so that when you press a movement key while in Entry Delay (ARE), the DAS will fully charge and the ARR will start immediately when the next piece spawns"
