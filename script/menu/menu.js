@@ -445,7 +445,7 @@ class Menu {
               menuButton.default = true
             }
             menuButton.isShort = true
-            if (!currentData.fixedText) {
+            if (!selectData.fixedText) {
               menuButton.omitDescription = true
             }
             menuButton.action = "settingChange"
