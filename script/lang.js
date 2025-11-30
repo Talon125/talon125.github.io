@@ -35,6 +35,7 @@ class Locale {
       "menu_daspresets",
       "menu_audio",
       "menu_video",
+      "menu_settings",
       "action-text",
       "mode-options",
     ]
