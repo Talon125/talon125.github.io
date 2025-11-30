@@ -47,9 +47,8 @@
       "submenu": "mode/combo"
     },
     {
-      "label": "Beat Mode",
-      "description": "PPS is forced to the beat of the music! Good luck!",
-      "fixedText": true,
+      "string": "beatLabel",
+      "stringDesc": "beatDescription",
       "action": "submenu",
       "submenu": "mode/beat"
     }
