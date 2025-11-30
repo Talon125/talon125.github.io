@@ -40,10 +40,10 @@
     "description": "Feel free to take any liberties as long you can accurately describe the mode in a way that's localized to the language."
   },
   "beatLabel": {
-    "message": "Beat Mode"
+    "message": "Beat-Modus"
   },
   "beatDescription": {
-    "message": "PPS is forced to the beat of the music! Good luck!"
+    "message": "PPS (Teile pro Sekunde) ist gezwungen, sich dem Takt der Musik zu beugen! Viel Glück!"
   },
   "survivalLabel": {
     "message": "Überleben",
