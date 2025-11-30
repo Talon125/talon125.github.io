@@ -1,9 +1,9 @@
-import $ from "../../shortcuts.js"
+import $ from '../../shortcuts.js'
 
-export default function retroLockdown(arg) {
+export default function retroLockdown (arg) {
   const piece = arg.piece
   if (piece.isDead) {
-    $("#lockdown").value = 0
+    $('#lockdown').value = 0
     return
   }
   if (piece.mustLock) {
@@ -16,7 +16,7 @@ export default function retroLockdown(arg) {
   if (piece.manipulations >= piece.manipulationLimit) {
     piece.lockDelay = piece.lockDelayLimit
   }
-  $("#lockdown").max = piece.lockDelayLimit
-  $("#lockdown").value = piece.lockDelayLimit
+  $('#lockdown').max = piece.lockDelayLimit
+  $('#lockdown').value = piece.lockDelayLimit
   piece.lowestY = Math.max(piece.y, piece.lowestY)
 }

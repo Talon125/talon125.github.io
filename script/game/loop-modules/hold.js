@@ -1,10 +1,10 @@
-import input from "../../input.js"
+import input from '../../input.js'
 
-export default function hold(arg) {
+export default function hold (arg) {
   if (arg.hold.ihs) {
     return
   }
-  if (input.getGamePress("hold") && !arg.piece.isFrozen) {
+  if (input.getGamePress('hold') && !arg.piece.isFrozen) {
     arg.hold.hold()
   }
 }

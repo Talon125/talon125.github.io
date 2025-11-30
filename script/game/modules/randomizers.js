@@ -1,13 +1,13 @@
-import { shuffle } from "../../shortcuts.js"
-import { PIECE_BINARIES } from "../../consts.js"
+import { shuffle } from '../../shortcuts.js'
+import { PIECE_BINARIES } from '../../consts.js'
 
-export function* history6rolls(pieces) {
-  let history = ["Z", "S", "Z", "S"]
+export function * history6rolls (pieces) {
+  const history = ['Z', 'S', 'Z', 'S']
   let first = true
   let generated
   while (true) {
     if (first) {
-      generated = ["I", "J", "L", "T"][Math.floor(Math.random() * 4)]
+      generated = ['I', 'J', 'L', 'T'][Math.floor(Math.random() * 4)]
       first = false
     } else {
       for (let i = 0; i < 6; i++) {
@@ -20,14 +20,14 @@ export function* history6rolls(pieces) {
     yield generated
   }
 }
-export function* memoryless(pieces, unfavored = []) {
+export function * memoryless (pieces, unfavored = []) {
   const favored = pieces.filter((x) => !unfavored.includes(x))
   yield favored[Math.floor(Math.random() * favored.length)]
   while (true) {
     yield pieces[Math.floor(Math.random() * pieces.length)]
   }
 }
-export function* handheld(pieces) {
+export function * handheld (pieces) {
   const history = [0, 0]
   const calc = () => {
     return Math.floor(Math.random() * pieces.length)
@@ -49,7 +49,7 @@ export function* handheld(pieces) {
     }
   }
 }
-export function* bag(pieces, unfavored = [], rng, bagMultiplier = 1) {
+export function * bag (pieces, unfavored = [], rng, bagMultiplier = 1) {
   let bag = []
   const generateBag = () => {
     bag = []
@@ -100,7 +100,7 @@ export function* tetrax(pieces, unfavored = []) {
   }
 }
 */
-export function* nes(pieces, unfavored = []) {
+export function * nes (pieces, unfavored = []) {
   let history = null
   const calc = (useReroll) => {
     let modifier = 0
@@ -109,7 +109,7 @@ export function* nes(pieces, unfavored = []) {
     }
     const calculation = Math.floor(Math.random() * (pieces.length + modifier))
     if (calculation >= pieces.length) {
-      return "reroll"
+      return 'reroll'
     } else {
       return calculation
     }
@@ -118,7 +118,7 @@ export function* nes(pieces, unfavored = []) {
     const generated = calc(true)
     let doReroll = false
     let pieceName = null
-    if (generated !== "reroll") {
+    if (generated !== 'reroll') {
       pieceName = pieces[generated]
       if (pieceName === history) {
         doReroll = true
@@ -134,7 +134,7 @@ export function* nes(pieces, unfavored = []) {
     yield pieceName
   }
 }
-export function* deluxe(pieces, unfavored = []) {
+export function * deluxe (pieces, unfavored = []) {
   let pieceCount = 0
   let lastPiece = null
   let rerollCount = 0
@@ -158,7 +158,7 @@ export function* deluxe(pieces, unfavored = []) {
     yield pieces[generated]
   }
 }
-export function* tetrax(pieces, unfavored = []) {
+export function * tetrax (pieces, unfavored = []) {
   /*
   const favored = pieces.filter((x) => !unfavored.includes(x));
   yield favored[Math.floor(Math.random() * favored.length)];

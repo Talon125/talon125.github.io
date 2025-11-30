@@ -1,9 +1,9 @@
-import $ from "../shortcuts.js"
-import gameHandler from "../game/game-handler.js"
-import menu from "./menu.js"
+import $ from '../shortcuts.js'
+import gameHandler from '../game/game-handler.js'
+import menu from './menu.js'
 class ButtonHints {
-  constructor() {}
-  change(type) {
+  constructor () {}
+  change (type) {
     /*
     switch (type) {
       case 'keyboard':
@@ -19,24 +19,29 @@ class ButtonHints {
     }
     */
   }
-  hide() {
+
+  hide () {
     // $('#button-hint-container').classList.add('hidden');
   }
-  show() {
-    $("#button-hint-container").classList.remove("hidden")
+
+  show () {
+    $('#button-hint-container').classList.remove('hidden')
   }
-  clear() {
-    $("#button-hint-container").innerHTML = ""
+
+  clear () {
+    $('#button-hint-container').innerHTML = ''
   }
-  add(keys, label) {
-    const table = document.createElement("table")
+
+  add (keys, label) {
+    const table = document.createElement('table')
   }
-  draw() {
+
+  draw () {
     // this.clear();
     if (menu.isEnabled) {
-      console.log("menu on")
+      console.log('menu on')
     } else {
-      console.log("menu off")
+      console.log('menu off')
     }
     if (gameHandler.game == null) {
     }

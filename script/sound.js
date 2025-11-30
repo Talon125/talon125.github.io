@@ -1,10 +1,10 @@
-import { loadSoundbank, loadPiecebank } from "./loaders.js"
-import settings from "./settings.js"
-import gameHandler from "./game/game-handler.js"
-import { resetAnimation } from "./shortcuts.js"
-import { PIECES } from "./consts.js"
+import { loadSoundbank, loadPiecebank } from './loaders.js'
+import settings from './settings.js'
+import gameHandler from './game/game-handler.js'
+import { resetAnimation } from './shortcuts.js'
+import { PIECES } from './consts.js'
 class Sound {
-  constructor() {
+  constructor () {
     this.sounds = []
     this.vox = []
     this.cut = []
@@ -32,13 +32,14 @@ class Sound {
     this.flashTimeouts = {}
     this.doesSoundBankUseReadyGoVoices = false
   }
-  updateVolumes() {
+
+  updateVolumes () {
     for (const key of Object.keys(this.sounds)) {
       if (this.fadedSounds[key] != null) {
         this.sounds[key].volume((settings.settings.sfxVolume / 100) * 0.5)
         continue
       }
-      if (key.substr(0, 3) === "vox") {
+      if (key.substr(0, 3) === 'vox') {
         this.sounds[key].volume(settings.settings.voiceVolume / 100)
       } else {
         this.sounds[key].volume(settings.settings.sfxVolume / 100)
@@ -51,68 +52,73 @@ class Sound {
       this.menuVox[key].volume(settings.settings.voiceVolume / 100)
     }
     for (const key of Object.keys(this.music)) {
-      if (key.includes("danger") && !this.dangerBgmIsRaised) {
+      if (key.includes('danger') && !this.dangerBgmIsRaised) {
         continue
       }
-      if (key.includes("pace") && !this.paceBgmIsRaised) {
+      if (key.includes('pace') && !this.paceBgmIsRaised) {
         continue
       }
       this.music[key].volume(settings.settings.musicVolume / 100)
     }
   }
-  loadMenu() {
+
+  loadMenu () {
     const files = [
-      "move",
-      "select",
-      "back",
-      "change",
-      "optionselect",
-      "hardstart1",
-      "hardstart2",
-      "hardstart3",
-      "hardstart4",
-      "error",
+      'move',
+      'select',
+      'back',
+      'change',
+      'optionselect',
+      'hardstart1',
+      'hardstart2',
+      'hardstart3',
+      'hardstart4',
+      'error'
     ]
     for (const soundName of files) {
       this.menuSounds[soundName] = new Howl({
         src: [`./se/menu/${soundName}.ogg`],
-        volume: settings.settings.sfxVolume / 100,
+        volume: settings.settings.sfxVolume / 100
       })
     }
   }
-  loadMenuVoice() {
-    if (settings.settings.voicebank === "off") {
+
+  loadMenuVoice () {
+    if (settings.settings.voicebank === 'off') {
       return
     }
     const files = [
-      "menuguideline",
-      "menutetrax",
-      "menuretro",
-      "menuarcade",
-      "menucontrols",
-      "menutuning",
-      "menuvideo",
-      "menuaudio",
+      'menuguideline',
+      'menutetrax',
+      'menuretro',
+      'menuarcade',
+      'menucontrols',
+      'menutuning',
+      'menuvideo',
+      'menuaudio'
     ]
     for (const soundName of files) {
       this.menuVox[soundName] = new Howl({
         src: [`./vox/${settings.settings.voicebank}/${soundName}.ogg`],
-        volume: settings.settings.voiceVolume / 100,
+        volume: settings.settings.voiceVolume / 100
       })
     }
   }
-  playMenuSe(name) {
+
+  playMenuSe (name) {
     this.menuSounds[name].stop()
     this.menuSounds[name].play()
   }
-  playMenuVox(name) {
-    if (settings.settings.voicebank === "off") {
+
+  playMenuVox (name) {
+    if (settings.settings.voicebank === 'off') {
       return
     }
     this.menuVox[name].stop()
     this.menuVox[name].play()
   }
-  load(name = "standard") {
+
+  load (name = 'standard') {
     for (const key of Object.keys(this.playingSeLoops)) {
       this.stopSeLoop(key)
     }
@@ -129,9 +135,7 @@ class Sound {
     this.loadMenu()
     this.loadMenuVoice()
     loadSoundbank(name).then((soundData) => {
-      this.doesSoundBankUseReadyGoVoices = soundData.usesReadyGoVoices
-        ? true
-        : false
+      this.doesSoundBankUseReadyGoVoices = !!soundData.usesReadyGoVoices
       // if (this.doesSoundBankUseReadyGoVoices) {
       //   delete this.toPlay.ready;
       //   delete this.toPlay.go;
@@ -147,7 +151,7 @@ class Sound {
           src: [`./se/game/${name}/${soundName}.ogg`],
           volume: settings.settings.sfxVolume / 100,
           onend: () => {
-            if (soundName == "topoutwarning") {
+            if (soundName == 'topoutwarning') {
               // this.amountOfTimesEnded[soundName]++;
               // if (this.amountOfTimesEnded[soundName] > 50 && this.playingSeLoops[soundName] != null && this.fadedSounds[soundName] == null) {
               //   this.fadedSounds[soundName] = true;
@@ -168,124 +172,124 @@ class Sound {
                 )
               }
             }
-          },
+          }
         })
       }
       for (const ren of this.ren) {
         this.sounds[`ren${ren}`] = new Howl({
           src: [`./se/game/${name}/ren/ren${ren}.ogg`],
-          volume: settings.settings.sfxVolume / 100,
+          volume: settings.settings.sfxVolume / 100
         })
       }
       if (
-        settings.settings.voicebank !== "off" &&
-        (settings.settings.voicebank == "talonen" ||
-          settings.settings.voicebank == "talonde")
+        settings.settings.voicebank !== 'off' &&
+        (settings.settings.voicebank == 'talonen' ||
+          settings.settings.voicebank == 'talonde')
       ) {
         for (const voxName of [
-          "ready",
-          "start",
-          "go",
-          "erase2",
-          "erase3",
-          "erase4",
-          "b2b_erase4",
-          "zspin0",
-          "zspin1",
-          "zspin2",
-          "zspin3",
-          "minizspin",
-          "b2b_zspin",
-          "lspin0",
-          "lspin1",
-          "lspin2",
-          "lspin3",
-          "minilspin",
-          "b2b_lspin",
-          "ospin0",
-          "ospin1",
-          "ospin2",
-          "ospin3",
-          "miniospin",
-          "b2b_ospin",
-          "sspin0",
-          "sspin1",
-          "sspin2",
-          "sspin3",
-          "sspin4",
-          "minisspin",
-          "b2b_sspin",
-          "ispin0",
-          "ispin1",
-          "ispin2",
-          "ispin3",
-          "ispin4",
-          "ispin5",
-          "miniispin",
-          "b2b_ispin",
-          "jspin0",
-          "jspin1",
-          "jspin2",
-          "jspin3",
-          "minijspin",
-          "b2b_jspin",
-          "tspin0",
-          "tspin1",
-          "tspin2",
-          "tspin3",
-          "minitspin",
-          "b2b_tspin",
-          "perfectclear",
-          "ren1",
-          "ren2",
-          "ren3",
-          "blockout",
-          "lockout",
-          "topout",
-          "timeup",
-          "excellent",
-          "gameover",
+          'ready',
+          'start',
+          'go',
+          'erase2',
+          'erase3',
+          'erase4',
+          'b2b_erase4',
+          'zspin0',
+          'zspin1',
+          'zspin2',
+          'zspin3',
+          'minizspin',
+          'b2b_zspin',
+          'lspin0',
+          'lspin1',
+          'lspin2',
+          'lspin3',
+          'minilspin',
+          'b2b_lspin',
+          'ospin0',
+          'ospin1',
+          'ospin2',
+          'ospin3',
+          'miniospin',
+          'b2b_ospin',
+          'sspin0',
+          'sspin1',
+          'sspin2',
+          'sspin3',
+          'sspin4',
+          'minisspin',
+          'b2b_sspin',
+          'ispin0',
+          'ispin1',
+          'ispin2',
+          'ispin3',
+          'ispin4',
+          'ispin5',
+          'miniispin',
+          'b2b_ispin',
+          'jspin0',
+          'jspin1',
+          'jspin2',
+          'jspin3',
+          'minijspin',
+          'b2b_jspin',
+          'tspin0',
+          'tspin1',
+          'tspin2',
+          'tspin3',
+          'minitspin',
+          'b2b_tspin',
+          'perfectclear',
+          'ren1',
+          'ren2',
+          'ren3',
+          'blockout',
+          'lockout',
+          'topout',
+          'timeup',
+          'excellent',
+          'gameover'
         ]) {
           this.files.push(`vox${voxName}`)
           this.sounds[`vox${voxName}`] = new Howl({
             src: [`./vox/${settings.settings.voicebank}/${voxName}.ogg`],
-            volume: settings.settings.voiceVolume / 100,
+            volume: settings.settings.voiceVolume / 100
           })
         }
       } else if (
-        settings.settings.voicebank !== "off" &&
-        settings.settings.voicebank !== "talonen" &&
-        settings.settings.voicebank !== "talonde"
+        settings.settings.voicebank !== 'off' &&
+        settings.settings.voicebank !== 'talonen' &&
+        settings.settings.voicebank !== 'talonde'
       ) {
         for (const voxName of [
-          "ready",
-          "start",
-          "go",
-          "erase2",
-          "erase3",
-          "erase4",
-          "b2b_erase4",
-          "tspin0",
-          "tspin1",
-          "tspin2",
-          "tspin3",
-          "minitspin",
-          "b2b_tspin",
-          "perfectclear",
-          "ren1",
-          "ren2",
-          "ren3",
-          "blockout",
-          "lockout",
-          "topout",
-          "timeup",
-          "excellent",
-          "gameover",
+          'ready',
+          'start',
+          'go',
+          'erase2',
+          'erase3',
+          'erase4',
+          'b2b_erase4',
+          'tspin0',
+          'tspin1',
+          'tspin2',
+          'tspin3',
+          'minitspin',
+          'b2b_tspin',
+          'perfectclear',
+          'ren1',
+          'ren2',
+          'ren3',
+          'blockout',
+          'lockout',
+          'topout',
+          'timeup',
+          'excellent',
+          'gameover'
         ]) {
           this.files.push(`vox${voxName}`)
           this.sounds[`vox${voxName}`] = new Howl({
             src: [`./vox/${settings.settings.voicebank}/${voxName}.ogg`],
-            volume: settings.settings.voiceVolume / 100,
+            volume: settings.settings.voiceVolume / 100
           })
         }
       }
@@ -294,11 +298,11 @@ class Sound {
       this.lastVoice = settings.settings.voicebank
       if (
         (soundData.nextSoundbank != null ||
-          settings.settings.nextSoundbank !== "auto") &&
-        settings.settings.nextSoundbank !== "off"
+          settings.settings.nextSoundbank !== 'auto') &&
+        settings.settings.nextSoundbank !== 'off'
       ) {
         const name =
-          settings.settings.nextSoundbank !== "auto"
+          settings.settings.nextSoundbank !== 'auto'
             ? settings.settings.nextSoundbank
             : soundData.nextSoundbank
         this.mustWait = true
@@ -322,7 +326,7 @@ class Sound {
                   500
                 )
               }
-            },
+            }
           })
         }
         loadPiecebank(name).then((nextData) => {
@@ -331,20 +335,21 @@ class Sound {
         })
       }
     })
-    this.files.push("clutch")
-    this.sounds["clutch"] = new Howl({
-      src: ["./se/game/clutch.ogg"],
-      volume: settings.settings.sfxVolume / 100,
+    this.files.push('clutch')
+    this.sounds.clutch = new Howl({
+      src: ['./se/game/clutch.ogg'],
+      volume: settings.settings.sfxVolume / 100
     })
   }
-  loadBgm(name, type) {
+
+  loadBgm (name, type) {
     for (const currentName of name) {
       this.music[`${type}-${currentName}-start`] = new Howl({
         src: [`./bgm/${type}/${currentName}-start.ogg`],
         volume: settings.settings.musicVolume / 100,
         onend: () => {
           this.music[`${type}-${currentName}-loop`].play()
-        },
+        }
       })
       this.music[`${type}-${currentName}-loop`] = new Howl({
         src: [`./bgm/${type}/${currentName}-loop.ogg`],
@@ -352,7 +357,7 @@ class Sound {
         loop: true,
         onplay: () => {
           // this.syncBgm();
-        },
+        }
       })
       if (gameHandler.game.settings.hasDangerBgm) {
         this.dangerBgmIsRaised = false
@@ -361,12 +366,12 @@ class Sound {
           volume: 0,
           onend: () => {
             this.music[`${type}-${currentName}-danger-loop`].play()
-          },
+          }
         })
         this.music[`${type}-${currentName}-danger-loop`] = new Howl({
           src: [`./bgm/${type}/${currentName}-danger-loop.ogg`],
           volume: 0,
-          loop: true,
+          loop: true
         })
       }
       if (gameHandler.game.settings.hasPaceBgm) {
@@ -376,17 +381,18 @@ class Sound {
           volume: 0,
           onend: () => {
             this.music[`${type}-${currentName}-pace-loop`].play()
-          },
+          }
         })
         this.music[`${type}-${currentName}-pace-loop`] = new Howl({
           src: [`./bgm/${type}/${currentName}-pace-loop.ogg`],
           volume: 0,
-          loop: true,
+          loop: true
         })
       }
     }
   }
-  syncBgm() {
+
+  syncBgm () {
     /*
     try {
       if (gameHandler.game.settings.hasDangerBgm) {
@@ -401,7 +407,8 @@ class Sound {
 
     } */
   }
-  playBgm(name, type) {
+
+  playBgm (name, type) {
     this.killBgm()
     this.bgmName = `${type}-${name}`
     this.dangerBgmName = `${type}-${name}-danger`
@@ -430,18 +437,21 @@ class Sound {
       this.music[`${type}-${name}-pace-start`].play()
     }
   }
-  killBgm() {
+
+  killBgm () {
     for (const name of Object.keys(this.music)) {
       this.music[name].stop()
     }
   }
-  killAllLoops() {
+
+  killAllLoops () {
     this.noLoops = true
     for (const loop of Object.keys(this.playingSeLoops)) {
       this.stopSeLoop(loop)
     }
   }
-  raiseDangerBgm() {
+
+  raiseDangerBgm () {
     if (
       !gameHandler.game.settings.hasDangerBgm ||
       !this.music[`${this.dangerBgmName}-start`] ||
@@ -464,7 +474,8 @@ class Sound {
       this.dangerBgmIsRaised = true
     }
   }
-  lowerDangerBgm() {
+
+  lowerDangerBgm () {
     if (
       !gameHandler.game.settings.hasDangerBgm ||
       !this.music[`${this.dangerBgmName}-start`] ||
@@ -487,7 +498,8 @@ class Sound {
       this.dangerBgmIsRaised = false
     }
   }
-  raisePaceBgm() {
+
+  raisePaceBgm () {
     if (
       !gameHandler.game.settings.hasPaceBgm ||
       !this.music[`${this.paceBgmName}-start`] ||
@@ -510,7 +522,8 @@ class Sound {
       this.paceBgmIsRaised = true
     }
   }
-  lowerPaceBgm() {
+
+  lowerPaceBgm () {
     if (
       !gameHandler.game.settings.hasPaceBgm ||
       !this.music[`${this.paceBgmName}-start`] ||
@@ -533,7 +546,8 @@ class Sound {
       this.paceBgmIsRaised = false
     }
   }
-  startSeLoop(name) {
+
+  startSeLoop (name) {
     if (this.playingSeLoops[name] != null || this.noLoops) {
       return
     }
@@ -543,7 +557,8 @@ class Sound {
       this.playingSeLoops[name] = true
     }
   }
-  stopSeLoop(name) {
+
+  stopSeLoop (name) {
     if (this.playingSeLoops[name] == null) {
       return
     }
@@ -555,16 +570,18 @@ class Sound {
       delete this.playingSeLoops[name]
     }
   }
-  killVox() {
+
+  killVox () {
     for (const file of this.files) {
-      if (file.substr(0, 3) === "vox") {
+      if (file.substr(0, 3) === 'vox') {
         this.sounds[file].stop()
       }
     }
   }
-  playSeQueue() {
-    if (Object.keys(this.toPlay).includes("clutch")) {
-      this.sounds["clutch"].play()
+
+  playSeQueue () {
+    if (Object.keys(this.toPlay).includes('clutch')) {
+      this.sounds.clutch.play()
     }
     if (this.mustWait) {
       return
@@ -572,63 +589,63 @@ class Sound {
     for (let name of Object.keys(this.toPlay)) {
       if (
         this.files.indexOf(name) === -1 &&
-        name.substr(name.length - 4) === "mini"
+        name.substr(name.length - 4) === 'mini'
       ) {
         name = name.substring(0, name.length - 4)
       }
-      if (this.files.indexOf(name) === -1 && name.substr(0, 4) === "b2b_") {
+      if (this.files.indexOf(name) === -1 && name.substr(0, 4) === 'b2b_') {
         name = name.substr(4)
       }
       if (
         this.files.indexOf(name) === -1 &&
-        name.includes("tspin") &&
-        !name.includes("not4")
+        name.includes('tspin') &&
+        !name.includes('not4')
       ) {
-        name = name.replace("tspin", "erase")
+        name = name.replace('tspin', 'erase')
       }
       if (this.files.indexOf(name) !== -1) {
         if (this.cut.indexOf(name) !== -1) {
           this.sounds[name].stop()
         }
-        if (name.substr(0, 5) === "piece") {
+        if (name.substr(0, 5) === 'piece') {
           for (const flashTime of this.pieceFlashes[name.substr(5, 1)]) {
             setTimeout(() => {
-              resetAnimation("#next-main", "flash")
+              resetAnimation('#next-main', 'flash')
             }, flashTime)
           }
         }
         this.sounds[name].play()
       } else if (
-        name === "initialrotate" &&
-        this.files.indexOf("rotate") !== -1
+        name === 'initialrotate' &&
+        this.files.indexOf('rotate') !== -1
       ) {
-        this.sounds["rotate"].play()
-      } else if (name === "initialhold" && this.files.indexOf("hold") !== -1) {
-        this.sounds["hold"].play()
-      } else if (name === "initialskip" && this.files.indexOf("skip") !== -1) {
-        this.sounds["skip"].play()
+        this.sounds.rotate.play()
+      } else if (name === 'initialhold' && this.files.indexOf('hold') !== -1) {
+        this.sounds.hold.play()
+      } else if (name === 'initialskip' && this.files.indexOf('skip') !== -1) {
+        this.sounds.skip.play()
       } else if (
-        name === "initialskip" &&
-        this.files.indexOf("initialhold") !== -1
+        name === 'initialskip' &&
+        this.files.indexOf('initialhold') !== -1
       ) {
-        this.sounds["initialhold"].play()
+        this.sounds.initialhold.play()
       } else if (
-        name === "prespinmini" &&
-        this.files.indexOf("prespin") !== -1
+        name === 'prespinmini' &&
+        this.files.indexOf('prespin') !== -1
       ) {
-        this.sounds["prespin"].play()
-      } else if (name === "go" && this.files.indexOf("start") !== -1) {
-        this.sounds["start"].play()
+        this.sounds.prespin.play()
+      } else if (name === 'go' && this.files.indexOf('start') !== -1) {
+        this.sounds.start.play()
       } else if (
-        (name === "skip" && this.files.indexOf("hold") !== -1) ||
-        (name === "initialskip" &&
-          this.files.indexOf("hold") !== -1 &&
-          this.files.indexOf("initialhold") === -1)
+        (name === 'skip' && this.files.indexOf('hold') !== -1) ||
+        (name === 'initialskip' &&
+          this.files.indexOf('hold') !== -1 &&
+          this.files.indexOf('initialhold') === -1)
       ) {
-        this.sounds["hold"].play()
+        this.sounds.hold.play()
       }
 
-      if (name.substr(0, 3) === "ren") {
+      if (name.substr(0, 3) === 'ren') {
         let number = parseInt(name.substr(3, name.length - 3))
         while (this.ren.indexOf(number) === -1) {
           if (number <= 0) {
@@ -643,7 +660,8 @@ class Sound {
     }
     this.toPlay = {}
   }
-  add(name) {
+
+  add (name) {
     this.toPlay[name] = true
   }
 }

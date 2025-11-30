@@ -1,12 +1,12 @@
-import settings from "../../settings.js"
+import settings from '../../settings.js'
 
-export default function lockFlash(arg) {
+export default function lockFlash (arg) {
   const stack = arg.stack
-  if (settings.settings.lockFlash === "off" && !stack.lineClear) {
+  if (settings.settings.lockFlash === 'off' && !stack.lineClear) {
     return
   }
   if (
-    settings.settings.lockFlash === "flash" &&
+    settings.settings.lockFlash === 'flash' &&
     stack.flashTime >= 50 &&
     !stack.lineClear
   ) {

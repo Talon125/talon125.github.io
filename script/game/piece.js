@@ -1,4 +1,4 @@
-import GameModule from "./game-module.js"
+import GameModule from './game-module.js'
 import {
   PIECES,
   MONOMINO_PIECES,
@@ -9,15 +9,15 @@ import {
   KICK_TABLES,
   INITIAL_ORIENTATION,
   PIECE_OFFSETS,
-  SPIN_POINTS,
-} from "../consts.js"
-import $, { clearCtx, framesToMs } from "../shortcuts.js"
-import settings from "../settings.js"
-import sound from "../sound.js"
-import locale from "../lang.js"
-import input from "../input.js"
+  SPIN_POINTS
+} from '../consts.js'
+import $, { clearCtx, framesToMs } from '../shortcuts.js'
+import settings from '../settings.js'
+import sound from '../sound.js'
+import locale from '../lang.js'
+import input from '../input.js'
 export default class Piece extends GameModule {
-  constructor(parent, ctx, nextCtx) {
+  constructor (parent, ctx, nextCtx) {
     super(parent)
     this.x
     this.lastX
@@ -38,9 +38,9 @@ export default class Piece extends GameModule {
     this.lastOrientation
     this.lockDelay = 0
     this.lockDelayLimit = 500
-    this.last = ""
+    this.last = ''
     this.kicks
-    this.shiftDir = "none"
+    this.shiftDir = 'none'
     this.das = 0
     this.dasLimit = settings.settings.DAS
     this.shiftReleased = false
@@ -50,7 +50,7 @@ export default class Piece extends GameModule {
     this.manipulations = 0
     this.manipulationLimit = 15
     this.mustLock = false
-    this.color = "white"
+    this.color = 'white'
     this.are = 0
     this.areLimit = 0
     this.areLineLimit = 0
@@ -80,7 +80,8 @@ export default class Piece extends GameModule {
     this.killLockDelayOnRotate = false
     this.lastSpinDirection = null
   }
-  new(name = this.parent.next.next()) {
+
+  new (name = this.parent.next.next()) {
     this.isFrozen = false
     let rotSys = this.parent.rotationSystem
     this.killLockDelayOnRotate = false
@@ -92,7 +93,7 @@ export default class Piece extends GameModule {
 
     if (
       sound.doesSoundBankUseReadyGoVoices &&
-      settings.settings.voicebank != "off" &&
+      settings.settings.voicebank != 'off' &&
       settings.settings.voiceVolume != 0
     ) {
       playSoundBankReadyGoSoundOrVoice = false
@@ -101,19 +102,19 @@ export default class Piece extends GameModule {
     if (this.parent.stat.piece === 0 && !this.parent.hold.hasHeld) {
       if (this.parent.isRaceMode) {
         if (playSoundBankReadyGoSoundOrVoice) {
-          sound.add("go")
+          sound.add('go')
         }
-        sound.add("voxgo")
-        $("#message").textContent = locale.getString("ui", "go")
+        sound.add('voxgo')
+        $('#message').textContent = locale.getString('ui', 'go')
       } else {
         if (playSoundBankReadyGoSoundOrVoice) {
-          sound.add("start")
+          sound.add('start')
         }
-        sound.add("voxstart")
-        $("#message").textContent = locale.getString("ui", "start")
+        sound.add('voxstart')
+        $('#message').textContent = locale.getString('ui', 'start')
       }
-      $("#ready-meter").classList.add("hidden")
-      $("#message").classList.add("dissolve")
+      $('#ready-meter').classList.add('hidden')
+      $('#message').classList.add('dissolve')
       if (this.parent.useAltMusic) {
         sound.playBgm(this.parent.settings.music[1], this.parent.type)
       } else {
@@ -123,7 +124,7 @@ export default class Piece extends GameModule {
     this.parent.onPieceSpawn(this.parent)
     this.parent.updateMusic()
     this.parent.updateStats()
-    $("#delay").innerHTML = `${this.lockDelayLimit} <b>ms</b>`
+    $('#delay').innerHTML = `${this.lockDelayLimit} <b>ms</b>`
     this.hasLineDelay = false
     this.isDead = false
     this.are = this.areLimit
@@ -133,40 +134,40 @@ export default class Piece extends GameModule {
     this.name = name
     this.orientation = INITIAL_ORIENTATION[rotSys][name]
 
-    let backUpRotSys = rotSys
+    const backUpRotSys = rotSys
 
     switch (settings.settings.shapeOverride) {
-      case "mono":
+      case 'mono':
         this.piece = MONOMINO_PIECES[name].shape
         this.shape = this.piece[this.orientation]
         this.x =
           0 +
-          SPAWN_OFFSETS["monomino"][name][0] +
+          SPAWN_OFFSETS.monomino[name][0] +
           PIECE_OFFSETS[rotSys][name][this.orientation][0] +
           this.xSpawnOffset
         this.y =
           0 +
-          SPAWN_OFFSETS["monomino"][name][1] +
+          SPAWN_OFFSETS.monomino[name][1] +
           PIECE_OFFSETS[rotSys][name][this.orientation][0]
         this.lowestY = this.y
-        rotSys = "monomino"
+        rotSys = 'monomino'
         break
-      case "do":
+      case 'do':
         this.piece = DOMINO_PIECES[name].shape
         this.shape = this.piece[this.orientation]
         this.x =
           0 +
-          SPAWN_OFFSETS["monomino"][name][0] +
+          SPAWN_OFFSETS.monomino[name][0] +
           PIECE_OFFSETS[rotSys][name][this.orientation][0] +
           this.xSpawnOffset
         this.y =
           0 +
-          SPAWN_OFFSETS["monomino"][name][1] +
+          SPAWN_OFFSETS.monomino[name][1] +
           PIECE_OFFSETS[rotSys][name][this.orientation][0]
         this.lowestY = this.y
-        rotSys = "monomino"
+        rotSys = 'monomino'
         break
-      case "tro":
+      case 'tro':
         this.piece = TROMINO_PIECES[name].shape
         this.shape = this.piece[this.orientation]
         this.x =
@@ -180,7 +181,7 @@ export default class Piece extends GameModule {
           PIECE_OFFSETS[rotSys][name][this.orientation][0]
         this.lowestY = this.y
         break
-      case "pento":
+      case 'pento':
         this.piece = PENTOMINO_PIECES[name].shape
         this.shape = this.piece[this.orientation]
         // this.x = 0 + SPAWN_OFFSETS[rotSys][name][0] + PIECE_OFFSETS['srs'][name][this.orientation][0] + this.xSpawnOffset;
@@ -225,79 +226,83 @@ export default class Piece extends GameModule {
 
     this.rotatedX = null
     this.rotatedY = null
-    if (settings.settings.IRS === "hold") {
+    if (settings.settings.IRS === 'hold') {
       if (
-        input.getGameDown("rotateRight") &&
-        !input.getGamePress("rotateRight")
+        input.getGameDown('rotateRight') &&
+        !input.getGamePress('rotateRight')
       ) {
         this.ire = 1
       } else if (
-        input.getGameDown("rotateLeft") &&
-        !input.getGamePress("rotateLeft")
+        input.getGameDown('rotateLeft') &&
+        !input.getGamePress('rotateLeft')
       ) {
         this.ire = 3
       } else if (
-        input.getGameDown("rotate180") &&
-        !input.getGamePress("rotate180")
+        input.getGameDown('rotate180') &&
+        !input.getGamePress('rotate180')
       ) {
         this.ire = 2
       }
     }
     if (this.ire !== 0) {
-      sound.add("initialrotate")
-      let ireDirection = ""
+      sound.add('initialrotate')
+      let ireDirection = ''
       switch (this.ire) {
         case 1:
-          ireDirection = "right"
+          ireDirection = 'right'
           break
         case 2:
-          ireDirection = "double"
+          ireDirection = 'double'
           break
         case 3:
-          ireDirection = "left"
+          ireDirection = 'left'
           break
       }
       this.rotate(this.ire, ireDirection, false)
     }
     if (this.isStuck && !this.parent.hold.ihs) {
-      $("#kill-message").textContent = locale.getString("ui", "blockOut")
+      $('#kill-message').textContent = locale.getString('ui', 'blockOut')
       sound.killVox()
-      sound.add("voxblockout")
+      sound.add('voxblockout')
       this.parent.end()
       return
       // gameHandler.reset();
     }
     this.ire = 0
     if (this.gravity <= framesToMs(1 / 20)) {
-      sound.add("land")
+      sound.add('land')
       this.sonicDrop()
       this.genDropParticles()
     }
     this.isDirty = true
   }
-  die() {
+
+  die () {
     this.isDead = true
     this.are = 0
   }
-  get yFloor() {
+
+  get yFloor () {
     return Math.floor(this.y)
   }
-  get visualY() {
+
+  get visualY () {
     return this.y + this.endY
   }
-  drawMino(x, y, buffer, type, number, color, ctx = this.ctx) {
+
+  drawMino (x, y, buffer, type, number, color, ctx = this.ctx) {
     const cellSize = this.parent.cellSize
     const xPos = x * cellSize
     const yPos = y * cellSize + cellSize * buffer
     // spriteCtx.drawImage(img, 0, 0, cellSize * 9, cellSize);
     let img
     switch (type) {
-      case "ghost":
+      case 'ghost':
         img = document.getElementById(`ghost-${color}`)
         break
-      case "piece":
-        let suffix = ""
-        if (this.useSpecialI && this.name === "I") {
+      case 'piece':
+        let suffix = ''
+        if (this.useSpecialI && this.name === 'I') {
           suffix = number
         }
         if (this.useRetroColors) {
@@ -309,19 +314,19 @@ export default class Piece extends GameModule {
     }
     img.height = cellSize
     // ctx.clearRect(xPos, yPos, cellSize, cellSize);
-    ctx.globalCompositeOperation = "source-over"
+    ctx.globalCompositeOperation = 'source-over'
 
     ctx.drawImage(img, xPos, Math.floor(yPos), cellSize, cellSize)
 
     let darkness = (
-      "0" +
+      '0' +
       Math.floor((this.lockDelay / this.lockDelayLimit) * 255).toString(16)
     ).slice(-2)
     if (this.isFrozen) {
-      darkness = "FF"
+      darkness = 'FF'
     }
-    if (type === "piece") {
-      ctx.globalCompositeOperation = "saturation"
+    if (type === 'piece') {
+      ctx.globalCompositeOperation = 'saturation'
 
       ctx.fillStyle = `#000000${darkness}`
       ctx.fillRect(xPos, Math.floor(yPos), cellSize, cellSize)
@@ -329,7 +334,8 @@ export default class Piece extends GameModule {
 
     // ctx.fillRect(x * cellSize, y * cellSize + cellSize * buffer, cellSize, cellSize);
   }
-  drawPiece(shape, offsetX = 0, offsetY = 0, type = "piece", color = null) {
+
+  drawPiece (shape, offsetX = 0, offsetY = 0, type = 'piece', color = null) {
     if (color == null) {
       color = this.color
     }
@@ -349,7 +355,8 @@ export default class Piece extends GameModule {
       }
     }
   }
-  genDropParticles() {
+
+  genDropParticles () {
     const drop = this.getDrop()
     const cellSize = this.parent.cellSize
     this.parent.particle.generate({
@@ -364,10 +371,11 @@ export default class Piece extends GameModule {
       yVariance: 3,
       xDampening: 1.03,
       yDampening: 1.05,
-      lifeVariance: 100,
+      lifeVariance: 100
     })
   }
-  genPieceParticles() {
+
+  genPieceParticles () {
     const cellSize = this.parent.cellSize
     this.parent.particle.generate({
       amount: 2,
@@ -381,33 +389,34 @@ export default class Piece extends GameModule {
       yVariance: 3,
       xDampening: 1.03,
       yDampening: 1.05,
-      lifeVariance: 100,
+      lifeVariance: 100
     })
   }
-  draw() {
+
+  draw () {
     const ctx = this.ctx
     const nextCtx = this.nextCtx
     clearCtx(ctx)
     clearCtx(nextCtx)
     const cellSize = this.parent.cellSize
     if (this.parent.stack.waitingGarbage) {
-      $("#garbage-counter-container").classList.remove("hidden")
-      $("#garbage-counter").textContent = `${this.parent.stack.waitingGarbage}`
+      $('#garbage-counter-container').classList.remove('hidden')
+      $('#garbage-counter').textContent = `${this.parent.stack.waitingGarbage}`
       if (this.parent.stack.waitingGarbage < 0) {
-        $("#garbage-counter-container").classList.remove("danger")
-        $("#garbage-counter-container").classList.add("negative")
+        $('#garbage-counter-container').classList.remove('danger')
+        $('#garbage-counter-container').classList.add('negative')
       } else if (
         this.parent.stack.waitingGarbage >
         this.parent.settings.height / 2
       ) {
-        $("#garbage-counter-container").classList.remove("negative")
-        $("#garbage-counter-container").classList.add("danger")
+        $('#garbage-counter-container').classList.remove('negative')
+        $('#garbage-counter-container').classList.add('danger')
       } else {
-        $("#garbage-counter-container").classList.remove("negative")
-        $("#garbage-counter-container").classList.remove("danger")
+        $('#garbage-counter-container').classList.remove('negative')
+        $('#garbage-counter-container').classList.remove('danger')
       }
     } else {
-      $("#garbage-counter-container").classList.add("hidden")
+      $('#garbage-counter-container').classList.add('hidden')
     }
     let actualwaitingGarbage
     if (this.parent.stack.waitingGarbage > settings.settings.brokenLineLimit) {
@@ -447,12 +456,12 @@ export default class Piece extends GameModule {
       ctx.lineTo(this.parent.stack.width * cellSize, bottom * cellSize)
       ctx.lineTo(0, bottom * cellSize)
       ctx.lineWidth = cellSize / 20
-      ctx.strokeStyle = "#f00"
-      ctx.fillStyle = "#f003"
+      ctx.strokeStyle = '#f00'
+      ctx.fillStyle = '#f003'
       ctx.stroke()
       ctx.fill()
     }
-    ctx.fillStyle = "#f00"
+    ctx.fillStyle = '#f00'
     ctx.fillRect(
       (this.parent.settings.width - 0.1) * cellSize,
       (this.parent.settings.height -
@@ -484,36 +493,36 @@ export default class Piece extends GameModule {
     const nextColor = (this.parent.hold.ihs) ? this.parent.colors[this.parent.hold.getPiece()]: this.parent.colors[this.parent.next.queue[0]];
     for (const nextBlock of nextBlocks) {
       this.drawMino(nextBlock[0], nextBlock[1] + fall, this.parent.bufferPeek, 'ghost', '', nextColor, nextCtx);
-    }*/
+    } */
     if (this.isDead) {
-      $("#warning-message-container-hold").classList.add("hidden")
-      $("#warning-message-container").classList.add("hidden")
-      $("#clutch-message").classList.add("hidden")
-      $("#game-center").classList.remove("gameover-early-warning-bgflash")
-      $("#hold-container-container").classList.remove(
-        "gameover-early-warning-bgflash"
+      $('#warning-message-container-hold').classList.add('hidden')
+      $('#warning-message-container').classList.add('hidden')
+      $('#clutch-message').classList.add('hidden')
+      $('#game-center').classList.remove('gameover-early-warning-bgflash')
+      $('#hold-container-container').classList.remove(
+        'gameover-early-warning-bgflash'
       )
       if (
-        $("#warning-message-container-hold").classList.contains("hidden") &&
-        $("#warning-message-container").classList.contains("hidden") &&
-        !$("#rotation-warning").classList.contains("hidden")
+        $('#warning-message-container-hold').classList.contains('hidden') &&
+        $('#warning-message-container').classList.contains('hidden') &&
+        !$('#rotation-warning').classList.contains('hidden')
       ) {
-        sound.stopSeLoop("topoutwarning")
+        sound.stopSeLoop('topoutwarning')
       }
-      $("#rotation-warning").classList.add("hidden")
+      $('#rotation-warning').classList.add('hidden')
       return
     }
     if (this.ghostIsVisible) {
-      this.drawPiece(this.shape, 0, this.getDrop(), "ghost")
+      this.drawPiece(this.shape, 0, this.getDrop(), 'ghost')
     }
-    this.drawPiece(this.shape, 0, 0, "piece")
+    this.drawPiece(this.shape, 0, 0, 'piece')
     if (this.parent.stack.alarmIsOn) {
       ctx.beginPath()
       const y = cellSize * this.parent.bufferPeek
       ctx.moveTo(0, y)
       ctx.lineTo(this.parent.settings.width * cellSize, y)
       ctx.lineWidth = cellSize / 20
-      ctx.strokeStyle = "#f00"
+      ctx.strokeStyle = '#f00'
       ctx.stroke()
     }
 
@@ -526,19 +535,19 @@ export default class Piece extends GameModule {
       ctx.moveTo(0, y)
       ctx.lineTo(this.parent.settings.width * cellSize, y)
       ctx.lineWidth = cellSize / 20
-      ctx.strokeStyle = "#f00"
+      ctx.strokeStyle = '#f00'
       ctx.stroke()
     }
 
     if (this.hasSpun) {
       if (this.hasSpunMini) {
-        this.parent.pieceCanvas.classList.add("spin-pulse-mini")
+        this.parent.pieceCanvas.classList.add('spin-pulse-mini')
       } else {
-        this.parent.pieceCanvas.classList.add("spin-pulse")
+        this.parent.pieceCanvas.classList.add('spin-pulse')
       }
     } else {
-      this.parent.pieceCanvas.classList.remove("spin-pulse")
-      this.parent.pieceCanvas.classList.remove("spin-pulse-mini")
+      this.parent.pieceCanvas.classList.remove('spin-pulse')
+      this.parent.pieceCanvas.classList.remove('spin-pulse-mini')
     }
     this.showBlockOutHold()
     if (!this.showClutch()) {
@@ -549,27 +558,28 @@ export default class Piece extends GameModule {
       }
     }
     if (this.killLockDelayOnRotate) {
-      $("#rotation-warning").classList.remove("hidden")
+      $('#rotation-warning').classList.remove('hidden')
     } else {
-      $("#rotation-warning").classList.add("hidden")
+      $('#rotation-warning').classList.add('hidden')
     }
     if (
-      !$("#warning-message-container-hold").classList.contains("hidden") ||
-      !$("#warning-message-container").classList.contains("hidden") ||
-      !$("#rotation-warning").classList.contains("hidden")
+      !$('#warning-message-container-hold').classList.contains('hidden') ||
+      !$('#warning-message-container').classList.contains('hidden') ||
+      !$('#rotation-warning').classList.contains('hidden')
     ) {
-      if ($("#rotation-warning").classList.contains("hidden")) {
-        $("#next-piece").classList.add("immediate-death")
+      if ($('#rotation-warning').classList.contains('hidden')) {
+        $('#next-piece').classList.add('immediate-death')
       } else {
-        $("#next-piece").classList.remove("immediate-death")
+        $('#next-piece').classList.remove('immediate-death')
       }
-      sound.startSeLoop("topoutwarning")
+      sound.startSeLoop('topoutwarning')
     } else {
-      $("#next-piece").classList.remove("immediate-death")
-      sound.stopSeLoop("topoutwarning")
+      $('#next-piece').classList.remove('immediate-death')
+      sound.stopSeLoop('topoutwarning')
     }
   }
-  showTopOut() {
+
+  showTopOut () {
     if (this.parent.stack.wouldCauseLineClear()) return false
     const finalBlockYlocations = this.getFinalBlockLocations().map((b) => b[1])
     const finalBlockHighest =
@@ -586,18 +596,19 @@ export default class Piece extends GameModule {
       stackActualHighest + actualwaitingGarbage >
       this.parent.stack.height + this.parent.stack.hiddenHeight
     ) {
-      $("#warning-message").textContent = locale.getString(
-        "ui",
-        "topOutWarning"
+      $('#warning-message').textContent = locale.getString(
+        'ui',
+        'topOutWarning'
       )
-      $("#warning-message-container").classList.remove("hidden")
-      $("#game-center").classList.add("gameover-early-warning-bgflash")
+      $('#warning-message-container').classList.remove('hidden')
+      $('#game-center').classList.add('gameover-early-warning-bgflash')
       return true
     }
-    $("#warning-message-container").classList.add("hidden")
-    $("#game-center").classList.remove("gameover-early-warning-bgflash")
+    $('#warning-message-container').classList.add('hidden')
+    $('#game-center').classList.remove('gameover-early-warning-bgflash')
   }
-  showLockOut() {
+
+  showLockOut () {
     if (!settings.settings.useLockOut) return false
     const finalBlocks = this.getFinalBlockLocations()
     const toCheck = finalBlocks.length
@@ -608,22 +619,23 @@ export default class Piece extends GameModule {
       }
     }
     if (failed >= toCheck) {
-      $("#warning-message").textContent = locale.getString(
-        "ui",
-        "lockOutWarning"
+      $('#warning-message').textContent = locale.getString(
+        'ui',
+        'lockOutWarning'
       )
-      $("#warning-message-container").classList.remove("hidden")
-      $("#game-center").classList.add("gameover-early-warning-bgflash")
+      $('#warning-message-container').classList.remove('hidden')
+      $('#game-center').classList.add('gameover-early-warning-bgflash')
       return true
     }
-    $("#warning-message-container").classList.add("hidden")
-    $("#game-center").classList.remove("gameover-early-warning-bgflash")
+    $('#warning-message-container').classList.add('hidden')
+    $('#game-center').classList.remove('gameover-early-warning-bgflash')
   }
-  showClutch() {
+
+  showClutch () {
     if (!settings.settings.useLockOut) return false
     if (!this.showBlockOut()) {
-      $("#warning-message-container").classList.add("hidden")
-      $("#game-center").classList.remove("gameover-early-warning-bgflash")
+      $('#warning-message-container').classList.add('hidden')
+      $('#game-center').classList.remove('gameover-early-warning-bgflash')
     }
     const finalBlocks = this.getFinalBlockLocations()
     const toCheck = finalBlocks.length
@@ -634,16 +646,17 @@ export default class Piece extends GameModule {
       }
     }
     if (failed >= toCheck && this.parent.stack.wouldCauseLineClear()) {
-      $("#clutch-message").classList.remove("hidden")
+      $('#clutch-message').classList.remove('hidden')
       return true
     }
-    $("#clutch-message").classList.add("hidden")
+    $('#clutch-message').classList.add('hidden')
   }
-  showBlockOutHold() {
+
+  showBlockOutHold () {
     if (this.parent.hold.isDisabled) {
-      $("#warning-message-container-hold").classList.add("hidden")
-      $("#hold-container-container").classList.remove(
-        "gameover-early-warning-bgflash"
+      $('#warning-message-container-hold').classList.add('hidden')
+      $('#hold-container-container').classList.remove(
+        'gameover-early-warning-bgflash'
       )
       return false
     }
@@ -659,23 +672,24 @@ export default class Piece extends GameModule {
           currentY + this.parent.settings.hiddenHeight
         ]
       ) {
-        $("#warning-message-hold").textContent = locale.getString(
-          "ui",
-          "blockOutHoldWarning"
+        $('#warning-message-hold').textContent = locale.getString(
+          'ui',
+          'blockOutHoldWarning'
         )
-        $("#warning-message-container-hold").classList.remove("hidden")
-        $("#hold-container-container").classList.add(
-          "gameover-early-warning-bgflash"
+        $('#warning-message-container-hold').classList.remove('hidden')
+        $('#hold-container-container').classList.add(
+          'gameover-early-warning-bgflash'
         )
         return true
       }
     }
-    $("#warning-message-container-hold").classList.add("hidden")
-    $("#hold-container-container").classList.remove(
-      "gameover-early-warning-bgflash"
+    $('#warning-message-container-hold').classList.add('hidden')
+    $('#hold-container-container').classList.remove(
+      'gameover-early-warning-bgflash'
     )
   }
-  showBlockOut() {
+
+  showBlockOut () {
     const lineClear = this.parent.stack.wouldCauseLineClear()
     const finalBlocks = this.getFinalBlockLocations()
     const nextBlocks = this.getNextPieceBlocks()
@@ -704,31 +718,32 @@ export default class Piece extends GameModule {
           currentY + this.parent.settings.hiddenHeight
         ]
       ) {
-        $("#warning-message").textContent = locale.getString(
-          "ui",
-          "blockOutWarning"
+        $('#warning-message').textContent = locale.getString(
+          'ui',
+          'blockOutWarning'
         )
-        $("#warning-message-container").classList.remove("hidden")
-        $("#game-center").classList.add("gameover-early-warning-bgflash")
+        $('#warning-message-container').classList.remove('hidden')
+        $('#game-center').classList.add('gameover-early-warning-bgflash')
         return true
       }
       for (const finalBlock of finalBlocks) {
         const newNext = [nextBlock[0], nextBlock[1] - lineClear + garbageAdd]
         if (arraysEqual(finalBlock, newNext)) {
-          $("#warning-message").textContent = locale.getString(
-            "ui",
-            "blockOutWarning"
+          $('#warning-message').textContent = locale.getString(
+            'ui',
+            'blockOutWarning'
           )
-          $("#warning-message-container").classList.remove("hidden")
-          $("#game-center").classList.add("gameover-early-warning-bgflash")
+          $('#warning-message-container').classList.remove('hidden')
+          $('#game-center').classList.add('gameover-early-warning-bgflash')
           return true
         }
       }
     }
-    $("#warning-message-container").classList.add("hidden")
-    $("#game-center").classList.remove("gameover-early-warning-bgflash")
+    $('#warning-message-container').classList.add('hidden')
+    $('#game-center').classList.remove('gameover-early-warning-bgflash')
   }
-  getFinalBlockLocations() {
+
+  getFinalBlockLocations () {
     const finalBlocks = []
     if (this.shape == null) {
       return finalBlocks
@@ -747,7 +762,8 @@ export default class Piece extends GameModule {
     }
     return finalBlocks
   }
-  getNextPieceBlocks() {
+
+  getNextPieceBlocks () {
     const nextBlocks = []
     const nextPiece = this.parent.next.queue[0]
 
@@ -755,28 +771,28 @@ export default class Piece extends GameModule {
     let spawnOffsets
 
     switch (settings.settings.shapeOverride) {
-      case "mono":
+      case 'mono':
         nextPieceShape =
           MONOMINO_PIECES[nextPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
           ]
-        spawnOffsets = SPAWN_OFFSETS["monomino"][nextPiece]
+        spawnOffsets = SPAWN_OFFSETS.monomino[nextPiece]
         break
-      case "do":
+      case 'do':
         nextPieceShape =
           DOMINO_PIECES[nextPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
           ]
-        spawnOffsets = SPAWN_OFFSETS["monomino"][nextPiece]
+        spawnOffsets = SPAWN_OFFSETS.monomino[nextPiece]
         break
-      case "tro":
+      case 'tro':
         nextPieceShape =
           TROMINO_PIECES[nextPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
           ]
         spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][nextPiece]
         break
-      case "pento":
+      case 'pento':
         nextPieceShape =
           PENTOMINO_PIECES[nextPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][nextPiece]
@@ -798,14 +814,15 @@ export default class Piece extends GameModule {
         if (isFilled) {
           nextBlocks.push([
             x + spawnOffsets[0] + this.xSpawnOffset,
-            y + spawnOffsets[1],
+            y + spawnOffsets[1]
           ])
         }
       }
     }
     return nextBlocks
   }
-  getHoldPieceBlocks() {
+
+  getHoldPieceBlocks () {
     const holdBlocks = []
     const holdPiece = this.parent.hold.getPiece()
 
@@ -813,28 +830,28 @@ export default class Piece extends GameModule {
     let spawnOffsets
 
     switch (settings.settings.shapeOverride) {
-      case "mono":
+      case 'mono':
         holdPieceShape =
           MONOMINO_PIECES[holdPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
           ]
-        spawnOffsets = SPAWN_OFFSETS["monomino"][holdPiece]
+        spawnOffsets = SPAWN_OFFSETS.monomino[holdPiece]
         break
-      case "do":
+      case 'do':
         holdPieceShape =
           DOMINO_PIECES[holdPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
           ]
-        spawnOffsets = SPAWN_OFFSETS["monomino"][holdPiece]
+        spawnOffsets = SPAWN_OFFSETS.monomino[holdPiece]
         break
-      case "tro":
+      case 'tro':
         holdPieceShape =
           TROMINO_PIECES[holdPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
           ]
         spawnOffsets = SPAWN_OFFSETS[this.parent.rotationSystem][holdPiece]
         break
-      case "pento":
+      case 'pento':
         holdPieceShape =
           PENTOMINO_PIECES[holdPiece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][holdPiece]
@@ -856,14 +873,15 @@ export default class Piece extends GameModule {
         if (isFilled) {
           holdBlocks.push([
             x + spawnOffsets[0] + this.xSpawnOffset,
-            y + spawnOffsets[1],
+            y + spawnOffsets[1]
           ])
         }
       }
     }
     return holdBlocks
   }
-  moveValid(passedX, passedY, shape, checkIfFrozen = true) {
+
+  moveValid (passedX, passedY, shape, checkIfFrozen = true) {
     if (this.isFrozen && checkIfFrozen) {
       return false
     }
@@ -891,25 +909,32 @@ export default class Piece extends GameModule {
     }
     return true
   }
-  get isLanded() {
+
+  get isLanded () {
     return !this.moveValid(0, 1, this.shape)
   }
-  get isStuck() {
+
+  get isStuck () {
     return !this.moveValid(0, 0, this.shape, false)
   }
-  get canShiftLeft() {
+
+  get canShiftLeft () {
     return this.moveValid(-1, 0, this.shape)
   }
-  get canShiftRight() {
+
+  get canShiftRight () {
     return this.moveValid(1, 0, this.shape)
   }
-  get canShiftUp() {
+
+  get canShiftUp () {
     return this.moveValid(0, -1, this.shape)
   }
-  get canShiftDown() {
+
+  get canShiftDown () {
     return this.moveValid(0, 1, this.shape)
   }
-  getDrop(
+
+  getDrop (
     distance = (this.parent.settings.height +
       this.parent.settings.hiddenHeight) *
       2
@@ -925,7 +950,8 @@ export default class Piece extends GameModule {
     }
     return currentDistance - 1
   }
-  checkFall(distance) {
+
+  checkFall (distance) {
     if (distance < 1) {
       return true
     }
@@ -935,7 +961,8 @@ export default class Piece extends GameModule {
 
     return false
   }
-  get endPoints() {
+
+  get endPoints () {
     if (this.shape == null) {
       return [0, 0]
     }
@@ -952,13 +979,16 @@ export default class Piece extends GameModule {
     }
     return [maxX, maxY]
   }
-  get endX() {
+
+  get endX () {
     return this.endPoints[0]
   }
-  get endY() {
+
+  get endY () {
     return this.endPoints[1]
   }
-  get startPoints() {
+
+  get startPoints () {
     if (this.shape == null) {
       return [0, 0]
     }
@@ -975,30 +1005,35 @@ export default class Piece extends GameModule {
     }
     return [minX, minY]
   }
-  get startX() {
+
+  get startX () {
     return this.startPoints[0]
   }
-  get startY() {
+
+  get startY () {
     return this.startPoints[1]
   }
-  sonicDrop() {
+
+  sonicDrop () {
     this.y += this.getDrop()
     this.isDirty = true
   }
-  realSonicDrop() {
+
+  realSonicDrop () {
     if (!this.isDead && !this.isLanded) {
       const drop = this.getDrop()
-      this.parent.addScore("sonicDrop", drop)
-      sound.add("land")
+      this.parent.addScore('sonicDrop', drop)
+      sound.add('land')
       this.genDropParticles()
     }
     this.sonicDrop()
   }
-  hardDrop() {
+
+  hardDrop () {
     if (!this.isDead) {
       const drop = this.getDrop()
-      this.parent.addScore("hardDrop", drop)
-      sound.add("harddrop")
+      this.parent.addScore('hardDrop', drop)
+      sound.add('harddrop')
       this.genDropParticles()
     }
 
@@ -1006,13 +1041,14 @@ export default class Piece extends GameModule {
     this.hasHardDropped = true
     this.mustLock = true
   }
-  addManipulation() {
-    if (this.lockdownType !== "extended") {
+
+  addManipulation () {
+    if (this.lockdownType !== 'extended') {
       return
     }
     this.manipulations++
     if (this.manipulations === this.manipulationLimit) {
-      sound.add("lockforce")
+      sound.add('lockforce')
       const cellSize = this.parent.cellSize
       this.parent.particle.generate({
         amount: 100,
@@ -1033,50 +1069,56 @@ export default class Piece extends GameModule {
         lifeVariance: 80,
         red: 255,
         blue: 0,
-        green: 0,
+        green: 0
       })
     }
   }
-  shift(direction, amount, condition) {
+
+  shift (direction, amount, condition) {
     if (condition) {
       this[direction] += amount
       this.addManipulation()
       this.isDirty = true
-      if (direction === "x") {
-        sound.add("move")
+      if (direction === 'x') {
+        sound.add('move')
       }
       if (this.isLanded) {
-        sound.add("step")
+        sound.add('step')
       }
     } else {
-      if (direction === "x") {
+      if (direction === 'x') {
         if (amount > 0) {
-          this.parent.shiftMatrix("right")
+          this.parent.shiftMatrix('right')
         } else {
-          this.parent.shiftMatrix("left")
+          this.parent.shiftMatrix('left')
         }
       }
     }
   }
-  shiftLeft() {
-    this.shift("x", -1, this.canShiftLeft)
+
+  shiftLeft () {
+    this.shift('x', -1, this.canShiftLeft)
   }
-  shiftRight() {
-    this.shift("x", 1, this.canShiftRight)
+
+  shiftRight () {
+    this.shift('x', 1, this.canShiftRight)
   }
-  shiftDown() {
-    this.shift("y", 1, !this.isLanded)
+
+  shiftDown () {
+    this.shift('y', 1, !this.isLanded)
   }
-  killLockDelay() {
+
+  killLockDelay () {
     if (this.lockDelay >= this.lockDelayLimit) {
       return
     }
     this.lockDelay = this.lockDelayLimit
     this.manipulations = this.manipulationLimit
     this.lowestVisualY = this.parent.stack.height - 1
-    sound.add("lockforce")
+    sound.add('lockforce')
   }
-  rotate(amount, direction, playSound = true) {
+
+  rotate (amount, direction, playSound = true) {
     const newOrientation = (this.orientation + amount) % 4
     const rotatedShape = this.piece[newOrientation]
     const kickTable = this.kicks[direction][this.orientation]
@@ -1189,12 +1231,12 @@ export default class Piece extends GameModule {
         this.isDirty = true
         if (playSound) {
           if (i > 0) {
-            sound.add("wallkick")
+            sound.add('wallkick')
           }
-          sound.add("rotate")
+          sound.add('rotate')
         }
         if (this.isLanded) {
-          sound.add("step")
+          sound.add('step')
         }
         if (this.resetGravityOnKick && i > 0) {
           this.y = this.yFloor
@@ -1205,7 +1247,7 @@ export default class Piece extends GameModule {
         if (this.checkSpin().isSpin) {
           const cellSize = this.parent.cellSize
           if (this.checkSpin().isMini) {
-            sound.add("prespinmini")
+            sound.add('prespinmini')
             this.parent.particle.generate({
               amount: 55,
               x: this.x * cellSize,
@@ -1220,7 +1262,7 @@ export default class Piece extends GameModule {
               yFlurry: 1,
               gravity: 0,
               maxlife: 60,
-              lifeVariance: 40,
+              lifeVariance: 40
             })
           } else {
             this.parent.particle.generate({
@@ -1237,9 +1279,9 @@ export default class Piece extends GameModule {
               yFlurry: 1,
               gravity: 0,
               maxlife: 150,
-              lifeVariance: 100,
+              lifeVariance: 100
             })
-            sound.add("prespin")
+            sound.add('prespin')
           }
         }
         this.rotatedX = this.x
@@ -1248,61 +1290,65 @@ export default class Piece extends GameModule {
       }
     }
   }
-  rotateLeft() {
-    this.rotate(3, "left")
+
+  rotateLeft () {
+    this.rotate(3, 'left')
   }
-  rotateRight() {
-    this.rotate(1, "right")
+
+  rotateRight () {
+    this.rotate(1, 'right')
   }
-  rotate180() {
-    this.rotate(2, "double")
+
+  rotate180 () {
+    this.rotate(2, 'double')
   }
-  checkSpin() {
+
+  checkSpin () {
     const name = this.name
-    if (this.spinDetectionType === null || this.spinDetectionType === "null") {
+    if (this.spinDetectionType === null || this.spinDetectionType === 'null') {
       return { isSpin: false, isMini: false }
     }
     switch (name) {
-      case "Z":
+      case 'Z':
         if (!settings.settings.spinZ) {
           return { isSpin: false, isMini: false }
         }
         break
-      case "L":
+      case 'L':
         if (!settings.settings.spinL) {
           return { isSpin: false, isMini: false }
         }
         break
-      case "O":
+      case 'O':
         if (!settings.settings.spinO) {
           return { isSpin: false, isMini: false }
         }
         break
-      case "S":
+      case 'S':
         if (!settings.settings.spinS) {
           return { isSpin: false, isMini: false }
         }
         break
-      case "I":
+      case 'I':
         if (!settings.settings.spinI) {
           return { isSpin: false, isMini: false }
         }
         break
-      case "J":
+      case 'J':
         if (!settings.settings.spinJ) {
           return { isSpin: false, isMini: false }
         }
         break
-      case "T":
+      case 'T':
         if (!settings.settings.spinT) {
           return { isSpin: false, isMini: false }
         }
         break
     }
     if (
-      (this.spinDetectionType === "immobile" ||
-        this.spinDetectionType === "EZimmobile") &&
-      name != "O"
+      (this.spinDetectionType === 'immobile' ||
+        this.spinDetectionType === 'EZimmobile') &&
+      name != 'O'
     ) {
       if (
         !this.canShiftLeft &&
@@ -1312,7 +1358,7 @@ export default class Piece extends GameModule {
       ) {
         return { isSpin: true, isMini: false }
       }
-      if (this.spinDetectionType === "EZimmobile") {
+      if (this.spinDetectionType === 'EZimmobile') {
         if (this.lastKickIndex != 0 && !this.canShiftDown) {
           return { isSpin: true, isMini: true }
         }
@@ -1337,7 +1383,7 @@ export default class Piece extends GameModule {
       if (check(x, y)) {
         spinCheckCount++
         highPoints++
-        if (name === "I") {
+        if (name === 'I') {
           if (point === spinHigh[0] || point === spinHigh[1]) {
             iOneSide++
           }
@@ -1361,7 +1407,7 @@ export default class Piece extends GameModule {
     if (spinCheckCount >= 3) {
       isSpin = true
     }
-    if (name === "I") {
+    if (name === 'I') {
       isSpin = false
       isMini = false
       if (lowPoints >= 2 && (iOneSide === 1 || iOtherSide === 1)) {
@@ -1379,7 +1425,7 @@ export default class Piece extends GameModule {
       }
       // console.log(`iOneSide: ${iOneSide}, iOtherSide: ${iOtherSide}`)
     }
-    if (name === "O") {
+    if (name === 'O') {
       isSpin = false
       isMini = false
       let singleCellKick = false
@@ -1412,11 +1458,12 @@ export default class Piece extends GameModule {
       //   isSpin = true;
       //   isMini = false;
       // }
-      return { isSpin: isSpin, isMini: isMini }
+      return { isSpin, isMini }
     }
-    return { isSpin: isSpin, isMini: isMini }
+    return { isSpin, isMini }
   }
-  get hasSpun() {
+
+  get hasSpun () {
     if (
       this.x === this.rotatedX &&
       this.yFloor === this.rotatedY &&
@@ -1427,7 +1474,8 @@ export default class Piece extends GameModule {
       return false
     }
   }
-  get hasSpunMini() {
+
+  get hasSpunMini () {
     if (
       this.x === this.rotatedX &&
       this.yFloor === this.rotatedY &&
@@ -1438,7 +1486,8 @@ export default class Piece extends GameModule {
       return false
     }
   }
-  get inAre() {
+
+  get inAre () {
     if (this.startingAre < this.startingAreLimit) {
       // return true;
     }

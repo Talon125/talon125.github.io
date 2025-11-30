@@ -3,7 +3,7 @@
  * @param {String} selector
  * @return {Element}
  */
-export default function $(selector) {
+export default function $ (selector) {
   const selection = document.querySelectorAll(selector)
   switch (selection.length) {
     case 0:
@@ -21,7 +21,7 @@ export default function $(selector) {
  * @param {Array} a items An array containing the items.
  * @return {Array} shuffled array
  */
-export function shuffle(a, rng) {
+export function shuffle (a, rng) {
   let j
   let x
   let i
@@ -34,75 +34,75 @@ export function shuffle(a, rng) {
   return a
 }
 
-export function bpmToMs(amount) {
+export function bpmToMs (amount) {
   return 1000 / (amount / 60)
 }
 
-export function roundBpmToMs(amount) {
+export function roundBpmToMs (amount) {
   return Math.round(1000 / (amount / 60))
 }
 
-export function framesToMs(amount) {
+export function framesToMs (amount) {
   // assume fps is 60
   return (amount / 60) * 1000
 }
 
-export function hzToMs(amount) {
+export function hzToMs (amount) {
   return (60 / amount / 60) * 1000
 }
 
-export function roundMsToFrames(amount) {
+export function roundMsToFrames (amount) {
   // assume fps is 60
   return Math.round((amount / 1000) * 60)
 }
 
-export function roundMsToHz(amount) {
+export function roundMsToHz (amount) {
   return Math.round(60 / ((amount / 1000) * 60))
 }
 
-export function toCtx(canvas) {
-  return canvas.getContext("2d")
+export function toCtx (canvas) {
+  return canvas.getContext('2d')
 }
 
-export function clearCtx(ctx) {
+export function clearCtx (ctx) {
   ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight)
 }
 
-export function capitalizeFirstLetter(string) {
+export function capitalizeFirstLetter (string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-export function negativeMod(n, m) {
+export function negativeMod (n, m) {
   return ((n % m) + m) % m
 }
 
-export function resetAnimation(selector, className) {
+export function resetAnimation (selector, className) {
   $(selector).classList.remove(className)
   void $(selector).offsetWidth
   $(selector).classList.add(className)
 }
-function pad(num, size) {
-  const s = "000000000" + num
+function pad (num, size) {
+  const s = '000000000' + num
   return s.substr(s.length - size)
 }
-export function msToTime(duration) {
+export function msToTime (duration) {
   const milliseconds = pad(parseInt((duration % 1000) / 10), 2)
   let seconds = Math.floor((duration / 1000) % 60)
   let minutes = Math.floor((duration / (1000 * 60)) % 60)
   let hours = Math.floor((duration / (1000 * 60 * 60)) % 24)
 
-  hours = hours < 10 ? "0" + hours : hours
-  minutes = minutes < 10 ? "0" + minutes : minutes
-  seconds = seconds < 10 ? "0" + seconds : seconds
+  hours = hours < 10 ? '0' + hours : hours
+  minutes = minutes < 10 ? '0' + minutes : minutes
+  seconds = seconds < 10 ? '0' + seconds : seconds
 
-  return hours + ":" + minutes + ":" + seconds + "." + milliseconds
+  return hours + ':' + minutes + ':' + seconds + '.' + milliseconds
 }
 /* accepts parameters
  * h  Object = {h:x, s:y, v:z}
  * OR
  * h, s, v
  */
-export function hsvToRgb(h, s, v) {
+export function hsvToRgb (h, s, v) {
   let r
   let g
   let b
@@ -142,6 +142,6 @@ export function hsvToRgb(h, s, v) {
   return {
     r: Math.round(r * 255),
     g: Math.round(g * 255),
-    b: Math.round(b * 255),
+    b: Math.round(b * 255)
   }
 }

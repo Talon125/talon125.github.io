@@ -1,8 +1,8 @@
-import gameHandler from "../game-handler.js"
-import { SCORE_TABLES } from "../../consts.js"
-import sound from "../../sound.js"
+import gameHandler from '../game-handler.js'
+import { SCORE_TABLES } from '../../consts.js'
+import sound from '../../sound.js'
 
-function fallen(piece) {
+function fallen (piece) {
   if (piece.manipulations >= piece.manipulationLimit) {
     piece.isDirty = true
   }
@@ -11,7 +11,7 @@ function fallen(piece) {
     if (piece.gravityMultiplier !== 1 || piece.gravityOverride) {
       for (let i = 1; i <= piece.yFloor - Math.floor(piece.lastY); i++) {
         {
-          gameHandler.game.addScore("softDrop")
+          gameHandler.game.addScore('softDrop')
         }
       }
       if (
@@ -23,12 +23,12 @@ function fallen(piece) {
     }
     piece.isDirty = true
     if (piece.isLanded) {
-      sound.add("land")
+      sound.add('land')
     }
   }
 }
 
-export function gravity(arg) {
+export function gravity (arg) {
   const piece = arg.piece
   let distance = arg.ms / (piece.gravity / piece.gravityMultiplier)
   if (piece.gravityOverride) {
@@ -46,7 +46,7 @@ export function gravity(arg) {
   }
   fallen(piece)
 }
-export function classicGravity(arg) {
+export function classicGravity (arg) {
   const piece = arg.piece
   if (piece.holdingTime < piece.holdingTimeLimit) {
     return
@@ -70,7 +70,7 @@ export function classicGravity(arg) {
   }
   fallen(piece)
 }
-export function deluxeGravity(arg) {
+export function deluxeGravity (arg) {
   const piece = arg.piece
   let distance = arg.ms / (piece.gravity / piece.gravityMultiplier)
   if (piece.gravityOverride) {

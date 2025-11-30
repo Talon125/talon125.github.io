@@ -1,28 +1,31 @@
-import Game from "./game.js"
+import Game from './game.js'
 
 class GameHandler {
-  constructor() {
+  constructor () {
     /** @type {Game} */
     this.game = {}
     this.setToBlank()
   }
-  setToBlank() {
+
+  setToBlank () {
     this.game = {
       settings: {
         hasDangerBgm: false,
-        hasPaceBgm: false,
+        hasPaceBgm: false
       },
-      die: () => {},
+      die: () => {}
     }
   }
-  newGame(gametype) {
+
+  newGame (gametype) {
     if (this.game != null) {
       this.game.die()
     }
     this.game = null
     this.game = new Game(gametype)
   }
-  reset() {
+
+  reset () {
     this.game.die()
     const type = this.game.type
     // this.game = null;

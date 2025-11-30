@@ -1,42 +1,42 @@
-import { loadGameType } from "../loaders.js"
+import { loadGameType } from '../loaders.js'
 import {
   PIECE_COLORS,
   NEXT_OFFSETS,
   SCORE_TABLES,
   SKIN_SETS,
   SOUND_SETS,
-  PIECE_SETS,
-} from "../consts.js"
-import menu from "../menu/menu.js"
-import Stack from "./stack.js"
-import Piece from "./piece.js"
-import $, { toCtx, msToTime } from "../shortcuts.js"
-import { loops } from "./loops.js"
-import gameHandler from "./game-handler.js"
-import Next from "./next.js"
-import settings from "../settings.js"
-import input from "../input.js"
-import Hold from "./hold.js"
-import sound from "../sound.js"
-import Particle from "./particle.js"
-import locale from "../lang.js"
+  PIECE_SETS
+} from '../consts.js'
+import menu from '../menu/menu.js'
+import Stack from './stack.js'
+import Piece from './piece.js'
+import $, { toCtx, msToTime } from '../shortcuts.js'
+import { loops } from './loops.js'
+import gameHandler from './game-handler.js'
+import Next from './next.js'
+import settings from '../settings.js'
+import input from '../input.js'
+import Hold from './hold.js'
+import sound from '../sound.js'
+import Particle from './particle.js'
+import locale from '../lang.js'
 let endScreenTimeout = null
 export default class Game {
-  constructor(gametype) {
-    if (gametype === "beat") {
-      document.getElementById("myVideo").style.opacity = 1
+  constructor (gametype) {
+    if (gametype === 'beat') {
+      document.getElementById('myVideo').style.opacity = 1
     } else {
-      document.getElementById("myVideo").style.opacity = 0
+      document.getElementById('myVideo').style.opacity = 0
     }
     this.userSettings = { ...settings.settings }
     this.type = gametype
-    this.pieceCanvas = $("#piece")
-    this.nextMatrixPreviewCanvas = $("#next-piece")
-    this.stackCanvas = $("#stack")
-    this.nextCanvas = $("#next-main")
-    this.nextSubCanvas = $("#next-sub")
-    this.holdCanvas = $("#hold")
-    this.particleCanvas = $("#particle")
+    this.pieceCanvas = $('#piece')
+    this.nextMatrixPreviewCanvas = $('#next-piece')
+    this.stackCanvas = $('#stack')
+    this.nextCanvas = $('#next-main')
+    this.nextSubCanvas = $('#next-sub')
+    this.holdCanvas = $('#hold')
+    this.particleCanvas = $('#particle')
     this.bufferPeek = 0.25
     this.loop
     this.now
@@ -54,7 +54,7 @@ export default class Game {
     this.musicLinePointCleared = []
     this.onPaceTime = 0
     this.startedOnPaceEvent = false
-    this.background = ""
+    this.background = ''
     this.stat = {
       b2b: 0,
       pcCount: 0,
@@ -63,7 +63,7 @@ export default class Game {
       score: 0,
       line: 0,
       piece: 0,
-      maxcombo: 0,
+      maxcombo: 0
     }
     this.appends = {}
     this.prefixes = {}
@@ -74,7 +74,7 @@ export default class Game {
       piece: true,
       fallspeed: true,
       entrydelay: true,
-      pace: true,
+      pace: true
     }
     this.endingStats = {
       pcCount: true,
@@ -83,7 +83,7 @@ export default class Game {
       level: true,
       piece: true,
       line: true,
-      maxcombo: true,
+      maxcombo: true
     }
     this.b2b = 0
     this.maxb2b = 0
@@ -91,53 +91,53 @@ export default class Game {
     this.matrix = {
       position: {
         x: 0,
-        y: 0,
+        y: 0
       },
       velocity: {
         left: 0,
         right: 0,
         up: 0,
-        down: 0,
+        down: 0
       },
       shakeVelocity: {
         x: 0,
-        y: 0,
-      },
+        y: 0
+      }
     }
     this.startingTime = 0
     this.timePassed = 0
     this.timePassedAre = 0
     loadGameType(gametype)
       .then((gameData) => {
-        gtag("event", "play", {
-          event_category: "Game",
-          event_label: gametype,
+        gtag('event', 'play', {
+          event_category: 'Game',
+          event_label: gametype
         })
         this.show()
         menu.close()
         this.startingTime = this.timestamp()
         clearTimeout(endScreenTimeout)
-        $("#combo-counter-container").classList.add("hidden")
-        $("#garbage-counter").textContent = ""
-        $("#timer").classList.remove("pace")
-        $("#timer-real").classList.remove("pace")
-        $("#timer").classList.remove("hurry-up")
-        $("#timer-real").classList.remove("hurry-up")
-        $("#game").classList.remove("dead")
-        $("#ready-meter").classList.remove("hidden")
-        $("#end-message-container").classList.add("hidden")
-        $("#kill-message-container").classList.add("hidden")
-        $("#next-piece").classList.remove("immediate-death")
+        $('#combo-counter-container').classList.add('hidden')
+        $('#garbage-counter').textContent = ''
+        $('#timer').classList.remove('pace')
+        $('#timer-real').classList.remove('pace')
+        $('#timer').classList.remove('hurry-up')
+        $('#timer-real').classList.remove('hurry-up')
+        $('#game').classList.remove('dead')
+        $('#ready-meter').classList.remove('hidden')
+        $('#end-message-container').classList.add('hidden')
+        $('#kill-message-container').classList.add('hidden')
+        $('#next-piece').classList.remove('immediate-death')
 
         this.resetBeatStuff()
 
-        if (this.type === "nontwo") {
-          $("#lights-warning").classList.remove("hidden")
+        if (this.type === 'nontwo') {
+          $('#lights-warning').classList.remove('hidden')
         } else {
-          $("#lights-warning").classList.add("hidden")
+          $('#lights-warning').classList.add('hidden')
         }
 
-        for (const element of document.querySelectorAll(".action-text")) {
+        for (const element of document.querySelectorAll('.action-text')) {
           element.parentNode.removeChild(element)
         }
         this.settings = gameData.settings
@@ -150,8 +150,8 @@ export default class Game {
           toCtx(this.nextMatrixPreviewCanvas)
         )
         let randomseed = new Math.seedrandom()()
-        if ($("#queuerand").value !== "") {
-          randomseed = $("#queuerand").value
+        if ($('#queuerand').value !== '') {
+          randomseed = $('#queuerand').value
         }
         this.next = new Next(
           this,
@@ -164,14 +164,14 @@ export default class Game {
         this.stack.endAlarm()
         // SET UP SETTINGS
 
-        if (this.userSettings.rotationSystem === "auto") {
+        if (this.userSettings.rotationSystem === 'auto') {
           this.rotationSystem = this.settings.rotationSystem
         } else {
           this.settings.rotationSystem = this.userSettings.rotationSystem
           this.rotationSystem = this.userSettings.rotationSystem
         }
 
-        if (this.userSettings.spinDetectionType != "auto") {
+        if (this.userSettings.spinDetectionType != 'auto') {
           this.settings.spinDetectionType = this.userSettings.spinDetectionType
           this.spinDetectionType = this.userSettings.spinDetectionType
         }
@@ -180,7 +180,7 @@ export default class Game {
           this.makeSprite()
         }
         const soundbankName =
-          settings.settings.soundbank === "auto"
+          settings.settings.soundbank === 'auto'
             ? SOUND_SETS[this.settings.rotationSystem]
             : settings.settings.soundbank
         sound.load(soundbankName)
@@ -189,15 +189,15 @@ export default class Game {
         )
         for (const pieceName of PIECE_SETS[this.settings.pieces]) {
           const color = settings.settings[`color${pieceName}`]
-          if (color === "auto") {
+          if (color === 'auto') {
             continue
           }
           this.colors[pieceName] = color
         }
 
         switch (settings.settings.shapeOverride) {
-          case "mono":
-            this.nextOffsets = NEXT_OFFSETS["monomino"]
+          case 'mono':
+            this.nextOffsets = NEXT_OFFSETS.monomino
             break
           // case 'pento':
           //   this.nextOffsets = NEXT_OFFSETS['pentomino'];
@@ -209,7 +209,7 @@ export default class Game {
 
         this.loop = loops[gametype].update
         this.onPieceSpawn = loops[gametype].onPieceSpawn
-        for (const element of ["piece", "stack", "next", "hold"]) {
+        for (const element of ['piece', 'stack', 'next', 'hold']) {
           if (gameData[element] != null) {
             for (const property of Object.keys(gameData[element])) {
               this[element][property] = gameData[element][property]
@@ -232,7 +232,7 @@ export default class Game {
 
         sound.killBgm()
 
-        if (gametype === "beat") {
+        if (gametype === 'beat') {
           this.settings.music = settings.game.beat.song
         }
 
@@ -243,7 +243,7 @@ export default class Game {
           }
         }
         {
-          if (typeof this.settings.music === "string") {
+          if (typeof this.settings.music === 'string') {
             const string = this.settings.music
             this.settings.music = [string]
           }
@@ -254,18 +254,18 @@ export default class Game {
 
         if (
           sound.doesSoundBankUseReadyGoVoices &&
-          settings.settings.voicebank != "off" &&
+          settings.settings.voicebank != 'off' &&
           settings.settings.voiceVolume != 0
         ) {
           playSoundBankReadyGoSoundOrVoice = false
         }
 
         if (playSoundBankReadyGoSoundOrVoice) {
-          sound.add("ready")
+          sound.add('ready')
         }
-        sound.add("voxready")
-        $("#message").classList.remove("dissolve")
-        let readyText = locale.getString("ui", "ready")
+        sound.add('voxready')
+        $('#message').classList.remove('dissolve')
+        let readyText = locale.getString('ui', 'ready')
         const delayChange = 0.05
         let delayAccum = -delayChange
         const newLabel = readyText.replace(/\S/g, (c) => {
@@ -273,18 +273,18 @@ export default class Game {
           return (
             `<span class="ready-animation" style="--animation-delay: ${delayAccum}s">` +
             c +
-            "</span>"
+            '</span>'
           )
         })
         readyText = newLabel
-        $("#message").innerHTML = readyText
+        $('#message').innerHTML = readyText
         this.onPieceSpawn(this)
         window.onresize = this.resize
-        $(".game").classList.remove("paused")
-        $(".game").classList.remove("zen-paused")
+        $('.game').classList.remove('paused')
+        $('.game').classList.remove('zen-paused')
         this.request = requestAnimationFrame(this.gameLoop)
         document.documentElement.style.setProperty(
-          "--current-background",
+          '--current-background',
           `url("../img/bg/${this.settings.background}")`
         )
         setTimeout(() => {
@@ -297,100 +297,108 @@ export default class Game {
         })
       })
   }
-  unpause() {
+
+  unpause () {
     if (!this.isPaused) {
       return
     }
-    sound.add("pause")
+    sound.add('pause')
     this.isDirty = true
     this.isPaused = false
-    if (this.type === "zen") {
-      $(".game").classList.remove("zen-paused")
+    if (this.type === 'zen') {
+      $('.game').classList.remove('zen-paused')
     } else {
-      $(".game").classList.remove("paused")
+      $('.game').classList.remove('paused')
     }
   }
-  pause() {
-    if (this.type === "nontwo") {
+
+  pause () {
+    if (this.type === 'nontwo') {
       return
     }
     if (this.isPaused || this.noUpdate) {
       return
     }
-    $("#pause-label").textContent = locale.getString("ui", "pause")
-    sound.add("pause")
+    $('#pause-label').textContent = locale.getString('ui', 'pause')
+    sound.add('pause')
     sound.playSeQueue()
     this.isPaused = true
-    if (this.type === "zen") {
-      $(".game").classList.add("zen-paused")
+    if (this.type === 'zen') {
+      $('.game').classList.add('zen-paused')
     } else {
-      $(".game").classList.add("paused")
+      $('.game').classList.add('paused')
     }
   }
-  hide() {
-    if (this.type === "nontwo") this.die()
-    $("#game-container").classList.add("hidden")
+
+  hide () {
+    if (this.type === 'nontwo') this.die()
+    $('#game-container').classList.add('hidden')
     this.isVisible = false
   }
-  show() {
-    $("#game-container").classList.remove("hidden")
+
+  show () {
+    $('#game-container').classList.remove('hidden')
     this.isVisible = true
   }
-  resetBeatStuff() {
-    $("#game-container").style.transitionTimingFunction = ""
-    $("#game-container").style.transitionProperty = ""
-    $("#game-container").style.transitionDuration = ""
-    $("#game-container").style.transform = ""
-    $("#game-container").classList.remove("sil")
-    $("#stack").classList.remove("sil")
-    $("#piece").classList.remove("sil")
+
+  resetBeatStuff () {
+    $('#game-container').style.transitionTimingFunction = ''
+    $('#game-container').style.transitionProperty = ''
+    $('#game-container').style.transitionDuration = ''
+    $('#game-container').style.transform = ''
+    $('#game-container').classList.remove('sil')
+    $('#stack').classList.remove('sil')
+    $('#piece').classList.remove('sil')
   }
-  timestamp() {
+
+  timestamp () {
     return window.performance && window.performance.now
       ? window.performance.now()
       : new Date().getTime()
   }
-  die() {
+
+  die () {
     cancelAnimationFrame(this.request)
     this.isDead = true
   }
-  end(victory = false) {
-    document.getElementById("myVideo").style.opacity = 0
+
+  end (victory = false) {
+    document.getElementById('myVideo').style.opacity = 0
     this.resetBeatStuff()
     this.isOver = true
-    $("#combo-counter-container").classList.add("hidden")
+    $('#combo-counter-container').classList.add('hidden')
     this.stack.endAlarm()
     this.noUpdate = true
-    if (this.type === "zen" && settings.game.zen.holdType === "skip") {
-      this.stats.splice(0, 0, "skipCount")
+    if (this.type === 'zen' && settings.game.zen.holdType === 'skip') {
+      this.stats.splice(0, 0, 'skipCount')
     }
-    $("#end-stats").innerHTML = ""
+    $('#end-stats').innerHTML = ''
     for (const statName of this.stats) {
-      const append = this.appends[statName] ? this.appends[statName] : ""
+      const append = this.appends[statName] ? this.appends[statName] : ''
       if (
         this.endingStats[statName] &&
-        !"b2b piece pcCount skipCount".includes(statName)
+        !'b2b piece pcCount skipCount'.includes(statName)
       ) {
-        $("#end-stats").innerHTML += `<b>${locale.getString(
-          "ui",
+        $('#end-stats').innerHTML += `<b>${locale.getString(
+          'ui',
           statName
         )}:</b> ${this.stat[statName]}${append}<br>`
       }
       switch (statName) {
-        case "b2b":
-          $("#end-stats").innerHTML += `<b>Max. ${locale
-            .getString("action-text", "b2b")
+        case 'b2b':
+          $('#end-stats').innerHTML += `<b>Max. ${locale
+            .getString('action-text', 'b2b')
             .substring(
               1,
-              locale.getString("action-text", "b2b").length - 1
+              locale.getString('action-text', 'b2b').length - 1
             )}:</b> ×${this.maxb2b - 1 < 0 ? 0 : this.maxb2b - 1}<br>`
           break
-        case "piece":
-          $("#end-stats").innerHTML += `<b>${locale.getString(
-            "ui",
-            "piece"
-          )}:</b> ${this.stat["piece"]}<br>`
-          $("#end-stats").innerHTML += `<b>Avg. PPS:</b> ${
+        case 'piece':
+          $('#end-stats').innerHTML += `<b>${locale.getString(
+            'ui',
+            'piece'
+          )}:</b> ${this.stat.piece}<br>`
+          $('#end-stats').innerHTML += `<b>Avg. PPS:</b> ${
             Math.round(
               (gameHandler.game.stat.piece /
                 (gameHandler.game.timePassed / 1000)) *
@@ -398,101 +406,102 @@ export default class Game {
             ) / 100
           }<br>`
           break
-        case "pcCount":
-          $("#end-stats").innerHTML += `<b>${locale.getString(
-            "action-text",
-            "pc"
-          )}:</b> ${this.stat["pcCount"]}<br>`
+        case 'pcCount':
+          $('#end-stats').innerHTML += `<b>${locale.getString(
+            'action-text',
+            'pc'
+          )}:</b> ${this.stat.pcCount}<br>`
           break
-        case "skipCount":
-          $("#end-stats").innerHTML += `<b>${locale.getString(
-            "ui",
-            "skip"
-          )}:</b> ${this.stat["skipCount"]}<br>`
+        case 'skipCount':
+          $('#end-stats').innerHTML += `<b>${locale.getString(
+            'ui',
+            'skip'
+          )}:</b> ${this.stat.skipCount}<br>`
           break
       }
     }
     if (this.timeGoal == null) {
-      $("#end-stats").innerHTML += `<b>${locale.getString("ui", "inGameTime", [
-        `<span style="font-weight: normal">${msToTime(this.timePassed)}</span>`,
+      $('#end-stats').innerHTML += `<b>${locale.getString('ui', 'inGameTime', [
+        `<span style="font-weight: normal">${msToTime(this.timePassed)}</span>`
       ])}</b><br>`
-      $("#end-stats").innerHTML += `<b>${locale.getString(
-        "ui",
-        "realTimeAttack",
+      $('#end-stats').innerHTML += `<b>${locale.getString(
+        'ui',
+        'realTimeAttack',
         [
           `<span style="font-weight: normal">${msToTime(
             this.timePassed + this.timePassedAre
-          )}</span>`,
+          )}</span>`
         ]
       )}</b><br>`
     }
-    $("#kill-message-container").classList.remove("hidden")
+    $('#kill-message-container').classList.remove('hidden')
     if (victory) {
-      sound.add("excellent")
+      sound.add('excellent')
     } else {
       if (
         !(
-          settings.settings.soundbank === "t99" &&
-          settings.settings.voicebank !== "off"
+          settings.settings.soundbank === 't99' &&
+          settings.settings.voicebank !== 'off'
         )
       ) {
-        sound.add("ko")
+        sound.add('ko')
       }
     }
     sound.killBgm()
     sound.killAllLoops()
-    $("#game").classList.add("dead")
+    $('#game').classList.add('dead')
     endScreenTimeout = setTimeout(() => {
-      sound.stopSeLoop("alarm")
-      $("#kill-message-container").classList.add("hidden")
-      sound.add("gameover")
-      sound.add("voxgameover")
-      $("#end-message").textContent = locale.getString("ui", "gameover")
-      if (this.type === "handheld" || this.type === "deluxe") {
-        $("#end-message").innerHTML = `${locale.getString(
-          "ui",
-          "gameover"
+      sound.stopSeLoop('alarm')
+      $('#kill-message-container').classList.add('hidden')
+      sound.add('gameover')
+      sound.add('voxgameover')
+      $('#end-message').textContent = locale.getString('ui', 'gameover')
+      if (this.type === 'handheld' || this.type === 'deluxe') {
+        $('#end-message').innerHTML = `${locale.getString(
+          'ui',
+          'gameover'
         )}<br><span class="small">${locale.getString(
-          "ui",
-          "pleasetryagain"
+          'ui',
+          'pleasetryagain'
         )}♥</span>`
       }
-      $("#end-message-container").classList.remove("hidden")
-      $("#return-to-menu").textContent = locale.getString("ui", "returnToMenu")
+      $('#end-message-container').classList.remove('hidden')
+      $('#return-to-menu').textContent = locale.getString('ui', 'returnToMenu')
     }, 1700)
   }
-  calculateActionText(lineClear, isSpin, isMini, b2b, isClutch) {
+
+  calculateActionText (lineClear, isSpin, isMini, b2b, isClutch) {
     if (!settings.settings.displayActionText) {
       return
     }
     let clearName = [
-      "",
-      "single",
-      "double",
-      "triple",
-      "tetra",
-      "penta",
-      "tetraplus",
+      '',
+      'single',
+      'double',
+      'triple',
+      'tetra',
+      'penta',
+      'tetraplus'
     ][lineClear]
     if (lineClear > 6) {
-      clearName = "tetraplus"
+      clearName = 'tetraplus'
     }
-    const spinName = isSpin ? "spin" : ""
-    const miniName = isMini ? "mini" : ""
+    const spinName = isSpin ? 'spin' : ''
+    const miniName = isMini ? 'mini' : ''
     const b2bName =
       b2b > 1 && lineClear > 0
-        ? `<br>${locale.getString("action-text", "b2b")}`
-        : ""
+        ? `<br>${locale.getString('action-text', 'b2b')}`
+        : ''
     const finalLabel = `${spinName}${clearName}${miniName}`
-    if (finalLabel === "") {
+    if (finalLabel === '') {
       return
     }
     const orientation =
       this.piece.orientation === 0 || this.piece.orientation === 2
-        ? "vertical"
-        : "horizontal"
-    let finalLocale = locale.getString("action-text", finalLabel, [
-      `<b class="spin-start ${this.piece.lastSpinDirection} ${orientation}">${this.piece.name}</b>`,
+        ? 'vertical'
+        : 'horizontal'
+    let finalLocale = locale.getString('action-text', finalLabel, [
+      `<b class="spin-start ${this.piece.lastSpinDirection} ${orientation}">${this.piece.name}</b>`
     ])
     if (lineClear >= 4 && !isSpin) {
       const delayChange = 0.05
@@ -502,13 +511,13 @@ export default class Game {
         return (
           `<span class="tetra-animation" style="--animation-delay: ${delayAccum}s">` +
           c +
-          "</span>"
+          '</span>'
         )
       })
       finalLocale = newLabel
     }
     if (isSpin) {
-      const duration = lineClear ? ".065s" : ".2s"
+      const duration = lineClear ? '.065s' : '.2s'
       const pulseCount = lineClear ? lineClear * 3 : 2
       finalLocale = `<span class="pulse-spin-text" style="--duration: ${duration}; --pulse-count: ${pulseCount}">${finalLocale}</span>`
     }
@@ -521,14 +530,15 @@ export default class Game {
       // }
     }
   }
-  displayClutch() {
+
+  displayClutch () {
     const id = `at-${performance.now()}`
-    const element = document.createElement("div")
-    element.innerHTML = "CLUTCH"
+    const element = document.createElement('div')
+    element.innerHTML = 'CLUTCH'
     element.id = id
-    element.classList.add("clutch-active")
-    $("#clutch-message-container").appendChild(element)
-    sound.add("clutch")
+    element.classList.add('clutch-active')
+    $('#clutch-message-container').appendChild(element)
+    sound.add('clutch')
     setTimeout(() => {
       try {
         element.parentNode.removeChild(element)
@@ -539,31 +549,32 @@ export default class Game {
       }
     }, 500)
   }
-  displayActionText(text, options) {
+
+  displayActionText (text, options) {
     options = {
       time: 2000,
       skipDefaultAnimation: false,
       additionalClasses: [],
-      ...options,
+      ...options
     }
     if (!settings.settings.displayActionText) {
       return
     }
     const id = `at-${performance.now()}`
-    const element = document.createElement("div")
+    const element = document.createElement('div')
     element.innerHTML = text
-    element.classList.add("action-text")
+    element.classList.add('action-text')
     if (options.skipDefaultAnimation) {
-      element.classList.add("skip-default-animation")
+      element.classList.add('skip-default-animation')
     }
     for (const className of options.additionalClasses) {
       element.classList.add(className)
     }
     const rotationVariance = 120
     const rotation = Math.random() * rotationVariance - rotationVariance / 2
-    element.style.setProperty("--spin-amount", `${rotation}deg`)
+    element.style.setProperty('--spin-amount', `${rotation}deg`)
     element.id = id
-    $("#game-center").appendChild(element)
+    $('#game-center').appendChild(element)
     setTimeout(() => {
       try {
         element.parentNode.removeChild(element)
@@ -574,180 +585,186 @@ export default class Game {
       }
     }, options.time)
   }
-  resize() {
+
+  resize () {
     const game = gameHandler.game
     const root = document.documentElement
-    $("body").setAttribute("theme", settings.settings.theme)
-    root.style.setProperty("--cell-size", `${game.cellSize}px`)
-    root.style.setProperty("--matrix-width", game.settings.width)
-    root.style.setProperty("--matrix-height-base", game.settings.height)
+    $('body').setAttribute('theme', settings.settings.theme)
+    root.style.setProperty('--cell-size', `${game.cellSize}px`)
+    root.style.setProperty('--matrix-width', game.settings.width)
+    root.style.setProperty('--matrix-height-base', game.settings.height)
     for (const element of [
-      "pieceCanvas",
-      "nextMatrixPreviewCanvas",
-      "stackCanvas",
-      "nextCanvas",
-      "nextSubCanvas",
-      "holdCanvas",
-      "particleCanvas",
+      'pieceCanvas',
+      'nextMatrixPreviewCanvas',
+      'stackCanvas',
+      'nextCanvas',
+      'nextSubCanvas',
+      'holdCanvas',
+      'particleCanvas'
     ]) {
       game[element].width = game[element].clientWidth
       game[element].height = game[element].clientHeight
     }
-    let holdLabelSelection = "hold"
+    let holdLabelSelection = 'hold'
     if (game.hold.useSkip) {
-      holdLabelSelection = "skip"
+      holdLabelSelection = 'skip'
     }
-    $("#hold-label").textContent = locale.getString("ui", holdLabelSelection)
-    $("#next-label").textContent = locale.getString("ui", "next")
-    $("#load-message").textContent = locale.getString("ui", "loading")
+    $('#hold-label').textContent = locale.getString('ui', holdLabelSelection)
+    $('#next-label').textContent = locale.getString('ui', 'next')
+    $('#load-message').textContent = locale.getString('ui', 'loading')
     game.stack.makeAllDirty()
     game.isDirty = true
-    $("#stats").innerHTML = ""
+    $('#stats').innerHTML = ''
     for (const statName of game.stats) {
-      const stat = document.createElement("div")
-      stat.classList.add("stat-group")
-      const label = document.createElement("label")
-      const number = document.createElement("div")
-      if (statName === "b2b") {
+      const stat = document.createElement('div')
+      stat.classList.add('stat-group')
+      const label = document.createElement('label')
+      const number = document.createElement('div')
+      if (statName === 'b2b') {
         label.textContent = locale
-          .getString("action-text", "b2b")
-          .substring(1, locale.getString("action-text", "b2b").length - 1)
-      } else if (statName === "pcCount") {
-        label.textContent = locale.getString("action-text", "pc")
+          .getString('action-text', 'b2b')
+          .substring(1, locale.getString('action-text', 'b2b').length - 1)
+      } else if (statName === 'pcCount') {
+        label.textContent = locale.getString('action-text', 'pc')
       } else {
-        label.textContent = locale.getString("ui", statName)
+        label.textContent = locale.getString('ui', statName)
       }
       number.innerHTML = game.stat[statName]
       number.id = `stat-${statName}`
       if (!game.smallStats[statName]) {
-        number.classList.add("big")
+        number.classList.add('big')
       }
       stat.appendChild(label)
       stat.appendChild(number)
-      $("#stats").appendChild(stat)
+      $('#stats').appendChild(stat)
     }
     if (
       game.stack.width <= 4 &&
-      (settings.settings.language === "ja_JP" ||
-        settings.settings.language === "ko_KR")
+      (settings.settings.language === 'ja_JP' ||
+        settings.settings.language === 'ko_KR')
     ) {
-      $("#pause-label").classList.add("vertical")
+      $('#pause-label').classList.add('vertical')
     } else {
-      $("#pause-label").classList.remove("vertical")
+      $('#pause-label').classList.remove('vertical')
     }
     game.updateStats()
   }
-  drawLockdown() {
-    $("#pip-grid").innerHTML = ""
+
+  drawLockdown () {
+    $('#pip-grid').innerHTML = ''
     for (let i = this.piece.manipulationLimit; i > 0; i--) {
-      const pip = document.createElement("div")
-      pip.classList.add("manip-pip")
+      const pip = document.createElement('div')
+      pip.classList.add('manip-pip')
       pip.id = `pip-${i}`
-      $("#pip-grid").appendChild(pip)
+      $('#pip-grid').appendChild(pip)
     }
     if (!this.userSettings.useLockdownBar) {
-      $("#pip-grid").classList.add("hidden")
-      $("#lockdown").classList.add("hidden")
-      $("#delay").classList.add("hidden")
-      $("#infinity-symbol").classList.add("hidden")
-      $("#infinity-symbol").classList.remove("gold")
+      $('#pip-grid').classList.add('hidden')
+      $('#lockdown').classList.add('hidden')
+      $('#delay').classList.add('hidden')
+      $('#infinity-symbol').classList.add('hidden')
+      $('#infinity-symbol').classList.remove('gold')
       return
     }
     switch (this.piece.lockdownType) {
-      case "extended":
-        $("#pip-grid").classList.remove("hidden")
-        $("#lockdown").classList.remove("hidden")
-        $("#delay").classList.remove("hidden")
-        $("#infinity-symbol").classList.add("hidden")
-        $("#infinity-symbol").classList.remove("gold")
+      case 'extended':
+        $('#pip-grid').classList.remove('hidden')
+        $('#lockdown').classList.remove('hidden')
+        $('#delay').classList.remove('hidden')
+        $('#infinity-symbol').classList.add('hidden')
+        $('#infinity-symbol').classList.remove('gold')
         break
-      case "infinite":
-        $("#pip-grid").classList.add("hidden")
-        $("#lockdown").classList.remove("hidden")
-        $("#delay").classList.remove("hidden")
-        $("#infinity-symbol").classList.remove("hidden")
-        $("#infinity-symbol").classList.remove("gold")
+      case 'infinite':
+        $('#pip-grid').classList.add('hidden')
+        $('#lockdown').classList.remove('hidden')
+        $('#delay').classList.remove('hidden')
+        $('#infinity-symbol').classList.remove('hidden')
+        $('#infinity-symbol').classList.remove('gold')
         break
-      case "zen":
-        $("#pip-grid").classList.add("hidden")
-        $("#lockdown").classList.remove("hidden")
-        $("#delay").classList.remove("hidden")
-        $("#infinity-symbol").classList.remove("hidden")
-        $("#infinity-symbol").classList.add("gold")
+      case 'zen':
+        $('#pip-grid').classList.add('hidden')
+        $('#lockdown').classList.remove('hidden')
+        $('#delay').classList.remove('hidden')
+        $('#infinity-symbol').classList.remove('hidden')
+        $('#infinity-symbol').classList.add('gold')
         break
-      case "classic":
-        $("#pip-grid").classList.add("hidden")
-        $("#lockdown").classList.remove("hidden")
-        $("#delay").classList.remove("hidden")
-        $("#infinity-symbol").classList.add("hidden")
-        $("#infinity-symbol").classList.remove("gold")
+      case 'classic':
+        $('#pip-grid').classList.add('hidden')
+        $('#lockdown').classList.remove('hidden')
+        $('#delay').classList.remove('hidden')
+        $('#infinity-symbol').classList.add('hidden')
+        $('#infinity-symbol').classList.remove('gold')
         break
       default:
-        $("#pip-grid").classList.add("hidden")
-        $("#lockdown").classList.add("hidden")
-        $("#delay").classList.add("hidden")
-        $("#infinity-symbol").classList.add("hidden")
-        $("#infinity-symbol").classList.remove("gold")
+        $('#pip-grid').classList.add('hidden')
+        $('#lockdown').classList.add('hidden')
+        $('#delay').classList.add('hidden')
+        $('#infinity-symbol').classList.add('hidden')
+        $('#infinity-symbol').classList.remove('gold')
         break
     }
   }
-  updateStats() {
+
+  updateStats () {
     for (const statName of this.stats) {
-      if (statName === "skipCount") {
+      if (statName === 'skipCount') {
         continue
       }
-      const prefix = this.prefixes[statName] ? this.prefixes[statName] : ""
-      const append = this.appends[statName] ? this.appends[statName] : ""
+      const prefix = this.prefixes[statName] ? this.prefixes[statName] : ''
+      const append = this.appends[statName] ? this.appends[statName] : ''
       const value = this.stat[statName]
       $(`#stat-${statName}`).innerHTML = `${prefix}${value}${append}`
-      if (statName === "piece") {
+      if (statName === 'piece') {
         $(
-          "#stat-piece"
+          '#stat-piece'
         ).innerHTML = `<span class="medium">${value}</span><br><b>${
           Math.round(gameHandler.game.pps * 100) / 100
-        }</b>/${locale.getString("ui", "sec")}`
+        }</b>/${locale.getString('ui', 'sec')}`
       }
-      if (statName === "b2b") {
-        $("#stat-b2b").innerHTML = `×${value}<br>(Max: ×${
+      if (statName === 'b2b') {
+        $('#stat-b2b').innerHTML = `×${value}<br>(Max: ×${
           this.maxb2b - 1 < 0 ? 0 : this.maxb2b - 1
         })`
       }
     }
   }
-  shiftMatrix(direction) {
+
+  shiftMatrix (direction) {
     if (settings.settings.matrixSwayScale <= 0) {
       return
     }
     switch (direction) {
-      case "left":
+      case 'left':
         this.matrix.velocity.left = 1
         this.matrix.velocity.right = 0
         break
-      case "right":
+      case 'right':
         this.matrix.velocity.right = 1
         this.matrix.velocity.left = 0
         break
-      case "up":
+      case 'up':
         this.matrix.velocity.up = 1
         this.matrix.velocity.down = 0
         break
-      case "down":
+      case 'down':
         this.matrix.velocity.down = 1
         this.matrix.velocity.up = 0
         break
       default:
-        throw new Error("Matrix shift direction undefined or incorrect")
+        throw new Error('Matrix shift direction undefined or incorrect')
     }
   }
-  shakeMatrix(power = 1) {
+
+  shakeMatrix (power = 1) {
     this.matrix.shakeVelocity.x = power
     this.matrix.shakeVelocity.y = power / 2
   }
-  updateMatrix(ms) {
+
+  updateMatrix (ms) {
     const multiplier = ms / 16.666666666666
     const matrixPush = (direction) => {
-      const axis = direction === "right" || direction === "left" ? "x" : "y"
-      const modifier = direction === "right" || direction === "down" ? 1 : -1
+      const axis = direction === 'right' || direction === 'left' ? 'x' : 'y'
+      const modifier = direction === 'right' || direction === 'down' ? 1 : -1
       this.matrix.velocity[direction] = Math.min(
         this.matrix.velocity[direction],
         1
@@ -761,14 +778,14 @@ export default class Game {
         0
       )
     }
-    for (const direction of ["x", "y"]) {
+    for (const direction of ['x', 'y']) {
       if (Math.abs(this.matrix.position[direction]) < 0.0001) {
         this.matrix.position[direction] = 0
       }
     }
     for (const directions of [
-      ["left", "right", "x"],
-      ["up", "down", "y"],
+      ['left', 'right', 'x'],
+      ['up', 'down', 'y']
     ]) {
       if (
         this.matrix.velocity[directions[0]] === 0 &&
@@ -786,7 +803,7 @@ export default class Game {
         }
       }
     }
-    for (const direction of ["x", "y"]) {
+    for (const direction of ['x', 'y']) {
       const modifier = Math.random() * 2 - 1
       this.matrix.position[direction] +=
         this.matrix.shakeVelocity[direction] * modifier
@@ -795,7 +812,7 @@ export default class Game {
         this.matrix.shakeVelocity[direction] = 0
       }
     }
-    for (const element of ["#game-center", "#stats"]) {
+    for (const element of ['#game-center', '#stats']) {
       const scale =
         6 - Math.sqrt(25 * (settings.settings.matrixSwayScale / 100))
       $(element).style.transform = `translate(${
@@ -803,12 +820,13 @@ export default class Game {
       }em, ${this.matrix.position.y / scale}em)`
     }
   }
-  get cellSize() {
+
+  get cellSize () {
     const gameWidth =
-      $("#game > .game-left").offsetWidth +
-      $("#game > .game-center").offsetWidth +
-      $("#game > .game-right").offsetWidth
-    const gameAspectRatio = gameWidth / $("#game > .game-center").offsetHeight
+      $('#game > .game-left').offsetWidth +
+      $('#game > .game-center').offsetWidth +
+      $('#game > .game-right').offsetWidth
+    const gameAspectRatio = gameWidth / $('#game > .game-center').offsetHeight
     const base = Math.min(
       window.innerWidth / gameAspectRatio,
       window.innerHeight
@@ -817,7 +835,8 @@ export default class Game {
       ((base / 1.2 / this.settings.height) * this.userSettings.size) / 100
     )
   }
-  updateMusic() {
+
+  updateMusic () {
     if (this.settings.musicLinePoints != null) {
       for (let i = 0; i < this.musicLinePointCleared.length; i++) {
         const bool = this.musicLinePointCleared[i]
@@ -833,11 +852,12 @@ export default class Game {
       }
     }
   }
-  gameLoop() {
+
+  gameLoop () {
     const game = gameHandler.game
     if (!game.isDead) {
       game.request = requestAnimationFrame(game.gameLoop)
-      if (typeof game.loop === "function") {
+      if (typeof game.loop === 'function') {
         game.now = game.timestamp()
         game.deltaTime = (game.now - game.last) / 1000
         const msPassed = game.deltaTime * 1000
@@ -846,8 +866,8 @@ export default class Game {
             game.piece.startingAre < game.piece.startingAreLimit &&
             game.loadFinished
           ) {
-            $("#ready-meter").max = game.piece.startingAreLimit
-            $("#ready-meter").value =
+            $('#ready-meter').max = game.piece.startingAreLimit
+            $('#ready-meter').value =
               game.piece.startingAreLimit - game.piece.startingAre
             game.piece.startingAre += msPassed
           }
@@ -861,12 +881,12 @@ export default class Game {
             // GOALS
             if (game.lineGoal != null) {
               if (game.stat.line >= game.lineGoal) {
-                $("#kill-message").textContent = locale.getString(
-                  "ui",
-                  "excellent"
+                $('#kill-message').textContent = locale.getString(
+                  'ui',
+                  'excellent'
                 )
                 sound.killVox()
-                sound.add("voxexcellent")
+                sound.add('voxexcellent')
                 game.end(true)
               }
             }
@@ -877,12 +897,12 @@ export default class Game {
                   : game.timePassed) >= game.timeGoal
               ) {
                 game.timeGoal = null
-                $("#kill-message").textContent = locale.getString(
-                  "ui",
-                  "timeOut"
+                $('#kill-message').textContent = locale.getString(
+                  'ui',
+                  'timeOut'
                 )
                 sound.killVox()
-                sound.add("voxtimeup")
+                sound.add('voxtimeup')
                 game.end()
               }
             }
@@ -904,17 +924,17 @@ export default class Game {
                 lifeVariance: 80,
                 red: 255,
                 blue: 51,
-                green: 28,
+                green: 28
               }
               game.particle.generate({
                 x: 0,
                 xVelocity: 2,
-                ...redLineParticleSettings,
+                ...redLineParticleSettings
               })
               game.particle.generate({
                 x: game.stack.width * cellSize,
                 xVelocity: -2,
-                ...redLineParticleSettings,
+                ...redLineParticleSettings
               })
               game.particle.generate({
                 amount: 1,
@@ -929,7 +949,7 @@ export default class Game {
                 xFlurry: 0.2,
                 yFlurry: 0.2,
                 lifeVariance: 80,
-                maxlife: 500,
+                maxlife: 500
               })
             }
             game.loop({
@@ -937,16 +957,16 @@ export default class Game {
               piece: game.piece,
               stack: game.stack,
               hold: game.hold,
-              particle: game.particle,
+              particle: game.particle
             })
           }
           game.particle.update(msPassed)
           game.updateMatrix(msPassed)
-          const modules = ["piece", "stack", "next", "hold", "particle"]
+          const modules = ['piece', 'stack', 'next', 'hold', 'particle']
           for (const moduleName of modules) {
             const currentModule = game[moduleName]
             if (currentModule.isDirty || game.isDirty) {
-              if (moduleName === "stack" && game.isDirty) {
+              if (moduleName === 'stack' && game.isDirty) {
                 game.stack.makeAllDirty()
               }
               currentModule.draw()
@@ -959,7 +979,7 @@ export default class Game {
           game.drawLockdown()
         }
         game.piece.lockdownTypeLast = game.piece.lockdownType
-        if (input.getGamePress("pause") && !game.noUpdate) {
+        if (input.getGamePress('pause') && !game.noUpdate) {
           if (game.isPaused) {
             game.unpause()
           } else {
@@ -972,7 +992,7 @@ export default class Game {
           }
         } else {
         }
-        if (input.getGamePress("retry")) {
+        if (input.getGamePress('retry')) {
           game.mustReset = true
         }
         sound.playSeQueue()
@@ -981,47 +1001,47 @@ export default class Game {
           game.isDead = true
         }
         if (game.isPaused) {
-          $("#timer").classList.add("paused")
-          $("#timer-real").classList.add("paused")
+          $('#timer').classList.add('paused')
+          $('#timer-real').classList.add('paused')
         } else {
           if (game.piece.inAre) {
-            $("#timer").classList.add("paused")
+            $('#timer').classList.add('paused')
           } else {
-            $("#timer").classList.remove("paused")
+            $('#timer').classList.remove('paused')
           }
           if (game.piece.startingAre < game.piece.startingAreLimit) {
-            $("#timer-real").classList.add("paused")
+            $('#timer-real').classList.add('paused')
           } else {
-            $("#timer-real").classList.remove("paused")
+            $('#timer-real').classList.remove('paused')
           }
         }
         if (game.timeGoal != null) {
           if (game.rtaLimit) {
-            $("#timer").innerHTML = locale.getString("ui", "inGameTime", [
-              msToTime(game.timePassed),
+            $('#timer').innerHTML = locale.getString('ui', 'inGameTime', [
+              msToTime(game.timePassed)
             ])
-            $("#timer-real").innerHTML = locale.getString(
-              "ui",
-              "realTimeAttack",
+            $('#timer-real').innerHTML = locale.getString(
+              'ui',
+              'realTimeAttack',
               [msToTime(game.timeGoal - game.timePassed - game.timePassedAre)]
             )
           } else {
-            $("#timer").innerHTML = locale.getString("ui", "inGameTime", [
-              msToTime(game.timeGoal - game.timePassed),
+            $('#timer').innerHTML = locale.getString('ui', 'inGameTime', [
+              msToTime(game.timeGoal - game.timePassed)
             ])
-            $("#timer-real").innerHTML = locale.getString(
-              "ui",
-              "realTimeAttack",
+            $('#timer-real').innerHTML = locale.getString(
+              'ui',
+              'realTimeAttack',
               [msToTime(game.timePassed + game.timePassedAre)]
             )
           }
         } else {
-          $("#timer").innerHTML = locale.getString("ui", "inGameTime", [
-            msToTime(game.timePassed),
+          $('#timer').innerHTML = locale.getString('ui', 'inGameTime', [
+            msToTime(game.timePassed)
           ])
-          $("#timer-real").innerHTML = locale.getString(
-            "ui",
-            "realTimeAttack",
+          $('#timer-real').innerHTML = locale.getString(
+            'ui',
+            'realTimeAttack',
             [msToTime(game.timePassed + game.timePassedAre)]
           )
         }
@@ -1033,39 +1053,40 @@ export default class Game {
       }
     }
   }
-  makeSprite(
+
+  makeSprite (
     colors = [
-      "red",
-      "orange",
-      "yellow",
-      "green",
-      "lightBlue",
-      "blue",
-      "purple",
-      "white",
-      "black",
+      'red',
+      'orange',
+      'yellow',
+      'green',
+      'lightBlue',
+      'blue',
+      'purple',
+      'white',
+      'black'
     ],
-    types = ["mino", "ghost", "stack"],
-    skin = settings.settings.skin === "auto"
+    types = ['mino', 'ghost', 'stack'],
+    skin = settings.settings.skin === 'auto'
       ? SKIN_SETS[this.settings.rotationSystem]
       : settings.settings.skin
   ) {
     this.loadFinished = false
-    $("#sprite").innerHTML = ""
-    $("#load-message").classList.remove("hidden")
+    $('#sprite').innerHTML = ''
+    $('#load-message').classList.remove('hidden')
     const toLoad = colors.length * types.length
     let loaded = 0
     for (const type of types) {
       for (const color of colors) {
-        const img = document.createElement("img")
+        const img = document.createElement('img')
         img.src = `img/skin/${skin}/${type}-${color}.svg`
         img.id = `${type}-${color}`
-        $("#sprite").appendChild(img)
+        $('#sprite').appendChild(img)
         const onLoad = () => {
           loaded++
           if (loaded >= toLoad) {
             this.loadFinished = true
-            $("#load-message").classList.add("hidden")
+            $('#load-message').classList.add('hidden')
           }
           this.isDirty = true
         }
@@ -1073,15 +1094,16 @@ export default class Game {
         if (img.complete) {
           onLoad()
         } else {
-          img.addEventListener("load", onLoad)
-          img.addEventListener("error", function () {
+          img.addEventListener('load', onLoad)
+          img.addEventListener('error', function () {
             // alert('error');
           })
         }
       }
     }
   }
-  addScore(name, multiplier = 1) {
+
+  addScore (name, multiplier = 1) {
     const scoreTable = SCORE_TABLES[this.settings.scoreTable]
     let score = scoreTable[name]
     if (score != null) {

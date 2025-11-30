@@ -1,6 +1,6 @@
-import GameModule from "./game-module.js"
-import $, { clearCtx, resetAnimation } from "../shortcuts.js"
-import * as randomizer from "./modules/randomizers.js"
+import GameModule from './game-module.js'
+import $, { clearCtx, resetAnimation } from '../shortcuts.js'
+import * as randomizer from './modules/randomizers.js'
 import {
   PIECE_SETS,
   PIECES,
@@ -8,13 +8,13 @@ import {
   DOMINO_PIECES,
   TROMINO_PIECES,
   PENTOMINO_PIECES,
-  INITIAL_ORIENTATION,
-} from "../consts.js"
-import sound from "../sound.js"
-import settings from "../settings.js"
+  INITIAL_ORIENTATION
+} from '../consts.js'
+import sound from '../sound.js'
+import settings from '../settings.js'
 
 export default class Hold extends GameModule {
-  constructor(parent, ctx) {
+  constructor (parent, ctx) {
     super(parent)
     this.ctx = ctx
     this.pieceName = null
@@ -28,15 +28,17 @@ export default class Hold extends GameModule {
     this.holdAmountLimit = 0
     this.gainHoldOnPlacement = false
   }
-  getPiece() {
+
+  getPiece () {
     return this.pieceName
       ? this.pieceName
       : this.parent.piece.inAre
-      ? this.parent.next.queue[1]
-      : this.parent.next.queue[0]
+        ? this.parent.next.queue[1]
+        : this.parent.next.queue[0]
   }
-  hold() {
-    if (this.parent.type !== "zen") {
+
+  hold () {
+    if (this.parent.type !== 'zen') {
       if (
         (this.isLocked && !this.useSkip) ||
         this.isDisabled ||
@@ -51,17 +53,17 @@ export default class Hold extends GameModule {
     this.hasHeld = true
     if (this.ihs) {
       if (this.useSkip) {
-        sound.add("initialskip")
+        sound.add('initialskip')
         this.parent.stat.skipCount++
       } else {
-        sound.add("initialhold")
+        sound.add('initialhold')
       }
     } else {
       if (this.useSkip) {
-        sound.add("skip")
+        sound.add('skip')
         this.parent.stat.skipCount++
       } else {
-        sound.add("hold")
+        sound.add('hold')
       }
     }
     this.ihsAmount--
@@ -77,34 +79,35 @@ export default class Hold extends GameModule {
     }
     this.isDirty = true
     this.isLocked = true
-    resetAnimation("#hold-container", "flash")
+    resetAnimation('#hold-container', 'flash')
   }
-  draw() {
+
+  draw () {
     if (this.isDisabled) {
-      $("#hold-container").classList.add("hidden")
+      $('#hold-container').classList.add('hidden')
     } else {
-      $("#hold-container").classList.remove("hidden")
+      $('#hold-container').classList.remove('hidden')
     }
     if (this.useSkip) {
-      if (this.parent.type !== "zen") {
-        $("#skip-amount").textContent = this.holdAmount
+      if (this.parent.type !== 'zen') {
+        $('#skip-amount').textContent = this.holdAmount
       }
       // else { $('#skip-amount').innerHTML = '∞'; }
       else {
-        $("#skip-amount").innerHTML = this.parent.stat.skipCount
+        $('#skip-amount').innerHTML = this.parent.stat.skipCount
       }
       return
     } else {
-      $("#skip-amount").textContent = ""
+      $('#skip-amount').textContent = ''
     }
     if (this.pieceName === null) {
       return
     }
-    if (this.parent.type !== "zen") {
+    if (this.parent.type !== 'zen') {
       if (this.isLocked || this.useSkip) {
-        $("#hold").classList.add("locked")
+        $('#hold').classList.add('locked')
       } else {
-        $("#hold").classList.remove("locked")
+        $('#hold').classList.remove('locked')
       }
     }
     clearCtx(this.ctx)
@@ -113,25 +116,25 @@ export default class Hold extends GameModule {
     }
     let shape
     switch (settings.settings.shapeOverride) {
-      case "mono":
+      case 'mono':
         shape =
           MONOMINO_PIECES[this.pieceName].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]
           ]
         break
-      case "do":
+      case 'do':
         shape =
           DOMINO_PIECES[this.pieceName].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]
           ]
         break
-      case "tro":
+      case 'tro':
         shape =
           TROMINO_PIECES[this.pieceName].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]
           ]
         break
-      case "pento":
+      case 'pento':
         shape =
           PENTOMINO_PIECES[this.pieceName].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][this.pieceName]

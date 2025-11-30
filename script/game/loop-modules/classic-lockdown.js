@@ -1,9 +1,9 @@
-import $ from "../../shortcuts.js"
+import $ from '../../shortcuts.js'
 
-export default function classicLockdown(arg) {
+export default function classicLockdown (arg) {
   const piece = arg.piece
   if (piece.isDead) {
-    $("#lockdown").value = 0
+    $('#lockdown').value = 0
     return
   }
   piece.manipulations = 0
@@ -22,7 +22,7 @@ export default function classicLockdown(arg) {
     piece.lockDelay += arg.ms
     piece.isDirty = true
   }
-  $("#lockdown").max = piece.lockDelayLimit
-  $("#lockdown").value = piece.lockDelayLimit - piece.lockDelay
+  $('#lockdown').max = piece.lockDelayLimit
+  $('#lockdown').value = piece.lockDelayLimit - piece.lockDelay
   piece.lowestY = Math.max(piece.y, piece.lowestY)
 }

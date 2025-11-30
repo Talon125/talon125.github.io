@@ -1,11 +1,11 @@
-import GameModule from "./game-module.js"
-import $, { negativeMod, resetAnimation, hsvToRgb } from "../shortcuts.js"
-import sound from "../sound.js"
-import locale from "../lang.js"
-import settings from "../settings.js"
-import { SCORE_TABLES } from "../consts.js"
+import GameModule from './game-module.js'
+import $, { negativeMod, resetAnimation, hsvToRgb } from '../shortcuts.js'
+import sound from '../sound.js'
+import locale from '../lang.js'
+import settings from '../settings.js'
+import { SCORE_TABLES } from '../consts.js'
 export default class Stack extends GameModule {
-  constructor(parent, ctx) {
+  constructor (parent, ctx) {
     super(parent)
     this.width = this.parent.settings.width
     this.height = this.parent.settings.height
@@ -36,14 +36,16 @@ export default class Stack extends GameModule {
     this.copyBottomForGarbage = false
     this.isClutch = false
   }
-  makeAllDirty() {
+
+  makeAllDirty () {
     for (let x = 0; x < this.grid.length; x++) {
       for (let y = 0; y < this.grid[x].length; y++) {
         this.dirtyCells.push([x, y])
       }
     }
   }
-  gridWithLockdown() {
+
+  gridWithLockdown () {
     const finalBlocks = this.parent.piece.getFinalBlockLocations()
     const newGrid = JSON.parse(JSON.stringify(this.grid))
     for (const finalBlock of finalBlocks) {
@@ -52,12 +54,13 @@ export default class Stack extends GameModule {
         finalBlock[0] >= this.parent.settings.width ||
         finalBlock[1] >= this.parent.settings.height
       ) {
-        console.log("Piece is too big for Matrix!!")
-      } else newGrid[finalBlock[0]][finalBlock[1] + this.hiddenHeight] = "test"
+        console.log('Piece is too big for Matrix!!')
+      } else newGrid[finalBlock[0]][finalBlock[1] + this.hiddenHeight] = 'test'
     }
     return newGrid
   }
-  wouldCauseLineClear() {
+
+  wouldCauseLineClear () {
     const newGrid = this.gridWithLockdown()
     let lineClear = 0
     for (let y = 0; y < newGrid[0].length; y++) {
@@ -73,11 +76,12 @@ export default class Stack extends GameModule {
     }
     return lineClear
   }
-  add(passedX, passedY, shape, color) {
+
+  add (passedX, passedY, shape, color) {
     let garbageToClear = 0
     sound.syncBgm()
     if (!this.parent.piece.hasHardDropped) {
-      sound.add("locknohd")
+      sound.add('locknohd')
     }
     const checkSpin = this.parent.piece.checkSpin()
     let isSpin = false
@@ -91,8 +95,8 @@ export default class Stack extends GameModule {
       isMini = checkSpin.isMini
     }
     // isSpin = true;
-    sound.add("lock")
-    this.parent.shiftMatrix("down")
+    sound.add('lock')
+    this.parent.shiftMatrix('down')
     this.parent.stat.piece++
     this.parent.piece.last = this.parent.piece.name
     this.lineClear = 0
@@ -135,15 +139,15 @@ export default class Stack extends GameModule {
             yDampening: 1.03,
             gravity: 0,
             maxlife: 70,
-            lifeVariance: 40,
+            lifeVariance: 40
           })
           const xLocation = x + passedX
           const yLocation = y + passedY + this.hiddenHeight
           if (yLocation - this.hiddenHeight >= 0) {
             passedLockOut--
           }
-          if (this.parent.piece.useSpecialI && this.parent.piece.name === "I") {
-            this.grid[xLocation][yLocation] = "i" + shape[y][x]
+          if (this.parent.piece.useSpecialI && this.parent.piece.name === 'I') {
+            this.grid[xLocation][yLocation] = 'i' + shape[y][x]
           } else {
             this.grid[xLocation][yLocation] = color
           }
@@ -158,9 +162,9 @@ export default class Stack extends GameModule {
         this.isClutch = true
         this.collapse()
       } else {
-        $("#kill-message").textContent = locale.getString("ui", "lockOut")
+        $('#kill-message').textContent = locale.getString('ui', 'lockOut')
         sound.killVox()
-        sound.add("voxlockout")
+        sound.add('voxlockout')
         this.parent.end()
         return
       }
@@ -191,11 +195,11 @@ export default class Stack extends GameModule {
       }
     }
     if (isSpin) {
-      sound.add("tspinbonus")
+      sound.add('tspinbonus')
     }
-    const version = isMini ? "mini" : ""
+    const version = isMini ? 'mini' : ''
     if (this.lineClear >= 4 && this.flashOnTetris) {
-      resetAnimation("#stack", "tetris-flash")
+      resetAnimation('#stack', 'tetris-flash')
     }
     let pc = true
     for (let x = 0; x < this.grid.length; x++) {
@@ -219,9 +223,9 @@ export default class Stack extends GameModule {
           this.parent.stat.maxcombo
         )
       }
-      let type = "erase"
+      let type = 'erase'
       if (isSpin) {
-        type = "tspin"
+        type = 'tspin'
         this.parent.b2b++
         this.parent.maxb2b = Math.max(this.parent.b2b, this.parent.maxb2b)
       } else if (this.lineClear < 4) {
@@ -229,11 +233,11 @@ export default class Stack extends GameModule {
       }
       if (this.lineClear < 4) {
         sound.add(`${type}not4${version}`)
-      } else if (type !== "tspin") {
+      } else if (type !== 'tspin') {
         this.parent.b2b++
         this.parent.maxb2b = Math.max(this.parent.b2b, this.parent.maxb2b)
       }
-      const b2bPrefix = this.parent.b2b > 1 ? "b2b_" : ""
+      const b2bPrefix = this.parent.b2b > 1 ? 'b2b_' : ''
       sound.add(`${b2bPrefix}${type}${version}`)
       if (this.lineClear > 4) {
         sound.add(`${b2bPrefix}${type}4${version}`)
@@ -241,7 +245,7 @@ export default class Stack extends GameModule {
         sound.add(`${b2bPrefix}${type}${this.lineClear}${version}`)
       }
       if (this.parent.b2b > 1) {
-        sound.add("b2b")
+        sound.add('b2b')
       }
       if (isSpin) {
         this.parent.addScore(`tspin${this.lineClear}`)
@@ -259,7 +263,7 @@ export default class Stack extends GameModule {
           }
         } else {
           if (this.parent.b2b > 1 && this.lineClear === 4) {
-            sound.add("voxb2b_erase4")
+            sound.add('voxb2b_erase4')
           } else {
             sound.add(`voxerase${this.lineClear}`)
           }
@@ -274,33 +278,33 @@ export default class Stack extends GameModule {
           sound.add(`vox${this.parent.piece.name.toLowerCase()}spin0`)
         }
         sound.add(`tspin0${version}`)
-        this.parent.addScore("tspin0")
+        this.parent.addScore('tspin0')
       }
     }
     if (this.parent.combo > 0) {
       sound.add(`ren${this.parent.combo}`)
       if (this.parent.combo <= 5) {
-        sound.add("voxren1")
+        sound.add('voxren1')
       } else if (this.parent.combo <= 10) {
-        sound.add("voxren2")
+        sound.add('voxren2')
       } else {
-        sound.add("voxren3")
+        sound.add('voxren3')
       }
-      this.parent.addScore("combo", this.parent.combo)
+      this.parent.addScore('combo', this.parent.combo)
       if (settings.settings.displayActionText) {
-        $("#combo-counter-container").classList.remove("hidden")
-        $("#combo-counter").innerHTML = locale.getString(
-          "action-text",
-          "combo",
+        $('#combo-counter-container').classList.remove('hidden')
+        $('#combo-counter').innerHTML = locale.getString(
+          'action-text',
+          'combo',
           [`<b>${this.parent.combo}</b>`]
         )
         document.documentElement.style.setProperty(
-          "--combo-flash-speed",
-          Math.max(0.5 - 0.485 * (this.parent.combo / 18), 0.041) + "s"
+          '--combo-flash-speed',
+          Math.max(0.5 - 0.485 * (this.parent.combo / 18), 0.041) + 's'
         )
       }
     } else {
-      $("#combo-counter-container").classList.add("hidden")
+      $('#combo-counter-container').classList.add('hidden')
     }
     if (
       this.parent.piece.areLineLimit === 0 &&
@@ -321,7 +325,7 @@ export default class Stack extends GameModule {
     if (pc) {
       this.parent.stat.pcCount++
       for (let i = 0; i < (200 * this.width) / 10; i++) {
-        sound.add("perfectclear")
+        sound.add('perfectclear')
         const colors = hsvToRgb(Math.random(), 0.7, 1)
         this.parent.particle.generate({
           amount: 1,
@@ -342,26 +346,26 @@ export default class Stack extends GameModule {
           blue: colors.b,
           lifeVariance: 2000,
           maxlife: 250,
-          flicker: 1,
+          flicker: 1
         })
       }
-      sound.add("bravo")
-      sound.add("voxperfectclear")
+      sound.add('bravo')
+      sound.add('voxperfectclear')
       const options = {
         time: 4000,
         skipDefaultAnimation: true,
-        additionalClasses: ["perfect-clear-text"],
+        additionalClasses: ['perfect-clear-text']
       }
       this.parent.displayActionText(
         `<span class="perfect-clear">${locale
-          .getString("action-text", "pc")
-          .replace(" ", "<br>")}</span>`,
+          .getString('action-text', 'pc')
+          .replace(' ', '<br>')}</span>`,
         options
       )
       this.parent.displayActionText(
         `<span class="perfect-clear-secondary">${locale
-          .getString("action-text", "pc")
-          .replace(" ", "<br>")}</span>`,
+          .getString('action-text', 'pc')
+          .replace(' ', '<br>')}</span>`,
         { ...options, time: 2000 }
       )
     }
@@ -388,26 +392,26 @@ export default class Stack extends GameModule {
       this.showGarbageSendAnimation
     ) {
       const selectedStartingType = Math.floor(Math.random() * 2)
-      const element = document.createElement("div")
+      const element = document.createElement('div')
       switch (selectedStartingType) {
         case 0:
-          element.style.setProperty("--starting-value-left", "0%")
+          element.style.setProperty('--starting-value-left', '0%')
           break
         case 1:
-          element.style.setProperty("--starting-value-right", "100%")
+          element.style.setProperty('--starting-value-right', '100%')
           break
       }
       const startingPositionOpposite = Math.random() * 100
       element.style.setProperty(
-        "--starting-value-top",
+        '--starting-value-top',
         `${startingPositionOpposite}%`
       )
       const id = `gb-${performance.now()}`
-      element.classList.add("garbage-particle")
-      element.classList.add("send")
+      element.classList.add('garbage-particle')
+      element.classList.add('send')
       element.id = id
-      $("#game").appendChild(element)
-      sound.add("garbagesend")
+      $('#game').appendChild(element)
+      sound.add('garbagesend')
       setTimeout(() => {
         element.parentNode.removeChild(element)
       }, 330)
@@ -432,8 +436,9 @@ export default class Stack extends GameModule {
     } */
     this.parent.updateStats()
   }
-  alarmCheck() {
-    if (this.parent.type === "zen") {
+
+  alarmCheck () {
+    if (this.parent.type === 'zen') {
       return
     }
     if (
@@ -449,76 +454,81 @@ export default class Stack extends GameModule {
       this.endAlarm()
     }
   }
-  updateGrid() {
-    if (this.parent.hideGrid || settings.settings.gridStyle === "off") {
-      document.documentElement.style.setProperty("--grid-image", "url()")
+
+  updateGrid () {
+    if (this.parent.hideGrid || settings.settings.gridStyle === 'off') {
+      document.documentElement.style.setProperty('--grid-image', 'url()')
       return
     }
     const gridName = settings.settings.gridStyle
     if (this.alarmIsOn) {
       document.documentElement.style.setProperty(
-        "--grid-image",
+        '--grid-image',
         `url("../img/tetrion/grid-bg-${gridName}-danger.svg")`
       )
     } else {
       document.documentElement.style.setProperty(
-        "--grid-image",
+        '--grid-image',
         `url("../img/tetrion/grid-bg-${gridName}.svg")`
       )
     }
   }
-  startAlarm() {
+
+  startAlarm () {
     if (this.alarmIsOn) {
       return
     }
     sound.raiseDangerBgm()
-    sound.startSeLoop("alarm")
+    sound.startSeLoop('alarm')
     this.alarmIsOn = true
     this.updateGrid()
-    document.documentElement.style.setProperty("--tetrion-color", "#f00")
-    $("#next-piece").classList.add("danger")
+    document.documentElement.style.setProperty('--tetrion-color', '#f00')
+    $('#next-piece').classList.add('danger')
   }
-  endAlarm() {
+
+  endAlarm () {
     sound.lowerDangerBgm()
-    sound.stopSeLoop("alarm")
+    sound.stopSeLoop('alarm')
     this.alarmIsOn = false
     this.updateGrid()
-    document.documentElement.style.setProperty("--tetrion-color", "#fff")
-    $("#next-piece").classList.remove("danger")
+    document.documentElement.style.setProperty('--tetrion-color', '#fff')
+    $('#next-piece').classList.remove('danger')
   }
-  addGarbageToCounter(amount = 1) {
+
+  addGarbageToCounter (amount = 1) {
     const selectedStartingType = Math.floor(Math.random() * 2)
-    const element = document.createElement("div")
+    const element = document.createElement('div')
     switch (selectedStartingType) {
       case 0:
-        element.style.setProperty("--starting-value-left", "0%")
+        element.style.setProperty('--starting-value-left', '0%')
         break
       case 1:
-        element.style.setProperty("--starting-value-right", "100%")
+        element.style.setProperty('--starting-value-right', '100%')
         break
     }
     const startingPositionOpposite = Math.random() * 100
     element.style.setProperty(
-      "--starting-value-top",
+      '--starting-value-top',
       `${startingPositionOpposite}%`
     )
     const id = `gb-${performance.now()}`
-    element.classList.add("garbage-particle")
+    element.classList.add('garbage-particle')
     element.id = id
-    $("#game").appendChild(element)
-    sound.add("garbagefly")
+    $('#game').appendChild(element)
+    sound.add('garbagefly')
     setTimeout(() => {
       this.waitingGarbage += amount
       this.parent.piece.isDirty = true
       this.parent.shakeMatrix()
-      sound.add("garbagereceive")
+      sound.add('garbagereceive')
       this.alarmCheck()
       element.parentNode.removeChild(element)
     }, 330)
   }
-  spawnBrokenLine(amount = 1) {
-    sound.add("garbage")
-    this.parent.shiftMatrix("up")
+
+  spawnBrokenLine (amount = 1) {
+    sound.add('garbage')
+    this.parent.shiftMatrix('up')
     let topOut = false
     for (let i = 0; i < amount; i++) {
       // if (this.garbageHoleUsed >= this.garbageSwitchRate && !this.copyBottomForGarbage) {
@@ -549,7 +559,7 @@ export default class Stack extends GameModule {
         if (x === this.garbageRandomHole && !this.copyBottomForGarbage) {
           continue
         }
-        this.grid[x][this.grid[0].length - 1] = "black"
+        this.grid[x][this.grid[0].length - 1] = 'black'
       }
       if (this.parent.piece.isStuck) {
         this.parent.piece.y--
@@ -561,14 +571,14 @@ export default class Stack extends GameModule {
     this.isDirty = true
     this.parent.piece.isDirty = true
     if (topOut) {
-      $("#kill-message").textContent = locale.getString("ui", "topOut")
+      $('#kill-message').textContent = locale.getString('ui', 'topOut')
       sound.killVox()
-      sound.add("voxtopout")
+      sound.add('voxtopout')
       this.parent.end()
-      return
     }
   }
-  collapse() {
+
+  collapse () {
     if (this.toCollapse.length === 0) {
       return
     }
@@ -596,11 +606,11 @@ export default class Stack extends GameModule {
     this.parent.addScore(`erase${this.lineClear}`)
     this.parent.updateStats()
     if (fallenBlocks !== 0) {
-      sound.add("collapse")
+      sound.add('collapse')
       if (this.toCollapse.length >= 4) {
-        sound.add("collapse4")
+        sound.add('collapse4')
       } else {
-        sound.add("collapsenot4")
+        sound.add('collapsenot4')
       }
     }
     this.parent.particle.generate({
@@ -617,7 +627,7 @@ export default class Stack extends GameModule {
       yVariance: 2,
       gravity: 0.3,
       gravityAccceleration: 1.05,
-      lifeVariance: 80,
+      lifeVariance: 80
     })
     this.toCollapse = []
     this.lineClear = 0
@@ -625,14 +635,16 @@ export default class Stack extends GameModule {
     this.isDirty = true
     this.parent.piece.isDirty = true
   }
-  new() {
+
+  new () {
     const cells = new Array(this.width)
     for (let i = 0; i < this.width; i++) {
       cells[i] = new Array(this.height + this.hiddenHeight)
     }
     this.grid = cells
   }
-  get highest() {
+
+  get highest () {
     let highest = 0
     for (const currentY of this.grid) {
       for (let i = 0; i < currentY.length; i++) {
@@ -645,7 +657,8 @@ export default class Stack extends GameModule {
     }
     return highest
   }
-  getHighestOfColumn(x) {
+
+  getHighestOfColumn (x) {
     let highest = 0
     for (let i = 0; i < this.grid[x].length; i++) {
       if (this.grid[x][i] != null) {
@@ -656,7 +669,8 @@ export default class Stack extends GameModule {
     }
     return highest
   }
-  get skyToFloor() {
+
+  get skyToFloor () {
     let amount = 0
     for (const currentY of this.grid) {
       let passed = true
@@ -673,7 +687,8 @@ export default class Stack extends GameModule {
     }
     return amount
   }
-  isFilled(x, y, grid = this.grid) {
+
+  isFilled (x, y, grid = this.grid) {
     if (grid[x] != null) {
       if (y < this.height + this.hiddenHeight) {
         if (grid[x][y] != null) {
@@ -688,12 +703,13 @@ export default class Stack extends GameModule {
       return true
     }
   }
-  draw() {
+
+  draw () {
     const cellSize = this.parent.cellSize
     const buffer = this.parent.bufferPeek
     const ctx = this.ctx
     const flash = (
-      "0" +
+      '0' +
       Math.floor((1 - this.flashTime / this.flashLimit) * 255).toString(16)
     ).slice(-2)
     // clearCtx(this.ctx);
@@ -733,11 +749,11 @@ export default class Stack extends GameModule {
       const isFilled = this.grid[x][y]
       if (isFilled && !this.isInvisible) {
         const color = this.grid[x][y]
-        let name = "stack"
+        let name = 'stack'
         if (this.useMinoSkin) {
-          name = "mino"
+          name = 'mino'
         }
-        let suffix = ""
+        let suffix = ''
         if (this.parent.piece.useRetroColors) {
           let modifier = 0
           if (this.levelUpAnimation < this.levelUpAnimationLimit) {
@@ -753,15 +769,15 @@ export default class Stack extends GameModule {
           y * cellSize + cellSize * buffer - cellSize * this.hiddenHeight
         img.height = cellSize
         ctx.drawImage(img, xPos, Math.floor(yPos), cellSize, cellSize)
-        ctx.globalCompositeOperation = "multiply"
-        ctx.fillStyle = "#0003"
+        ctx.globalCompositeOperation = 'multiply'
+        ctx.fillStyle = '#0003'
         ctx.fillRect(xPos, Math.floor(yPos), cellSize, cellSize)
       }
     }
     // Flash
     if (this.flashTime < this.flashLimit) {
       for (let i = 0; i < this.flashX.length; i++) {
-        ctx.globalCompositeOperation = "overlay"
+        ctx.globalCompositeOperation = 'overlay'
         const x = this.flashX[i] * cellSize
         const y =
           this.flashY[i] * cellSize +
@@ -769,12 +785,12 @@ export default class Stack extends GameModule {
           cellSize * this.hiddenHeight
         ctx.fillStyle = `#ffffff${flash}`
         if (
-          settings.settings.lockFlash !== "off" &&
-          settings.settings.lockFlash !== "flash"
+          settings.settings.lockFlash !== 'off' &&
+          settings.settings.lockFlash !== 'flash'
         ) {
           ctx.fillRect(x, Math.floor(y), cellSize, cellSize)
         }
-        if (settings.settings.lockFlash === "shine") {
+        if (settings.settings.lockFlash === 'shine') {
           const float = (this.flashTime * 2) / this.flashLimit
           const mod = 0.2
           const getDistanceX = (modifier = 0) => {
@@ -812,13 +828,13 @@ export default class Stack extends GameModule {
           )
           ctx.lineTo(x + distance2x, Math.floor(y + distance2y))
           ctx.lineTo(x + cornerX, Math.floor(y + cornerY))
-          ctx.fillStyle = "#fff"
+          ctx.fillStyle = '#fff'
           ctx.fill()
         }
         // Solid white 2f
-        if (this.flashTime < 50 && settings.settings.lockFlash !== "off") {
-          ctx.globalCompositeOperation = "source-over"
-          ctx.fillStyle = `#fff`
+        if (this.flashTime < 50 && settings.settings.lockFlash !== 'off') {
+          ctx.globalCompositeOperation = 'source-over'
+          ctx.fillStyle = '#fff'
           ctx.fillRect(x, Math.floor(y), cellSize, cellSize)
         }
       }
@@ -833,10 +849,10 @@ export default class Stack extends GameModule {
               this.parent.piece.areLimitLineModifier)
       )
       let brightnessHex = (
-        "0" + Math.round(brightness * 255).toString(16)
+        '0' + Math.round(brightness * 255).toString(16)
       ).slice(-2)
       if (!this.fadeLineClear) {
-        brightnessHex = "ff"
+        brightnessHex = 'ff'
       }
       ctx.fillStyle = `#ffffff${brightnessHex}`
       for (let i = 0; i < this.toCollapse.length; i++) {
@@ -861,7 +877,7 @@ export default class Stack extends GameModule {
           yVariance: 10,
           xDampening: 1.03,
           yDampening: 1.03,
-          lifeVariance: 80,
+          lifeVariance: 80
         })
         if (
           Math.round(this.parent.piece.are / this.flashClearRate) % 2 !== 1 ||
@@ -881,7 +897,8 @@ export default class Stack extends GameModule {
     }
     this.dirtyCells = []
   }
-  linesToLevel(levelLimit, levelsPerSection) {
+
+  linesToLevel (levelLimit, levelsPerSection) {
     const newLevel = Math.min(
       levelLimit,
       this.parent.stat.level + this.parent.stack.lineClear
@@ -890,11 +907,12 @@ export default class Stack extends GameModule {
       Math.floor(this.parent.stat.level / levelsPerSection) <
       Math.floor(newLevel / levelsPerSection)
     ) {
-      sound.add("levelup")
+      sound.add('levelup')
     }
     this.parent.stat.level = newLevel
   }
-  arcadeScore(drop = 0, multiplier = 1) {
+
+  arcadeScore (drop = 0, multiplier = 1) {
     let pc = true
     for (let x = 0; x < this.grid.length; x++) {
       if (!pc) {
@@ -925,7 +943,8 @@ export default class Stack extends GameModule {
       bravo *
       multiplier
   }
-  addStaticScore(score = 0) {
+
+  addStaticScore (score = 0) {
     this.parent.stat.score += score
   }
 }

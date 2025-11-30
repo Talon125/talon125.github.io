@@ -1,6 +1,6 @@
-import GameModule from "./game-module.js"
-import $, { clearCtx } from "../shortcuts.js"
-import * as randomizer from "./modules/randomizers.js"
+import GameModule from './game-module.js'
+import $, { clearCtx } from '../shortcuts.js'
+import * as randomizer from './modules/randomizers.js'
 import {
   PIECE_SETS,
   PIECES,
@@ -8,13 +8,13 @@ import {
   DOMINO_PIECES,
   TROMINO_PIECES,
   PENTOMINO_PIECES,
-  INITIAL_ORIENTATION,
-} from "../consts.js"
-import sound from "../sound.js"
-import settings from "../settings.js"
+  INITIAL_ORIENTATION
+} from '../consts.js'
+import sound from '../sound.js'
+import settings from '../settings.js'
 
 export default class Next extends GameModule {
-  constructor(parent, ctx, ctxSub, seed) {
+  constructor (parent, ctx, ctxSub, seed) {
     super(parent)
     this.ctx = ctx
     this.subCtx = ctxSub
@@ -32,68 +32,72 @@ export default class Next extends GameModule {
       this.generate()
     }
   }
-  reset() {
+
+  reset () {
     this.gen = randomizer[this.parent.settings.randomizer](
       PIECE_SETS[this.parent.settings.pieces],
       PIECE_SETS[this.parent.settings.unfavored],
       this.rng
     )
   }
-  next() {
+
+  next () {
     this.generate()
     this.isDirty = true
     sound.add(`piece${this.queue[1]}`)
     return this.queue.shift()
   }
-  generate() {
+
+  generate () {
     const generated = this.gen.next().value
     this.queue.push(generated)
     this.stats[generated]++
   }
-  drawMino(x, y) {
+
+  drawMino (x, y) {
     const cellSize = this.parent.cellSize
     const ctx = this.ctx
     const xPos = x * cellSize
     const yPos = y * cellSize
     const img = document.getElementById(`mino-${this.color}`)
     img.height = cellSize
-    ctx.globalCompositeOperation = "source-over"
+    ctx.globalCompositeOperation = 'source-over'
 
     ctx.drawImage(img, xPos, Math.floor(yPos), cellSize, cellSize)
   }
 
-  draw() {
+  draw () {
     this.nextLength = Math.min(this.nextLength, this.nextLimit)
     clearCtx(this.ctx)
     clearCtx(this.subCtx)
     if (this.nextLength <= 0) {
-      $("#main-next-container").classList.add("hidden")
+      $('#main-next-container').classList.add('hidden')
       return
     } else {
-      $("#main-next-container").classList.remove("hidden")
+      $('#main-next-container').classList.remove('hidden')
     }
     const piece = this.queue[0]
     let shape
     switch (settings.settings.shapeOverride) {
-      case "mono":
+      case 'mono':
         shape =
           MONOMINO_PIECES[piece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][piece]
           ]
         break
-      case "do":
+      case 'do':
         shape =
           DOMINO_PIECES[piece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][piece]
           ]
         break
-      case "tro":
+      case 'tro':
         shape =
           TROMINO_PIECES[piece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][piece]
           ]
         break
-      case "pento":
+      case 'pento':
         shape =
           PENTOMINO_PIECES[piece].shape[
             INITIAL_ORIENTATION[this.parent.rotationSystem][piece]
@@ -113,8 +117,8 @@ export default class Next extends GameModule {
     for (let y = 0; y < shape.length; y++) {
       for (let x = 0; x < shape[y].length; x++) {
         const color = this.parent.colors[piece]
-        let suffix = ""
-        if (this.parent.piece.useSpecialI && piece === "I") {
+        let suffix = ''
+        if (this.parent.piece.useSpecialI && piece === 'I') {
           suffix = shape[y][x]
         }
         if (this.parent.piece.useRetroColors) {
@@ -138,25 +142,25 @@ export default class Next extends GameModule {
       const piece = this.queue[nextSpace + 1]
       let shape
       switch (settings.settings.shapeOverride) {
-        case "mono":
+        case 'mono':
           shape =
             MONOMINO_PIECES[piece].shape[
               INITIAL_ORIENTATION[this.parent.rotationSystem][piece]
             ]
           break
-        case "do":
+        case 'do':
           shape =
             DOMINO_PIECES[piece].shape[
               INITIAL_ORIENTATION[this.parent.rotationSystem][piece]
             ]
           break
-        case "tro":
+        case 'tro':
           shape =
             TROMINO_PIECES[piece].shape[
               INITIAL_ORIENTATION[this.parent.rotationSystem][piece]
             ]
           break
-        case "pento":
+        case 'pento':
           shape =
             PENTOMINO_PIECES[piece].shape[
               INITIAL_ORIENTATION[this.parent.rotationSystem][piece]

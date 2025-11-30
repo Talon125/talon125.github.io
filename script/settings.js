@@ -1,43 +1,43 @@
-import menu from "./menu/menu.js"
-import sound from "./sound.js"
-import locale from "./lang.js"
+import menu from './menu/menu.js'
+import sound from './sound.js'
+import locale from './lang.js'
 const SETTINGS_VERSION = 5.1
 class Settings {
-  constructor() {
+  constructor () {
     this.defaultSettings = {
-      language: "en_US",
+      language: 'en_US',
       // Tuning
       DAS: 150,
       ARR: 1000 / 60,
-      IRS: "tap",
-      IHS: "tap",
+      IRS: 'tap',
+      IHS: 'tap',
       IAS: true,
-      rotationSystem: "auto",
-      spinDetectionType: "auto",
+      rotationSystem: 'auto',
+      spinDetectionType: 'auto',
       useAre: true,
       useLineClearAre: true,
       stillShowFullActionTextDespiteZeroLineClearAre: false,
-      shapeOverride: "tetro",
+      shapeOverride: 'tetro',
       useLockOut: true,
       brokenLineLimit: 40,
       // Graphics
-      theme: "default",
+      theme: 'default',
       size: 100,
       nextLength: 6,
-      skin: "auto",
-      color: "auto",
-      colorI: "auto",
-      colorL: "auto",
-      colorO: "auto",
-      colorZ: "auto",
-      colorT: "auto",
-      colorJ: "auto",
-      colorS: "auto",
-      outline: "on",
-      ghost: "color",
+      skin: 'auto',
+      color: 'auto',
+      colorI: 'auto',
+      colorL: 'auto',
+      colorO: 'auto',
+      colorZ: 'auto',
+      colorT: 'auto',
+      colorJ: 'auto',
+      colorS: 'auto',
+      outline: 'on',
+      ghost: 'color',
       backgroundOpacity: 30,
-      gridStyle: "cross",
-      lockFlash: "shine",
+      gridStyle: 'cross',
+      lockFlash: 'shine',
       actionText: true,
       matrixSwayScale: 50,
       matrixSwaySpeed: 50,
@@ -59,182 +59,193 @@ class Settings {
       sfxVolume: 50,
       musicVolume: 50,
       voiceVolume: 100,
-      soundbank: "auto",
-      nextSoundbank: "auto",
-      voicebank: "off",
+      soundbank: 'auto',
+      nextSoundbank: 'auto',
+      voicebank: 'off'
     }
     switch (navigator.language.substr(0, 2)) {
-      case "fr":
-        this.defaultSettings.language = "fr_FR"
+      case 'fr':
+        this.defaultSettings.language = 'fr_FR'
         break
-      case "nl":
-        this.defaultSettings.language = "nl_NL"
+      case 'nl':
+        this.defaultSettings.language = 'nl_NL'
         break
-      case "de":
-        this.defaultSettings.language = "de_DE"
+      case 'de':
+        this.defaultSettings.language = 'de_DE'
         break
-      case "vi":
-        this.defaultSettings.language = "vi_VN"
+      case 'vi':
+        this.defaultSettings.language = 'vi_VN'
         break
-      case "it":
-        this.defaultSettings.language = "it_IT"
+      case 'it':
+        this.defaultSettings.language = 'it_IT'
         break
-      case "zh":
-        this.defaultSettings.language = "zh_CN"
+      case 'zh':
+        this.defaultSettings.language = 'zh_CN'
         break
-      case "es":
-        this.defaultSettings.language = "es_ES"
+      case 'es':
+        this.defaultSettings.language = 'es_ES'
         break
-      case "ja":
-        this.defaultSettings.language = "ja_JP"
+      case 'ja':
+        this.defaultSettings.language = 'ja_JP'
         break
-      case "ko":
-        this.defaultSettings.language = "ko_KR"
+      case 'ko':
+        this.defaultSettings.language = 'ko_KR'
         break
-      case "pl":
-        this.defaultSettings.language = "pl_PL"
+      case 'pl':
+        this.defaultSettings.language = 'pl_PL'
         break
-      case "ru":
-        this.defaultSettings.language = "ru_RU"
+      case 'ru':
+        this.defaultSettings.language = 'ru_RU'
         break
     }
     switch (this.defaultSettings.language) {
-      case "en_GB":
-      case "en_US":
-        this.defaultSettings.voicebank = "talonen"
+      case 'en_GB':
+      case 'en_US':
+        this.defaultSettings.voicebank = 'talonen'
         break
-      case "de_DE":
-        this.defaultSettings.voicebank = "talonde"
+      case 'de_DE':
+        this.defaultSettings.voicebank = 'talonde'
         break
-      case "ja_JP":
-        this.defaultSettings.voicebank = "sorajp"
+      case 'ja_JP':
+        this.defaultSettings.voicebank = 'sorajp'
         break
     }
     this.defaultControls = {
-      moveLeft: ["ArrowLeft"],
-      moveRight: ["ArrowRight"],
-      hardDrop: ["Space"],
-      softDrop: ["ArrowDown"],
-      rotateLeft: ["KeyZ", "KeyY"],
-      rotateRight: ["ArrowUp", "KeyC"],
-      rotate180: ["KeyX"],
-      hold: ["ShiftRight"],
-      retry: ["KeyR"],
-      pause: ["Escape", "KeyP"],
+      moveLeft: ['ArrowLeft'],
+      moveRight: ['ArrowRight'],
+      hardDrop: ['Space'],
+      softDrop: ['ArrowDown'],
+      rotateLeft: ['KeyZ', 'KeyY'],
+      rotateRight: ['ArrowUp', 'KeyC'],
+      rotate180: ['KeyX'],
+      hold: ['ShiftRight'],
+      retry: ['KeyR'],
+      pause: ['Escape', 'KeyP']
     }
     this.defaultGame = {
       marathon: {
         startingLevel: 1,
         lineGoal: 150,
-        levelCap: -1,
+        levelCap: -1
       },
       sprint: {
         lineGoal: 40,
-        regulationMode: false,
+        regulationMode: false
       },
       ultra: {
         timeLimit: 120000,
-        useRta: false,
+        useRta: false
       },
       master: {
         startingLevel: 1,
-        lockdownMode: "extended",
+        lockdownMode: 'extended'
       },
       survival: {
         startingLevel: 1,
         difficulty: 3,
-        matrixWidth: 6,
+        matrixWidth: 6
       },
       combo: {
-        holdType: "skip",
+        holdType: 'skip'
       },
       retro: {
         startingLevel: 0,
-        mechanics: "accurate",
+        mechanics: 'accurate'
       },
       prox: {
-        startingLevel: 1,
+        startingLevel: 1
       },
       handheld: {
-        startingLevel: 0,
+        startingLevel: 0
       },
       deluxe: {
-        startingLevel: 0,
+        startingLevel: 0
       },
       beat: {
-        song: "non",
+        song: 'non'
       },
       zen: {
-        lockdownMode: "zen",
-        holdType: "hold",
-      },
+        lockdownMode: 'zen',
+        holdType: 'hold'
+      }
     }
     this.settings = {}
     this.controls = {}
     this.game = {}
   }
-  resetSettings() {
+
+  resetSettings () {
     this.settings = JSON.parse(JSON.stringify(this.defaultSettings))
   }
-  resetControls() {
+
+  resetControls () {
     this.controls = JSON.parse(JSON.stringify(this.defaultControls))
   }
-  resetGame() {
+
+  resetGame () {
     this.game = JSON.parse(JSON.stringify(this.defaultGame))
   }
-  load() {
-    for (const index of ["Settings", "Controls", "Game"]) {
+
+  load () {
+    for (const index of ['Settings', 'Controls', 'Game']) {
       const loaded = JSON.parse(localStorage.getItem(`tetra${index}`))
       if (
         loaded === null ||
-        parseInt(localStorage.getItem("tetraVersion")) !== SETTINGS_VERSION
+        parseInt(localStorage.getItem('tetraVersion')) !== SETTINGS_VERSION
       ) {
         this[`reset${index}`]()
       } else {
         this[index.toLowerCase()] = JSON.parse(JSON.stringify(loaded))
-        if (index === "Game") {
+        if (index === 'Game') {
           this[index.toLowerCase()] = {
             ...JSON.parse(JSON.stringify(this[`default${index}`])),
-            ...JSON.parse(JSON.stringify(this[index.toLowerCase()])),
+            ...JSON.parse(JSON.stringify(this[index.toLowerCase()]))
           }
           for (const key of Object.keys(this.defaultGame)) {
             this[index.toLowerCase()][key] = {
               ...JSON.parse(JSON.stringify(this[`default${index}`][key])),
-              ...JSON.parse(JSON.stringify(this[index.toLowerCase()][key])),
+              ...JSON.parse(JSON.stringify(this[index.toLowerCase()][key]))
             }
           }
           continue
         }
         this[index.toLowerCase()] = {
           ...JSON.parse(JSON.stringify(this[`default${index}`])),
-          ...JSON.parse(JSON.stringify(this[index.toLowerCase()])),
+          ...JSON.parse(JSON.stringify(this[index.toLowerCase()]))
         }
       }
     }
     this.saveAll()
   }
-  saveSettings() {
-    localStorage.setItem("tetraSettings", JSON.stringify(this.settings))
+
+  saveSettings () {
+    localStorage.setItem('tetraSettings', JSON.stringify(this.settings))
   }
-  saveControls() {
-    localStorage.setItem("tetraControls", JSON.stringify(this.controls))
+
+  saveControls () {
+    localStorage.setItem('tetraControls', JSON.stringify(this.controls))
   }
-  saveGame() {
-    localStorage.setItem("tetraGame", JSON.stringify(this.game))
+
+  saveGame () {
+    localStorage.setItem('tetraGame', JSON.stringify(this.game))
   }
-  saveVersion() {
-    localStorage.setItem("tetraVersion", SETTINGS_VERSION)
+
+  saveVersion () {
+    localStorage.setItem('tetraVersion', SETTINGS_VERSION)
   }
-  saveAll() {
+
+  saveAll () {
     this.saveSettings()
     this.saveControls()
     this.saveGame()
     this.saveVersion()
   }
-  resetGameSpecific(mode) {
+
+  resetGameSpecific (mode) {
     this.game[mode] = this.defaultGame[mode]
   }
-  changeSetting(setting, value, game) {
+
+  changeSetting (setting, value, game) {
     if (game) {
       this.game[game][setting] = value
     } else {
@@ -246,9 +257,10 @@ class Settings {
     }
     this.saveSettings()
   }
-  getConflictingControlNames() {
+
+  getConflictingControlNames () {
     const keyFrequency = {}
-    const duplicates = [""]
+    const duplicates = ['']
     for (const key of Object.keys(this.controls)) {
       for (const name of this.controls[key]) {
         if (keyFrequency[name] == null) {
@@ -261,7 +273,8 @@ class Settings {
     }
     return duplicates
   }
-  addControl(key, control) {
+
+  addControl (key, control) {
     const array = this.controls[key]
     const index = array.indexOf(control)
     if (index === -1) {
@@ -270,7 +283,8 @@ class Settings {
     this.saveControls()
     menu.drawControls()
   }
-  removeControl(key, control) {
+
+  removeControl (key, control) {
     const array = this.controls[key]
     const index = array.indexOf(control)
     if (index !== -1) {

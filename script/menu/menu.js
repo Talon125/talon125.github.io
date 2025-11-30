@@ -1,36 +1,36 @@
-import { loadMenu } from "../loaders.js"
-import $, { negativeMod } from "../shortcuts.js"
-import gameHandler from "../game/game-handler.js"
-import settings from "../settings.js"
-import input from "../input.js"
-import locale from "../lang.js"
-import sound from "../sound.js"
+import { loadMenu } from '../loaders.js'
+import $, { negativeMod } from '../shortcuts.js'
+import gameHandler from '../game/game-handler.js'
+import settings from '../settings.js'
+import input from '../input.js'
+import locale from '../lang.js'
+import sound from '../sound.js'
 const isSelectable = (type) => {
   return (
     type == null ||
-    type == "control" ||
-    type == "setting" ||
-    type == "slider" ||
-    type == "toggle" ||
-    type == "select"
+    type == 'control' ||
+    type == 'setting' ||
+    type == 'slider' ||
+    type == 'toggle' ||
+    type == 'select'
   )
 }
 const getKey = (event) => {
-  if (event.code === "Backspace") {
+  if (event.code === 'Backspace') {
     return
   }
   settings.addControl(menu.waitingKey, event.code)
   menu.isLocked = false
-  $("#key-popup").classList.add("hidden")
-  document.removeEventListener("keydown", getKey)
+  $('#key-popup').classList.add('hidden')
+  document.removeEventListener('keydown', getKey)
 }
 class Menu {
-  constructor() {
+  constructor () {
     this.current = {
       name: null,
       lang: null,
       data: null,
-      properties: null,
+      properties: null
     }
     this.isEnabled = false
     this.isLocked = true
@@ -38,23 +38,28 @@ class Menu {
     this.useLastSelected = false
     this.stored = {}
   }
-  get selected() {
+
+  get selected () {
     try {
-      return parseInt($("#menu > div.selected").id.substring(7))
+      return parseInt($('#menu > div.selected').id.substring(7))
     } catch (e) {
       return 0
     }
   }
-  get selectedData() {
+
+  get selectedData () {
     return this.current.data[this.selected]
   }
-  get length() {
-    return $("#menu > div").length
+
+  get length () {
+    return $('#menu > div').length
   }
-  get selectedControl() {
-    return $("#menu > .control.selected > .control-bay > .set-control.selected")
+
+  get selectedControl () {
+    return $('#menu > .control.selected > .control-bay > .set-control.selected')
   }
-  load(name, type = "default", menuData = null) {
+
+  load (name, type = 'default', menuData = null) {
     this.isLocked = true
     this.hideMenu()
     const render = (menu) => {
@@ -66,18 +71,18 @@ class Menu {
       if (
         (gameHandler.game.isDead || gameHandler.game.isOver || gameHandler.game.isDead == null) &&
         !this.skipMusicChange &&
-        this.current.properties.game !== "beat"
+        this.current.properties.game !== 'beat'
       ) {
         if (this.current.properties.pgmusic) {
           if (sound.bgmName !== `menu-${this.current.properties.pgmusic}`) {
             sound.killBgm()
-            sound.loadBgm([this.current.properties.pgmusic], "menu")
-            sound.playBgm([this.current.properties.pgmusic], "menu")
+            sound.loadBgm([this.current.properties.pgmusic], 'menu')
+            sound.playBgm([this.current.properties.pgmusic], 'menu')
           }
         } else {
-          if (sound.bgmName !== "menu-menu") {
-            sound.loadBgm(["menu"], "menu")
-            sound.playBgm(["menu"], "menu")
+          if (sound.bgmName !== 'menu-menu') {
+            sound.loadBgm(['menu'], 'menu')
+            sound.playBgm(['menu'], 'menu')
           }
         }
       }
@@ -87,10 +92,10 @@ class Menu {
       this.current.data = menu.data
       if (this.current.properties.parent) {
         const back = {
-          string: "backLabel",
-          stringDesc: "backDescription",
-          langOverride: "menu_general",
-          action: "back",
+          string: 'backLabel',
+          stringDesc: 'backDescription',
+          langOverride: 'menu_general',
+          action: 'back'
         }
         this.current.data.unshift(back)
       } else {
@@ -100,19 +105,19 @@ class Menu {
       }
       if (this.current.properties.game) {
         const game = {
-          string: "startLabel",
+          string: 'startLabel',
           default: true,
-          stringDesc: "startDescription",
-          langOverride: "mode-options",
-          action: "game",
-          game: this.current.properties.game,
+          stringDesc: 'startDescription',
+          langOverride: 'mode-options',
+          action: 'game',
+          game: this.current.properties.game
         }
         this.current.data.push(game)
       }
       setTimeout(() => {
         this.clear()
         switch (type) {
-          case "controls":
+          case 'controls':
             this.drawControls()
             break
           default:
@@ -153,34 +158,36 @@ class Menu {
         })
       })
   }
-  close() {
+
+  close () {
     this.isLocked = true
     this.isEnabled = false
     this.hide()
   }
-  open() {
-    $("#lights-warning").classList.add("hidden")
+
+  open () {
+    $('#lights-warning').classList.add('hidden')
     if (gameHandler.game.isOver) {
       gameHandler.game.settings = {
         ...gameHandler.game.settings,
         hasDangerBgm: false,
-        hasPaceBgm: false,
+        hasPaceBgm: false
       }
       if (
-        this.current.properties.game === "beat" &&
+        this.current.properties.game === 'beat' &&
         sound.bgmName !== `menu-pg-${settings.game.beat.song}`
       ) {
         sound.killBgm()
-        sound.loadBgm([`pg-${settings.game.beat.song}`], "menu")
-        sound.playBgm([`pg-${settings.game.beat.song}`], "menu")
+        sound.loadBgm([`pg-${settings.game.beat.song}`], 'menu')
+        sound.playBgm([`pg-${settings.game.beat.song}`], 'menu')
       } else if (this.current.properties.pgmusic) {
         sound.killBgm()
-        sound.loadBgm([this.current.properties.pgmusic], "menu")
-        sound.playBgm([this.current.properties.pgmusic], "menu")
+        sound.loadBgm([this.current.properties.pgmusic], 'menu')
+        sound.playBgm([this.current.properties.pgmusic], 'menu')
       } else {
-        if (sound.bgmName !== "menu-menu") {
-          sound.loadBgm(["menu"], "menu")
-          sound.playBgm(["menu"], "menu")
+        if (sound.bgmName !== 'menu-menu') {
+          sound.loadBgm(['menu'], 'menu')
+          sound.playBgm(['menu'], 'menu')
         }
       }
     }
@@ -188,24 +195,30 @@ class Menu {
     this.isEnabled = true
     this.show()
   }
-  show() {
-    $("#menu-container").classList.remove("hidden")
+
+  show () {
+    $('#menu-container').classList.remove('hidden')
   }
-  hide() {
-    $("#menu-container").classList.add("hidden")
+
+  hide () {
+    $('#menu-container').classList.add('hidden')
   }
-  showMenu() {
-    $("#menu").classList.remove("hidden")
+
+  showMenu () {
+    $('#menu').classList.remove('hidden')
   }
-  hideMenu() {
-    $("#menu").classList.add("hidden")
+
+  hideMenu () {
+    $('#menu').classList.add('hidden')
   }
-  clear() {
-    while ($("#menu").firstChild) {
-      $("#menu").removeChild($("#menu").firstChild)
+
+  clear () {
+    while ($('#menu').firstChild) {
+      $('#menu').removeChild($('#menu').firstChild)
     }
   }
-  draw() {
+
+  draw () {
     let nonOptions = 0
     for (let i = 0; i < this.current.data.length; i++) {
       const currentData = this.current.data[i]
@@ -215,61 +228,61 @@ class Menu {
       } else if (currentData.secretA) {
         this.skipSecretA = false
       }
-      let element = document.createElement("div")
-      const sub = document.createElement("div")
+      let element = document.createElement('div')
+      const sub = document.createElement('div')
       switch (currentData.type) {
-        case "overline":
-          element = document.createElement("header")
-          element.classList.add("overline")
+        case 'overline':
+          element = document.createElement('header')
+          element.classList.add('overline')
           break
-        case "header":
-          element = document.createElement("header")
-          element.classList.add("header")
+        case 'header':
+          element = document.createElement('header')
+          element.classList.add('header')
           break
-        case "description":
-          element = document.createElement("header")
-          element.classList.add("description")
+        case 'description':
+          element = document.createElement('header')
+          element.classList.add('description')
           break
-        case "social":
-          element = document.createElement("a")
-          element.classList.add("third-width")
-          element.classList.add("social")
+        case 'social':
+          element = document.createElement('a')
+          element.classList.add('third-width')
+          element.classList.add('social')
           break
-        case "slider":
-          element = document.createElement("div")
-          element.classList.add("slider-container")
+        case 'slider':
+          element = document.createElement('div')
+          element.classList.add('slider-container')
           sub.innerHTML = `<div id=${currentData.settingType}-${currentData.setting}-value></div>`
           break
-        case "toggle":
-          element = document.createElement("div")
-          element.classList.add("toggle-container")
+        case 'toggle':
+          element = document.createElement('div')
+          element.classList.add('toggle-container')
           break
-        case "select":
-          element = document.createElement("div")
-          element.classList.add("select-container")
+        case 'select':
+          element = document.createElement('div')
+          element.classList.add('select-container')
           break
-        case "control":
-          element = document.createElement("div")
-          element.classList.add("control")
-          sub.classList.add("control-bay")
+        case 'control':
+          element = document.createElement('div')
+          element.classList.add('control')
+          sub.classList.add('control-bay')
           sub.id = `control-${currentData.control}`
-          sub.innerHTML = `<div class='set-control'>ArrowUp ✕ </div><div class='set-control'>ArrowUp ✕ </div><div class='set-control'>+</div>`
+          sub.innerHTML = '<div class=\'set-control\'>ArrowUp ✕ </div><div class=\'set-control\'>ArrowUp ✕ </div><div class=\'set-control\'>+</div>'
           break
         default:
-          element = document.createElement("div")
-          element.classList.add("btn")
+          element = document.createElement('div')
+          element.classList.add('btn')
           if (currentData.isShort) {
-            element.classList.add("short")
+            element.classList.add('short')
           }
           switch (currentData.width) {
-            case "half":
-              element.classList.add("half-width")
+            case 'half':
+              element.classList.add('half-width')
               break
-            case "third":
-              element.classList.add("third-width")
+            case 'third':
+              element.classList.add('third-width')
               break
             default:
-              element.classList.add("full-width")
+              element.classList.add('full-width')
               break
           }
           break
@@ -290,26 +303,26 @@ class Menu {
         nonOptions++
       }
 
-      if (currentData.type === "control") {
-        const label = document.createElement("div")
+      if (currentData.type === 'control') {
+        const label = document.createElement('div')
         label.textContent = locale.getString(this.current.lang, currentData.string)
-        label.classList.add("label")
+        label.classList.add('label')
         element.appendChild(label)
         element.appendChild(sub)
-      } else if (currentData.type === "slider") {
+      } else if (currentData.type === 'slider') {
         element.onclick = () => {}
-        const label = document.createElement("div")
+        const label = document.createElement('div')
         if (!currentData.fixedText) {
           label.textContent = locale.getString(this.current.lang, currentData.string)
         } else {
           label.textContent = currentData.label
         }
-        label.classList.add("setting-text")
-        const value = document.createElement("div")
+        label.classList.add('setting-text')
+        const value = document.createElement('div')
         value.id = `${currentData.settingType}-${currentData.setting}-value`
-        value.classList.add("value")
+        value.classList.add('value')
         value.onclick = () => {
-          const newValue = prompt("Enter the desired value:") // TODO turn into translation string
+          const newValue = prompt('Enter the desired value:') // TODO turn into translation string
           if (isNaN(newValue) || newValue == null) {
             return
           }
@@ -317,57 +330,57 @@ class Menu {
           settings.changeSetting(
             currentData.setting,
             Math.min(Math.max(currentData.min, newValue), currentData.max),
-            sel.settingType === "game" ? sel.gameName : undefined
+            sel.settingType === 'game' ? sel.gameName : undefined
           )
           this.drawSettings()
         }
-        const slider = document.createElement("input")
-        slider.setAttribute("settingtype", "slider")
-        slider.type = "range"
+        const slider = document.createElement('input')
+        slider.setAttribute('settingtype', 'slider')
+        slider.type = 'range'
         slider.min = currentData.min
         slider.value = currentData.min
         slider.max = currentData.max
-        slider.classList.add("slider")
+        slider.classList.add('slider')
         slider.id = `${currentData.settingType}-${currentData.setting}`
-        slider.setAttribute("gamename", currentData.gameName)
+        slider.setAttribute('gamename', currentData.gameName)
         slider.oninput = () => {
           const sel = currentData
           settings.changeSetting(
             sel.setting,
             slider.value,
-            sel.settingType === "game" ? sel.gameName : undefined
+            sel.settingType === 'game' ? sel.gameName : undefined
           )
           this.drawSettings()
         }
         slider.onchange = () => {
-          sound.playMenuSe("change")
+          sound.playMenuSe('change')
         }
         element.appendChild(label)
         element.appendChild(slider)
         element.appendChild(value)
-      } else if (currentData.type === "toggle") {
-        const label = document.createElement("div")
+      } else if (currentData.type === 'toggle') {
+        const label = document.createElement('div')
         if (!currentData.fixedText) {
           label.textContent = locale.getString(this.current.lang, currentData.string)
         } else {
           label.textContent = currentData.label
         }
-        label.classList.add("setting-text")
-        const bubble = document.createElement("div")
-        bubble.classList.add("bubble")
+        label.classList.add('setting-text')
+        const bubble = document.createElement('div')
+        bubble.classList.add('bubble')
         bubble.id = `${currentData.settingType}-${currentData.setting}`
-        bubble.setAttribute("gamename", currentData.gameName)
-        bubble.setAttribute("settingtype", "toggle")
-        const value = document.createElement("div")
-        value.classList.add("value-name")
+        bubble.setAttribute('gamename', currentData.gameName)
+        bubble.setAttribute('settingtype', 'toggle')
+        const value = document.createElement('div')
+        value.classList.add('value-name')
         value.id = `${currentData.settingType}-${currentData.setting}-value`
         element.appendChild(label)
         element.appendChild(bubble)
         element.appendChild(value)
-      } else if (currentData.type === "select") {
-        const label = document.createElement("div")
+      } else if (currentData.type === 'select') {
+        const label = document.createElement('div')
         const createArrowElement = (passedElement, text, className) => {
-          passedElement.classList.add("arrow")
+          passedElement.classList.add('arrow')
           passedElement.classList.add(className)
           passedElement.textContent = text
         }
@@ -375,19 +388,19 @@ class Menu {
           label.textContent = locale.getString(this.current.lang, currentData.string)
         } else {
           label.textContent = currentData.label
-          $("#description").innerHTML = currentData.description
+          $('#description').innerHTML = currentData.description
         }
-        label.classList.add("setting-text")
+        label.classList.add('setting-text')
 
-        const arrowLeft = document.createElement("div")
-        const arrowRight = document.createElement("div")
-        createArrowElement(arrowLeft, "<", "arrow-left")
-        createArrowElement(arrowRight, ">", "arrow-right")
+        const arrowLeft = document.createElement('div')
+        const arrowRight = document.createElement('div')
+        createArrowElement(arrowLeft, '<', 'arrow-left')
+        createArrowElement(arrowRight, '>', 'arrow-right')
         const adjust = (modValue) => {
-          sound.playMenuSe("change")
+          sound.playMenuSe('change')
           const sel = currentData
           const value =
-            sel.settingType === "game"
+            sel.settingType === 'game'
               ? settings.game[sel.gameName][sel.setting]
               : settings.settings[sel.setting]
           let index = 0
@@ -402,7 +415,7 @@ class Menu {
           settings.changeSetting(
             sel.setting,
             newValue,
-            sel.settingType === "game" ? sel.gameName : undefined
+            sel.settingType === 'game' ? sel.gameName : undefined
           )
           this.drawSettings()
         }
@@ -412,32 +425,32 @@ class Menu {
         arrowRight.onclick = () => {
           adjust(1)
         }
-        const value = document.createElement("div")
-        value.classList.add("value-name")
+        const value = document.createElement('div')
+        value.classList.add('value-name')
         value.id = `${currentData.settingType}-${currentData.setting}`
-        value.setAttribute("gamename", currentData.gameName)
-        value.setAttribute("settingtype", "select")
-        value.classList.add("value")
+        value.setAttribute('gamename', currentData.gameName)
+        value.setAttribute('settingtype', 'select')
+        value.classList.add('value')
         value.onclick = () => {
-          sound.playMenuSe("select")
-          $(`#option-${this.selected}`).classList.add("chosen")
+          sound.playMenuSe('select')
+          $(`#option-${this.selected}`).classList.add('chosen')
           this.skipMusicChange = true
           this.lastSelection.push(this.selected)
           const newData = {}
           newData.properties = {
-            parent: this.current.name,
+            parent: this.current.name
           }
           if (this.current.lang) {
             newData.properties.langOverride = this.current.lang
           }
           newData.data = []
           const currentSelectionType =
-            this.selectedData.settingType === "game" ? "game" : "settings"
+            this.selectedData.settingType === 'game' ? 'game' : 'settings'
           const selectedSetting =
-            currentSelectionType === "game"
+            currentSelectionType === 'game'
               ? settings[currentSelectionType][this.selectedData.gameName][
-                  this.selectedData.setting
-                ]
+                this.selectedData.setting
+              ]
               : settings[currentSelectionType][this.selectedData.setting]
           for (const selectData of this.selectedData.selectOptions) {
             const menuButton = JSON.parse(JSON.stringify(selectData))
@@ -448,13 +461,13 @@ class Menu {
             if (!currentData.fixedText && !selectData.description && !selectData.stringDesc) {
               menuButton.omitDescription = true
             }
-            menuButton.action = "settingChange"
+            menuButton.action = 'settingChange'
             menuButton.setting = this.selectedData.setting
             menuButton.settingType = this.selectedData.settingType
             menuButton.gameName = this.selectedData.gameName
             newData.data.push(menuButton)
           }
-          menu.load("selectTemp", "default", newData)
+          menu.load('selectTemp', 'default', newData)
         }
         element.onclick = () => {}
         element.appendChild(label)
@@ -479,52 +492,52 @@ class Menu {
             element.textContent = currentData.label
           }
         }
-        if (currentData.label === "Import") {
-          const inputThingy = document.createElement("input")
-          inputThingy.id = "import-settings"
-          inputThingy.type = "file"
-          inputThingy.accept = ".json"
-          inputThingy.classList.add("input-thingy")
+        if (currentData.label === 'Import') {
+          const inputThingy = document.createElement('input')
+          inputThingy.id = 'import-settings'
+          inputThingy.type = 'file'
+          inputThingy.accept = '.json'
+          inputThingy.classList.add('input-thingy')
           element.appendChild(inputThingy)
-          inputThingy.addEventListener("change", (event) => {
+          inputThingy.addEventListener('change', (event) => {
             const theFile = event.target.files[0]
             const reader = new FileReader()
-            let readData = ""
-            reader.addEventListener("load", (event) => {
+            let readData = ''
+            reader.addEventListener('load', (event) => {
               readData = event.target.result
-              localStorage.setItem("tetraSettings", readData)
+              localStorage.setItem('tetraSettings', readData)
               settings.load()
             })
             reader.readAsText(theFile)
           })
-          const labelForInputThingy = document.createElement("label")
-          labelForInputThingy.setAttribute("for", "import-settings")
+          const labelForInputThingy = document.createElement('label')
+          labelForInputThingy.setAttribute('for', 'import-settings')
           labelForInputThingy.innerText = currentData.label
-          labelForInputThingy.classList.add("label-for-input-thingy")
+          labelForInputThingy.classList.add('label-for-input-thingy')
           element.appendChild(labelForInputThingy)
         }
       }
       if (currentData.useIcon) {
-        element.classList.add("icon")
+        element.classList.add('icon')
       }
       if (currentData.disabled) {
-        element.classList.add("disabled")
+        element.classList.add('disabled')
       }
-      $("#menu").appendChild(element)
+      $('#menu').appendChild(element)
       if (currentData.default) {
-        element.classList.add("selected")
-        element.scrollIntoView({ block: "center" })
+        element.classList.add('selected')
+        element.scrollIntoView({ block: 'center' })
         if (!currentData.omitDescription) {
           if (!currentData.fixedText) {
-            $("#description").innerHTML = locale.getString(
+            $('#description').innerHTML = locale.getString(
               this.current.lang,
               currentData.stringDesc
             )
           } else {
-            $("#description").innerHTML = currentData.description
+            $('#description').innerHTML = currentData.description
           }
         } else {
-          $("#description").innerHTML = ""
+          $('#description').innerHTML = ''
         }
       }
     }
@@ -535,38 +548,40 @@ class Menu {
       }
     }
     this.current.data = [...newData]
-    if (this.current.name === "controls") {
+    if (this.current.name === 'controls') {
       this.drawControls()
     }
-    if (!NodeList.prototype.isPrototypeOf($("#menu > div"))) {
+    if (!NodeList.prototype.isPrototypeOf($('#menu > div'))) {
       this.select(0)
     }
     this.drawSettings()
   }
-  listenForNewKey() {
+
+  listenForNewKey () {
     this.isLocked = true
-    document.addEventListener("keydown", getKey)
+    document.addEventListener('keydown', getKey)
   }
-  drawSettings() {
+
+  drawSettings () {
     const drawElement = (element, key, gameName) => {
       if (element != null) {
         const settingValue = gameName ? settings.game[gameName][key] : settings.settings[key]
-        const valueSelector = `#${gameName ? "game" : "setting"}-${key}-value`
-        switch (element.getAttribute("settingtype")) {
-          case "slider":
+        const valueSelector = `#${gameName ? 'game' : 'setting'}-${key}-value`
+        switch (element.getAttribute('settingtype')) {
+          case 'slider':
             element.value = settingValue
             $(valueSelector).innerHTML = element.value
             break
-          case "toggle":
+          case 'toggle':
             if (settingValue === true) {
-              element.classList.add("enabled")
-              $(valueSelector).textContent = locale.getString("menu_general", "enabled")
+              element.classList.add('enabled')
+              $(valueSelector).textContent = locale.getString('menu_general', 'enabled')
             } else {
-              element.classList.remove("enabled")
-              $(valueSelector).textContent = locale.getString("menu_general", "disabled")
+              element.classList.remove('enabled')
+              $(valueSelector).textContent = locale.getString('menu_general', 'disabled')
             }
             break
-          case "select":
+          case 'select':
             let selectData = null
             for (const data of this.current.data) {
               if (data.selectOptions && data.setting === key) {
@@ -591,15 +606,15 @@ class Menu {
             element.textContent = label
 
             if (
-              this.current.properties.game === "beat" &&
+              this.current.properties.game === 'beat' &&
               (gameHandler.game.b2b == null ||
                 gameHandler.game.isOver == true ||
                 gameHandler.game.isPaused == false) &&
               sound.bgmName !== `menu-pg-${settings.game.beat.song}`
             ) {
               sound.killBgm()
-              sound.loadBgm([`pg-${settings.game.beat.song}`], "menu")
-              sound.playBgm([`pg-${settings.game.beat.song}`], "menu")
+              sound.loadBgm([`pg-${settings.game.beat.song}`], 'menu')
+              sound.playBgm([`pg-${settings.game.beat.song}`], 'menu')
             }
 
             break
@@ -617,59 +632,60 @@ class Menu {
       }
     }
   }
-  drawControls() {
+
+  drawControls () {
     const duplicates = settings.getConflictingControlNames()
     for (const key of Object.keys(settings.controls)) {
       const array = settings.controls[key]
       const currentControlElement = $(`#control-${key}`)
-      currentControlElement.innerHTML = ""
+      currentControlElement.innerHTML = ''
       let i = 0
       for (const item of array) {
-        const element = document.createElement("div")
-        element.classList.add("set-control")
+        const element = document.createElement('div')
+        element.classList.add('set-control')
         if (i === 0) {
-          element.classList.add("selected")
+          element.classList.add('selected')
         }
-        if (duplicates.indexOf(item) !== -1 || item === "Enter") {
-          element.classList.add("conflict")
+        if (duplicates.indexOf(item) !== -1 || item === 'Enter') {
+          element.classList.add('conflict')
         }
         element.textContent = `${item} ×`
-        element.setAttribute("parent", key)
-        element.setAttribute("control", item)
+        element.setAttribute('parent', key)
+        element.setAttribute('control', item)
         element.onclick = () => {
-          settings.removeControl(element.getAttribute("parent"), element.getAttribute("control"))
+          settings.removeControl(element.getAttribute('parent'), element.getAttribute('control'))
           this.drawControls()
         }
         element.onmouseenter = () => {
           if (input.mouseLimit < 1) {
             return
           }
-          if (!element.parentElement.parentElement.classList.contains("selected")) {
+          if (!element.parentElement.parentElement.classList.contains('selected')) {
             return
           }
-          if (!element.classList.contains("selected")) {
-            sound.playMenuSe("move")
+          if (!element.classList.contains('selected')) {
+            sound.playMenuSe('move')
           }
-          this.selectedControl.classList.remove("selected")
-          element.classList.add("selected")
+          this.selectedControl.classList.remove('selected')
+          element.classList.add('selected')
         }
         currentControlElement.appendChild(element)
         i++
       }
-      const element = document.createElement("div")
-      element.classList.add("set-control")
+      const element = document.createElement('div')
+      element.classList.add('set-control')
       if (i === 0) {
-        element.classList.add("selected")
+        element.classList.add('selected')
       }
-      element.setAttribute("parent", key)
-      element.setAttribute("control", "addNew")
+      element.setAttribute('parent', key)
+      element.setAttribute('control', 'addNew')
       element.onclick = () => {
-        this.waitingKey = element.getAttribute("parent")
-        $("#key-popup").classList.remove("hidden")
-        $("#key-popup .header").textContent = locale.getString("menu_controls", "configPopupHeader")
-        $("#key-popup .body").textContent = locale.getString(
-          "menu_controls",
-          "configPopupDescription"
+        this.waitingKey = element.getAttribute('parent')
+        $('#key-popup').classList.remove('hidden')
+        $('#key-popup .header').textContent = locale.getString('menu_controls', 'configPopupHeader')
+        $('#key-popup .body').textContent = locale.getString(
+          'menu_controls',
+          'configPopupDescription'
         )
         this.listenForNewKey()
       }
@@ -677,305 +693,310 @@ class Menu {
         if (input.mouseLimit < 1) {
           return
         }
-        if (!element.classList.contains("selected")) {
-          sound.playMenuSe("move")
+        if (!element.classList.contains('selected')) {
+          sound.playMenuSe('move')
         }
-        if (!element.parentElement.parentElement.classList.contains("selected")) {
+        if (!element.parentElement.parentElement.classList.contains('selected')) {
           return
         }
-        this.selectedControl.classList.remove("selected")
-        element.classList.add("selected")
+        this.selectedControl.classList.remove('selected')
+        element.classList.add('selected')
       }
-      element.textContent = `+`
+      element.textContent = '+'
       currentControlElement.appendChild(element)
     }
   }
-  select(number, mouseOver = false, playSound = true, noScrollAnimation = false) {
+
+  select (number, mouseOver = false, playSound = true, noScrollAnimation = false) {
     if (number !== this.selected && playSound) {
-      sound.playMenuSe("move")
+      sound.playMenuSe('move')
     }
-    if (NodeList.prototype.isPrototypeOf($("#menu > div"))) {
-      for (const element of $("#menu > div")) {
-        element.classList.remove("selected")
+    if (NodeList.prototype.isPrototypeOf($('#menu > div'))) {
+      for (const element of $('#menu > div')) {
+        element.classList.remove('selected')
       }
     }
     if (!$(`#option-${number}`)) {
       number = 0
     }
-    $(`#option-${number}`).classList.add("selected")
+    $(`#option-${number}`).classList.add('selected')
     if (!mouseOver) {
       $(`#option-${number}`).scrollIntoView({
-        block: "center",
-        behavior: noScrollAnimation ? "auto" : "smooth",
+        block: 'center',
+        behavior: noScrollAnimation ? 'auto' : 'smooth'
       })
     }
     if (!this.current.data[number].omitDescription) {
       if (this.current.data[number].langOverride) {
-        $("#description").innerHTML = locale.getString(
+        $('#description').innerHTML = locale.getString(
           this.current.data[number].langOverride,
           this.current.data[number].stringDesc
         )
       } else {
         if (!this.current.data[number].fixedText) {
-          $("#description").innerHTML = locale.getString(
+          $('#description').innerHTML = locale.getString(
             this.current.lang,
             this.current.data[number].stringDesc
           )
         } else {
-          $("#description").innerHTML = this.current.data[number].description
+          $('#description').innerHTML = this.current.data[number].description
         }
       }
     } else {
-      $("#description").innerHTML = ""
+      $('#description').innerHTML = ''
     }
   }
-  up() {
+
+  up () {
     if (this.isLocked) {
       return
     }
     let modifier = 0
     if (
-      this.selectedData.width === "half" &&
-      this.current.data[negativeMod(this.selected - 1, this.length)].width === "half"
+      this.selectedData.width === 'half' &&
+      this.current.data[negativeMod(this.selected - 1, this.length)].width === 'half'
     ) {
       modifier = 1
     }
     this.select(negativeMod(this.selected - 1 - modifier, this.length))
   }
-  down() {
+
+  down () {
     if (this.isLocked) {
       return
     }
     let modifier = 0
     if (
-      this.selectedData.width === "half" &&
-      this.current.data[negativeMod(this.selected + 1, this.length)].width === "half"
+      this.selectedData.width === 'half' &&
+      this.current.data[negativeMod(this.selected + 1, this.length)].width === 'half'
     ) {
       modifier = 1
     }
     this.select(negativeMod(this.selected + 1 + modifier, this.length))
   }
-  right() {
+
+  right () {
     if (this.isLocked) {
       return
     }
-    if (this.selectedData.type === "control") {
-      sound.playMenuSe("move")
+    if (this.selectedData.type === 'control') {
+      sound.playMenuSe('move')
       const next = this.selectedControl.nextSibling
-      this.selectedControl.classList.remove("selected")
+      this.selectedControl.classList.remove('selected')
       if (next == null) {
-        $("#menu > .control.selected > .control-bay").firstChild.classList.add("selected")
+        $('#menu > .control.selected > .control-bay').firstChild.classList.add('selected')
         return
       }
-      next.classList.add("selected")
+      next.classList.add('selected')
       return
     }
-    if (this.selectedData.type === "slider") {
-      const slider = $("#menu > .slider-container.selected .slider")
+    if (this.selectedData.type === 'slider') {
+      const slider = $('#menu > .slider-container.selected .slider')
       slider.value = parseInt(slider.value) + this.selectedData.discrete
       slider.oninput()
-      sound.playMenuSe("change")
+      sound.playMenuSe('change')
       return
     }
-    if (this.selectedData.type === "toggle") {
+    if (this.selectedData.type === 'toggle') {
       settings.changeSetting(this.selectedData.setting, true)
       this.drawSettings()
       return
     }
-    if (this.selectedData.type === "select") {
-      $("#menu > .select-container.selected .arrow-right").onclick()
+    if (this.selectedData.type === 'select') {
+      $('#menu > .select-container.selected .arrow-right').onclick()
       return
     }
     this.select(negativeMod(this.selected + 1, this.length))
   }
-  left() {
+
+  left () {
     if (this.isLocked) {
       return
     }
-    if (this.selectedData.type === "control") {
+    if (this.selectedData.type === 'control') {
       const prev = this.selectedControl.previousElementSibling
-      this.selectedControl.classList.remove("selected")
-      sound.playMenuSe("move")
+      this.selectedControl.classList.remove('selected')
+      sound.playMenuSe('move')
       if (prev == null) {
-        $("#menu > .control.selected > .control-bay").lastChild.classList.add("selected")
+        $('#menu > .control.selected > .control-bay').lastChild.classList.add('selected')
         return
       }
-      prev.classList.add("selected")
+      prev.classList.add('selected')
       return
     }
-    if (this.selectedData.type === "slider") {
-      const slider = $("#menu > .slider-container.selected .slider")
+    if (this.selectedData.type === 'slider') {
+      const slider = $('#menu > .slider-container.selected .slider')
       slider.value = parseInt(slider.value) - this.selectedData.discrete
       slider.oninput()
-      sound.playMenuSe("change")
+      sound.playMenuSe('change')
       return
     }
-    if (this.selectedData.type === "toggle") {
+    if (this.selectedData.type === 'toggle') {
       settings.changeSetting(this.selectedData.setting, false)
       this.drawSettings()
       return
     }
-    if (this.selectedData.type === "select") {
-      $("#menu > .select-container.selected .arrow-left").onclick()
+    if (this.selectedData.type === 'select') {
+      $('#menu > .select-container.selected .arrow-left').onclick()
       return
     }
     this.select(negativeMod(this.selected - 1, this.length))
   }
 
-  ok() {
+  ok () {
     if (this.isLocked) {
       return
     }
-    if (this.selectedData.type === "control" && input.mouseLimit > 0) {
+    if (this.selectedData.type === 'control' && input.mouseLimit > 0) {
       return
     }
     if (this.selectedData.disabled) {
       return
     }
     switch (this.selectedData.action) {
-      case "submenu":
-        $(`#option-${this.selected}`).classList.add("chosen")
+      case 'submenu':
+        $(`#option-${this.selected}`).classList.add('chosen')
         this.lastSelection.push(this.selected)
         this.load(this.selectedData.submenu)
-        sound.playMenuSe("select")
+        sound.playMenuSe('select')
         break
-      case "back":
+      case 'back':
         this.back()
         break
-      case "quick":
-        $(`#option-${this.selected}`).classList.add("chosen")
+      case 'quick':
+        $(`#option-${this.selected}`).classList.add('chosen')
         sound.killBgm()
         this.isLocked = true
         this.hideMenu()
-        sound.playMenuSe("select")
-        $("#menu").classList.add("slow")
+        sound.playMenuSe('select')
+        $('#menu').classList.add('slow')
         setTimeout(() => {
-          gameHandler.newGame("marathon")
-          $(`#option-${this.selected}`).classList.remove("chosen")
+          gameHandler.newGame('marathon')
+          $(`#option-${this.selected}`).classList.remove('chosen')
           this.showMenu()
-          $("#menu").classList.remove("slow")
+          $('#menu').classList.remove('slow')
         }, 1000)
         break
-      case "game":
+      case 'game':
         sound.killBgm()
-        $(`#option-${this.selected}`).classList.add("chosen")
+        $(`#option-${this.selected}`).classList.add('chosen')
         this.isLocked = true
         this.hideMenu()
-        $("#menu").classList.add("slow")
-        sound.playMenuSe("select")
+        $('#menu').classList.add('slow')
+        sound.playMenuSe('select')
         setTimeout(() => {
           gameHandler.newGame(this.selectedData.game)
-          $(`#option-${this.selected}`).classList.remove("chosen")
-          $("#menu").classList.remove("slow")
+          $(`#option-${this.selected}`).classList.remove('chosen')
+          $('#menu').classList.remove('slow')
           this.showMenu()
         }, 1000)
         break
-      case "control":
+      case 'control':
         this.selectedControl.onclick()
-        sound.playMenuSe("select")
+        sound.playMenuSe('select')
         break
-      case "toggle":
+      case 'toggle':
         const sel = this.selectedData
-        sound.playMenuSe("change")
+        sound.playMenuSe('change')
         const value =
-          sel.settingType === "game"
+          sel.settingType === 'game'
             ? !settings.game[sel.gameName][sel.setting]
             : !settings.settings[sel.setting]
         settings.changeSetting(
           sel.setting,
           value,
-          sel.settingType === "game" ? sel.gameName : undefined
+          sel.settingType === 'game' ? sel.gameName : undefined
         )
         this.drawSettings()
         break
-      case "select":
-        $(".select-container.selected .value-name").onclick()
+      case 'select':
+        $('.select-container.selected .value-name').onclick()
         break
-      case "settingChange":
-        $(`#option-${this.selected}`).classList.add("chosen")
-        const game = this.selectedData.settingType === "game" ? this.selectedData.gameName : false
+      case 'settingChange':
+        $(`#option-${this.selected}`).classList.add('chosen')
+        const game = this.selectedData.settingType === 'game' ? this.selectedData.gameName : false
         settings.changeSetting(this.selectedData.setting, this.selectedData.value, game)
-        sound.playMenuSe("optionselect")
+        sound.playMenuSe('optionselect')
         this.back(false)
         break
-      case "slider":
-        sound.playMenuSe("change")
-        $(".slider-container.selected .value").onclick()
+      case 'slider':
+        sound.playMenuSe('change')
+        $('.slider-container.selected .value').onclick()
         break
-      case "controls":
-        sound.playMenuSe("select")
-        this.load("controls", "controls")
+      case 'controls':
+        sound.playMenuSe('select')
+        this.load('controls', 'controls')
         break
-      case "daspreset":
-        $(`#option-${this.selected}`).classList.add("chosen")
-        sound.playMenuSe("optionselect")
+      case 'daspreset':
+        $(`#option-${this.selected}`).classList.add('chosen')
+        sound.playMenuSe('optionselect')
         if (this.selectedData.isTLUDefault) {
-          settings.changeSetting("DAS", 150)
-          settings.changeSetting("ARR", 1000 / 60)
+          settings.changeSetting('DAS', 150)
+          settings.changeSetting('ARR', 1000 / 60)
         } else {
-          settings.changeSetting("DAS", this.selectedData.delay)
-          settings.changeSetting("ARR", this.selectedData.rate)
+          settings.changeSetting('DAS', this.selectedData.delay)
+          settings.changeSetting('ARR', this.selectedData.rate)
         }
         this.back(false)
         break
-      case "spinpreset":
-        $(`#option-${this.selected}`).classList.add("chosen")
-        sound.playMenuSe("optionselect")
+      case 'spinpreset':
+        $(`#option-${this.selected}`).classList.add('chosen')
+        sound.playMenuSe('optionselect')
         switch (this.selectedData.label) {
-          case "T-Spins":
-            settings.changeSetting("spinI", false)
-            settings.changeSetting("spinL", false)
-            settings.changeSetting("spinO", false)
-            settings.changeSetting("spinZ", false)
-            settings.changeSetting("spinT", true)
-            settings.changeSetting("spinJ", false)
-            settings.changeSetting("spinS", false)
+          case 'T-Spins':
+            settings.changeSetting('spinI', false)
+            settings.changeSetting('spinL', false)
+            settings.changeSetting('spinO', false)
+            settings.changeSetting('spinZ', false)
+            settings.changeSetting('spinT', true)
+            settings.changeSetting('spinJ', false)
+            settings.changeSetting('spinS', false)
             break
-          case "All Spins":
-            settings.changeSetting("spinI", true)
-            settings.changeSetting("spinL", true)
-            settings.changeSetting("spinO", true)
-            settings.changeSetting("spinZ", true)
-            settings.changeSetting("spinT", true)
-            settings.changeSetting("spinJ", true)
-            settings.changeSetting("spinS", true)
+          case 'All Spins':
+            settings.changeSetting('spinI', true)
+            settings.changeSetting('spinL', true)
+            settings.changeSetting('spinO', true)
+            settings.changeSetting('spinZ', true)
+            settings.changeSetting('spinT', true)
+            settings.changeSetting('spinJ', true)
+            settings.changeSetting('spinS', true)
             break
-          case "None":
-            settings.changeSetting("spinI", false)
-            settings.changeSetting("spinL", false)
-            settings.changeSetting("spinO", false)
-            settings.changeSetting("spinZ", false)
-            settings.changeSetting("spinT", false)
-            settings.changeSetting("spinJ", false)
-            settings.changeSetting("spinS", false)
+          case 'None':
+            settings.changeSetting('spinI', false)
+            settings.changeSetting('spinL', false)
+            settings.changeSetting('spinO', false)
+            settings.changeSetting('spinZ', false)
+            settings.changeSetting('spinT', false)
+            settings.changeSetting('spinJ', false)
+            settings.changeSetting('spinS', false)
             break
         }
         this.back(false)
         break
-      case "functionClearControls":
-        sound.playMenuSe("optionselect")
+      case 'functionClearControls':
+        sound.playMenuSe('optionselect')
         for (const key of Object.keys(settings.controls)) {
           settings.controls[key] = []
         }
         menu.drawControls()
         settings.saveControls()
         break
-      case "functionResetControls":
-        sound.playMenuSe("optionselect")
+      case 'functionResetControls':
+        sound.playMenuSe('optionselect')
         settings.resetControls()
         menu.drawControls()
         settings.saveControls()
         break
-      case "functionResetColors":
-        sound.playMenuSe("optionselect")
-        for (const pieceName of ["I", "J", "L", "O", "S", "T", "Z"]) {
-          settings.changeSetting(`color${pieceName}`, "auto")
+      case 'functionResetColors':
+        sound.playMenuSe('optionselect')
+        for (const pieceName of ['I', 'J', 'L', 'O', 'S', 'T', 'Z']) {
+          settings.changeSetting(`color${pieceName}`, 'auto')
         }
         menu.drawSettings()
         break
-      case "lang":
-        $(`#option-${this.selected}`).classList.add("chosen")
-        sound.playMenuSe("optionselect")
+      case 'lang':
+        $(`#option-${this.selected}`).classList.add('chosen')
+        sound.playMenuSe('optionselect')
         this.hideMenu()
         this.isLocked = true
         const lang = this.selectedData.lang.toString()
@@ -985,29 +1006,29 @@ class Menu {
           this.back(false)
         })
         break
-      case "link":
+      case 'link':
         if (this.selectedData.openHere) {
-          window.open(this.selectedData.url, "_self")
+          window.open(this.selectedData.url, '_self')
         } else {
-          window.open(this.selectedData.url, "_blank")
+          window.open(this.selectedData.url, '_blank')
         }
         break
-      case "settingsimport":
-        sound.playMenuSe("optionselect")
+      case 'settingsimport':
+        sound.playMenuSe('optionselect')
         // Look at line 446 for logic
         break
-      case "settingsexport":
-        sound.playMenuSe("optionselect")
-        const fileContent = localStorage.getItem(`tetraSettings`)
-        const bb = new Blob([fileContent], { type: "JSON" })
-        const a = document.createElement("a")
-        a.download = "tetraSettings.json"
+      case 'settingsexport':
+        sound.playMenuSe('optionselect')
+        const fileContent = localStorage.getItem('tetraSettings')
+        const bb = new Blob([fileContent], { type: 'JSON' })
+        const a = document.createElement('a')
+        a.download = 'tetraSettings.json'
         a.href = window.URL.createObjectURL(bb)
         a.click()
         a.remove()
         break
-      case "settingsreset":
-        sound.playMenuSe("optionselect")
+      case 'settingsreset':
+        sound.playMenuSe('optionselect')
         settings.resetSettings()
         settings.resetGame()
         settings.saveSettings()
@@ -1019,15 +1040,16 @@ class Menu {
         break
     }
   }
-  back(playSound = true) {
+
+  back (playSound = true) {
     if (!this.isLocked) {
       if (this.current.properties.parent !== null) {
         if (playSound) {
           this.select(0, false, false, true)
-          $(`#option-${this.selected}`).classList.add("chosen")
+          $(`#option-${this.selected}`).classList.add('chosen')
         }
         if (playSound) {
-          sound.playMenuSe("back")
+          sound.playMenuSe('back')
         }
         this.useLastSelected = true
         this.skipMusicChange = false

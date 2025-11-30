@@ -1,13 +1,13 @@
-import GameModule from "./game-module.js"
-import { clearCtx } from "../shortcuts.js"
-import settings from "../settings.js"
-import gameHandler from "./game-handler.js"
-function getRandomInt(max) {
+import GameModule from './game-module.js'
+import { clearCtx } from '../shortcuts.js'
+import settings from '../settings.js'
+import gameHandler from './game-handler.js'
+function getRandomInt (max) {
   return Math.floor(Math.random() * Math.floor(max))
 }
 const HZ_MATCH_MULTIPLIER = (0.5 / 60) * 1000
 class SingleParticle {
-  constructor(properties) {
+  constructor (properties) {
     this.xDampening = 1
     this.yDampening = 1
     this.xFlurry = 0
@@ -28,7 +28,8 @@ class SingleParticle {
     this.maxlife += this.lifeVariance / 2 - lifeGen
     this.maxlife *= HZ_MATCH_MULTIPLIER
   }
-  update(ms) {
+
+  update (ms) {
     const widthMultiplier =
       gameHandler.game.particle.ctx.canvas.clientWidth / 400
     const multiplier = ms / HZ_MATCH_MULTIPLIER
@@ -48,7 +49,8 @@ class SingleParticle {
       return true
     }
   }
-  draw(ctx) {
+
+  draw (ctx) {
     const opacity =
       (this.maxlife - this.lifetime) / this.maxlife -
       Math.random() * this.flicker
@@ -60,17 +62,19 @@ class SingleParticle {
   }
 }
 export default class Particle extends GameModule {
-  constructor(parent, ctx) {
+  constructor (parent, ctx) {
     super(parent)
     this.ctx = ctx
     this.particles = []
     this.hasCleared = false
   }
-  add(properties) {
+
+  add (properties) {
     this.particles.push(new SingleParticle(properties))
   }
+
   // generate(x, y, xRange, yRange, velX, varianceX, velY, varianceY, amount) {
-  generate(properties) {
+  generate (properties) {
     if (!settings.settings.particles) {
       return
     }
@@ -83,7 +87,7 @@ export default class Particle extends GameModule {
       yVariance: 0,
       xVelocity: 0,
       yVelocity: 0,
-      ...properties,
+      ...properties
     }
     p.amount *= 0.5 * settings.settings.particleScale
     for (let i = 0; i <= p.amount; i++) {
@@ -97,13 +101,14 @@ export default class Particle extends GameModule {
         ...p,
         x: xGen,
         y: yGen,
-        xVelocity: xVelocity,
-        yVelocity: yVelocity,
+        xVelocity,
+        yVelocity
       }
       this.add(finalProperties)
     }
   }
-  update(ms) {
+
+  update (ms) {
     const limit = settings.settings.particleLimit
     while (this.particles.length > limit) {
       this.particles.splice(getRandomInt(limit - 1), 1)
@@ -124,7 +129,8 @@ export default class Particle extends GameModule {
       }
     }
   }
-  draw() {
+
+  draw () {
     clearCtx(this.ctx)
     for (const particle of this.particles) {
       particle.draw(this.ctx)

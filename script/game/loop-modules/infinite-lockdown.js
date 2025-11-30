@@ -1,9 +1,9 @@
-import $ from "../../shortcuts.js"
+import $ from '../../shortcuts.js'
 
-export default function infiniteLockdown(arg) {
+export default function infiniteLockdown (arg) {
   const piece = arg.piece
   if (piece.isDead) {
-    $("#lockdown").value = 0
+    $('#lockdown').value = 0
     return
   }
   piece.manipulations = 0
@@ -32,7 +32,7 @@ export default function infiniteLockdown(arg) {
     piece.lockDelay = 0
   }
 
-  $("#lockdown").max = piece.lockDelayLimit
-  $("#lockdown").value = piece.lockDelayLimit - piece.lockDelay
+  $('#lockdown').max = piece.lockDelayLimit
+  $('#lockdown').value = piece.lockDelayLimit - piece.lockDelay
   piece.lowestY = Math.max(piece.y, piece.lowestY)
 }
