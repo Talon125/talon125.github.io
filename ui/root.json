@@ -93,13 +93,6 @@
       "submenu": "settings"
     },
     {
-      "string": "highscoresLabel",
-      "stringDesc": "highscoresDescription",
-      "action": "submenu",
-      "submenu": "highscores",
-      "disabled": true
-    },
-    {
       "string": "miscOverline",
       "label": "Misc",
       "type": "overline"
