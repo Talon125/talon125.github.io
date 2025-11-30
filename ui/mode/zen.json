@@ -58,9 +58,8 @@
       "settingType": "game"
     },
     {
-      "label": "Garbage Cap",
-      "description": "Limit how many broken lines (lines of garbage) may enter the Matrix at a time",
-      "fixedText": true,
+      "string": "garbageCapLabel",
+      "stringDesc": "garbageCapDescription",
       "type": "slider",
       "action": "slider",
       "max": 40,
