@@ -148,6 +148,12 @@
     "message": "Überspringen",
     "description": "This is used in the context of selecting what pressing hold will do; you may want this to match what you translated in ui.json unless there's a good reason not to"
   },
+  "garbageCapLabel": {
+    "message": "Garbage Cap"
+  },
+  "garbageCapDescription": {
+    "message": "Begrenze wie viele kaputte Linien (Mülllinien; Garbage) gleichzeitig in die Matrix gelangen dürfen"
+  },
   "songLabel": {
     "message": "Musik"
   },
