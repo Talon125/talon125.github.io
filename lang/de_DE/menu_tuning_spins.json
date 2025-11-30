@@ -1,0 +1,98 @@
+{
+  "spinDetectionLabel": {
+    "message": "Drehungerkennung Überschreibung"
+  },
+  "spinDetectionOverrideDescription": {
+    "message": "Wähle eine Drehungerkennung aus, das anstatt des Standards für den Modus zu verwenden ist"
+  },
+  "4pointLabel": {
+    "message": "4-Punkt"
+  },
+  "4pointDescription": {
+    "message": "Jeder Teil bekommt 4 Pünkte rund herum. Mindestens 3 müssen für eine Drehung besetzt sein. 2 spezifische Pünkte müssen für eine volle Drehung besetzt sein; ansonsten ist die Drehung mini, aber nur wenn die ersten 4 Rotationen in der Offset-Tabelle verwendet werden."
+  },
+  "immobileLabel": {
+    "message": "Immobil"
+  },
+  "immobileDescription": {
+    "message": "Wenn ein Teil in einer Position rotiert wird, wo es sich nicht nach oben, unten, links, weder rechts schieben kann, ist es dann eine Drehung. Es gibt keine Mini-Drehungen."
+  },
+  "ezImmobileLabel": {
+    "message": "Einfach-Immobil"
+  },
+  "ezImmobileDescription": {
+    "message": "Dasselbe wie Immobil, aber falls beim Rotieren eines Teils es kickt (rotiert, aber nicht auf der Zentralachse) und es nicht die Bedingungen für eine immobile Drehung erfüllt, ist es dann eine Mini-Drehung."
+  },
+  "noneLabel": {
+    "message": "Keine"
+  },
+  "noneDescription": {
+    "message": "Erkenne keine Drehungen"
+  },
+  "piecePresetsLabel": {
+    "message": "Voreinstellungen Teil-Drehungen"
+  },
+  "piecePresetsDescription": {
+    "message": "Wählen aus einer Vielzahl von Voreinstellungen, die festlegen, welche Drehungen erkannt/für welche Teile belohnt werden"
+  },
+  "zSpinsLabel": {
+    "message": "Z-Drehungen"
+  },
+  "zSpinsDescription": {
+    "message": "Schalte ob Z-Drehungen zu erkennen/belohnen sind um"
+  },
+  "lSpinsLabel": {
+    "message": "L-Drehungen"
+  },
+  "lSpinsDescription": {
+    "message": "Schalte ob L-Drehungen zu erkennen/belohnen sind um"
+  },
+  "oSpinsLabel": {
+    "message": "O-Drehungen"
+  },
+  "oSpinsDescription": {
+    "message": "Schalte ob O-Drehungen zu erkennen/belohnen sind um"
+  },
+  "sSpinsLabel": {
+    "message": "S-Drehungen"
+  },
+  "sSpinsDescription": {
+    "message": "Schalte ob S-Drehungen zu erkennen/belohnen sind um"
+  },
+  "iSpinsLabel": {
+    "message": "I-Drehungen"
+  },
+  "iSpinsDescription": {
+    "message": "Schalte ob I-Drehungen zu erkennen/belohnen sind um"
+  },
+  "jSpinsLabel": {
+    "message": "J-Drehungen"
+  },
+  "jSpinsDescription": {
+    "message": "Schalte ob J-Drehungen zu erkennen/belohnen sind um"
+  },
+  "tSpinsLabel": {
+    "message": "T-Drehungen"
+  },
+  "tSpinsDescription": {
+    "message": "Schalte ob T-Drehungen zu erkennen/belohnen sind um"
+  },
+  "presetTspinsLabel": {
+    "message": "T-Drehungen"
+  },
+  "presetTspinsDescription": {
+    "message": "Nur T-Drehungen werden erkannt und belohnt"
+  },
+  "presetAllSpinsLabel": {
+    "message": "Alle Drehungen"
+  },
+  "presetAllSpinsDescription": {
+    "message": "Alle Drehungen werden erkannt und belohnt"
+  },
+  "presetNoSpinsLabel": {
+    "message": "Keine"
+  },
+  "presetNoSpinsDescription": {
+    "message": "Keine Drehungen werden erkannt und belohnt"
+  }
+}

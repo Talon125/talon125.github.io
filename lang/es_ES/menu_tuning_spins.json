@@ -1,0 +1,98 @@
+{
+  "spinDetectionLabel": {
+    "message": "Spin Detection Override"
+  },
+  "spinDetectionOverrideDescription": {
+    "message": "Select which spin detection to use in place of the default for the mode"
+  },
+  "4pointLabel": {
+    "message": "4-Point"
+  },
+  "4pointDescription": {
+    "message": "Each piece gets 4 points around it. At least 3 must be filled for a spin. 2 specific points must be filled for a full spin; otherwise, the spin is mini, but only if the first 4 rotations in the offset table are used."
+  },
+  "immobileLabel": {
+    "message": "Immobile"
+  },
+  "immobileDescription": {
+    "message": "If a piece gets rotated into a position where it cannot move up, down, left, or right, then it is a spin. There are no mini spins."
+  },
+  "ezImmobileLabel": {
+    "message": "EZ-Immobile"
+  },
+  "ezImmobileDescription": {
+    "message": "Same as immobile, but if upon rotating a piece it kicks (rotates, but not on its center-axis) and it does not satisfy the requirements for an immobile spin, then it is a mini spin."
+  },
+  "noneLabel": {
+    "message": "None"
+  },
+  "noneDescription": {
+    "message": "Do not detect spins"
+  },
+  "piecePresetsLabel": {
+    "message": "Piece Spin Presets"
+  },
+  "piecePresetsDescription": {
+    "message": "Select from a variety of presets that determine which spins are detected/rewarded for which pieces"
+  },
+  "zSpinsLabel": {
+    "message": "Z-Spins"
+  },
+  "zSpinsDescription": {
+    "message": "Toggle whether Z-Spins are detected/rewarded"
+  },
+  "lSpinsLabel": {
+    "message": "L-Spins"
+  },
+  "lSpinsDescription": {
+    "message": "Toggle whether L-Spins are detected/rewarded"
+  },
+  "oSpinsLabel": {
+    "message": "O-Spins"
+  },
+  "oSpinsDescription": {
+    "message": "Toggle whether O-Spins are detected/rewarded"
+  },
+  "sSpinsLabel": {
+    "message": "S-Spins"
+  },
+  "sSpinsDescription": {
+    "message": "Toggle whether S-Spins are detected/rewarded"
+  },
+  "iSpinsLabel": {
+    "message": "I-Spins"
+  },
+  "iSpinsDescription": {
+    "message": "Toggle whether I-Spins are detected/rewarded"
+  },
+  "jSpinsLabel": {
+    "message": "J-Spins"
+  },
+  "jSpinsDescription": {
+    "message": "Toggle whether J-Spins are detected/rewarded"
+  },
+  "tSpinsLabel": {
+    "message": "T-Spins"
+  },
+  "tSpinsDescription": {
+    "message": "Toggle whether T-Spins are detected/rewarded"
+  },
+  "presetTspinsLabel": {
+    "message": "T-Spins"
+  },
+  "presetTspinsDescription": {
+    "message": "Only T-Spins are detected and rewarded"
+  },
+  "presetAllSpinsLabel": {
+    "message": "All Spins"
+  },
+  "presetAllSpinsDescription": {
+    "message": "All spins are detected and rewarded"
+  },
+  "presetNoSpinsLabel": {
+    "message": "None"
+  },
+  "presetNoSpinsDescription": {
+    "message": "No spins are detected or rewarded"
+  }
+}

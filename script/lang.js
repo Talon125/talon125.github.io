@@ -32,6 +32,7 @@ class Locale {
       "menu_retro",
       "menu_controls",
       "menu_tuning",
+      "menu_tuning_spins",
       "menu_daspresets",
       "menu_audio",
       "menu_video",

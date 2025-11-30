@@ -72,13 +72,16 @@
     "description": "As in, you have to have the button held at the end of ARE to use IRS/IHS"
   },
   "spinDetectionLabel": {
-    "message": "Drehungerkennungsüberschreibung"
+    "message": "Drehungerkennung Überschreibung"
   },
   "spinDetectionDescription": {
     "message": "Stelle ein welche Drehungen erkannt werden und wie"
   },
+  "spinDetectionOverrideDescription": {
+    "message": "Wähle eine Drehungerkennung aus, das anstatt des Standards für den Modus zu verwenden ist"
+  },
   "pieceShapeLabel": {
-    "message": "Teilformsüberschreibung"
+    "message": "Teilform Überschreibung"
   },
   "pieceShapeDescription": {
     "message": "Stelle ein welche Form die Teile haben werden"
@@ -111,7 +114,7 @@
     "message": "Tromino"
   },
   "trominoDescription": {
-    "message": "Trominoes bestehen aus 3 kleinere Quadrate. Dies macht das Spiel bedeutsam leichter"
+    "message": "Trominos bestehen aus 3 kleinere Quadrate. Dies macht das Spiel bedeutsam leichter"
   },
   "rotSysLabel": {
     "message": "Drehungssystem Überschreibung",
