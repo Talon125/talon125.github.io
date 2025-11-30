@@ -7,15 +7,13 @@
   },
   "data": [
     {
-      "label": "Beat Mode",
-      "description": "",
-      "fixedText": true,
+      "string": "beatLabel",
+      "langOverride": "menu_guideline",
       "type": "header"
     },
     {
-      "label": "Song",
-      "description": "Choose which song plays during the game",
-      "fixedText": true,
+      "string": "songLabel",
+      "stringDesc": "songDescription",
       "type": "select",
       "action": "select",
       "selectOptions": [
